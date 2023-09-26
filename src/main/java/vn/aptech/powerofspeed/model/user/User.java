@@ -1,18 +1,26 @@
 package vn.aptech.powerofspeed.model.user;
 
+import java.sql.Date;
+import java.util.Collection;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import vn.aptech.powerofspeed.model.blog.Blog;
-import vn.aptech.powerofspeed.model.order.Order;
-import vn.aptech.powerofspeed.model.orderdetail.OrderDetail;
-
-import javax.persistence.*;
-import java.sql.Date;
-import java.util.Collection;
-import java.util.Set;
 
 @Getter
 @Setter
