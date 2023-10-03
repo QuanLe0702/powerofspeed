@@ -38,15 +38,9 @@ public class PowerOfSpeedApplication {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+   
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+  
 
     @Bean
     CommandLineRunner init(UserRepository userRepository,
