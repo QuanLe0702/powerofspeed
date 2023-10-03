@@ -1,27 +1,23 @@
 package vn.aptech.powerofspeed.model.products;
 
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
+import vn.aptech.powerofspeed.model.category.Category;
 import vn.aptech.powerofspeed.model.images.Image;
 import vn.aptech.powerofspeed.model.inventory.Inventory;
 import vn.aptech.powerofspeed.model.orderdetail.OrderDetail;
 import vn.aptech.powerofspeed.model.review.Review;
 import vn.aptech.powerofspeed.model.subcategory.Subcategory;
+import vn.aptech.powerofspeed.model.user.Address;
 import vn.aptech.powerofspeed.model.user.BaseEntity;
+
+import java.util.Collection;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -51,8 +47,8 @@ public class Product extends BaseEntity {
     @Column(name = "save_price", nullable = false)
     private int savePrice;
 
-    @Column(name = "brand")
-    private String brand;
+    @Column(name = "weight")
+    private double unitWeight;
 
     @Column(name = "stock", nullable = false)
     private int stock;
