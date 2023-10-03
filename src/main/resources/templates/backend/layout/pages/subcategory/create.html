@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new Category</title>
+</head>
+<body>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Create New Subcategory</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Create New Subcategory</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form role="form" th:action="@{/admin/subcategory/createSubcategory}" th:object="${subcategory}" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label ></label>
+                                    <input  class="form-control" placeholder="Enter Subcategory Name" th:field="*{subName}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label >Categorie Name</label>
+                                    <!--                                    <input  class="form-control" placeholder="Enter Subcategory Name" th:field="*{subName}" required>-->
+                                    <select th:field="*{category.categoryID}">
+                                        <option th:each="cat: ${categories}"
+
+                                                th:value="${cat.categoryID}" th:utext="${cat.name}"></option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+
+</body>
+</html>

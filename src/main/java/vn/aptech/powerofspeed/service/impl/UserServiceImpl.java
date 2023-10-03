@@ -31,9 +31,9 @@ import vn.aptech.powerofspeed.model.user.User;
 import vn.aptech.powerofspeed.repository.user.AddressRepository;
 import vn.aptech.powerofspeed.repository.user.RoleRepository;
 import vn.aptech.powerofspeed.repository.user.UserRepository;
+import vn.aptech.powerofspeed.service.EmailService;
 import vn.aptech.powerofspeed.service.UserService;
 import vn.aptech.powerofspeed.util.FileUtil;
-
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -50,11 +50,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    // @Autowired
+    // private ModelMapper modelMapper;
 
     private final String PROFILE_IMAGE_PATH = "backend/dist/img/user-picture";
-
+    @Autowired
+    private EmailService emailService;
 
     @Transactional
     public UserDto findByEmail(String email) {
@@ -120,6 +121,10 @@ public class UserServiceImpl implements UserService {
                             .setRoles(roles);
 
                     returnUser = UserMapper.toUserDto(userRepository.save(user));
+
+                    // send email to user with token
+                    emailService.sendHTMLemail(userDto.getFirstName(), userDto.getEmail());
+
                     return returnUser;
                 }
                 throw exception(USER, DUPLICATE_ENTITY, userDto.getEmail());
@@ -144,6 +149,10 @@ public class UserServiceImpl implements UserService {
                         .setRoles(roles);
 
                 returnUser = UserMapper.toUserDto(userRepository.save(user));
+
+                // send email to user with token
+                emailService.sendHTMLemail(userDto.getFirstName(), userDto.getEmail());
+
                 return returnUser;
             }
             throw exception(USER, DUPLICATE_ENTITY, userDto.getEmail());
@@ -205,7 +214,6 @@ public class UserServiceImpl implements UserService {
                 addressUpdate.setPostalCode(userDto.getAddressDto().getPostalCode());
                 addressUpdate.setStateOrRegion(userDto.getAddressDto().getStateOrRegion());
                 userUpdate.setAddress(addressUpdate);
-
 
                 returnUser = UserMapper.toUserDto(userRepository.save(userUpdate));
                 return returnUser;

@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"  layout:decorator="frontend/layout/frontend_layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Contact Email Area Start -->
+<div layout:fragment="content" class="contact-area ptb-100 ptb-sm-60">
+    <div class="container">
+        <h3 class="mb-20">Contact Us</h3>
+        <p class="text-capitalize mb-20">Please send us message !!!</p>
+        <form class="contact-form" th:action="@{/createMessage}" th:object="${messageCreate}" method="post">
+            <div class="address-wrapper row">
+                <div class="col-md-12">
+                    <div class="address-fname">
+                        <label>Name</label>
+                        <input class="form-control" type="text" th:field="*{name}" name="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="address-email">
+                        <label>Email</label>
+                        <input class="form-control" type="email" th:field="*{email}" name="email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="address-web">
+                        <label>Phone Number</label>
+                        <input class="form-control" type="text" th:field="*{phone}" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="address-subject">
+                        <label>Subject</label>
+                        <input class="form-control" type="text" th:field="*{subject}"name="subject" placeholder="Subject">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="address-textarea">
+                        <label>Message</label>
+                        <textarea name="message" class="form-control" th:field="*{message}"placeholder="Write your message"></textarea>
+                    </div>
+                </div>
+            </div>
+            <p class="form-message">
+            <div class="footer-content mail-content clearfix">
+                <div class="send-email float-md-right">
+                    <input value="Submit" class="return-customer-btn" type="submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Contact Email Area End -->
+<!-- Google Map Start -->
+<div class="goole-map">
+    <div id="map" style="height:400px"></div>
+</div>
+<!-- Google Map End -->
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<!-- Vertical Menu Start Here -->
+<div class="col-xl-3 col-lg-4 d-none d-lg-block" th:fragment="category">
+    <div class="vertical-menu mb-all-30">
+        <nav>
+            <ul class="vertical-menu-list">
+                <li class="" th:each="category: ${@getCategoryList}">
+                    <a th:href="@{'/collection/' + ${category.getSlug()}}">
+                        <span>
+                            <img th:src="@{frontend/img/vertical-menu/1.png}" alt="menu-icon">
+                        </span><th:block th:utext="${category.getName()}"></th:block><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+
+                    <ul class="ht-dropdown mega-child">
+                        <li th:each="subcategory : ${category.getSubcategories()}">
+                            <a th:href="@{'/collection/' + ${category.getSlug()} + '/' + ${subcategory.getSlug()}}" th:utext="${subcategory.getSubName()}"></a>
+                        </li>
+                    </ul>
+                    <!-- category submenu end-->
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- Vertical Menu End Here -->
+</body>
+</html>

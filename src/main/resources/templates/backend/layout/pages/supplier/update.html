@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Supplier</title>
+</head>
+<body>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Update Supplier</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Update Supplier</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form role="form" th:action="@{/admin/supplier/doUpdate}" th:object="${supplier}" method="post" >
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label >Supplier ID</label>
+                                    <input  class="form-control" th:field="*{id}" readonly="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label >Supplier Name</label>
+                                    <input  class="form-control" placeholder="Enter Supplier Name" th:field="*{name}" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label >Telephone</label>
+                                    <input  class="form-control" placeholder="Enter telephone " th:field="*{telephone}" required="required">
+                                </div>
+
+                                <div class="form-group">
+                                    <label >Address</label>
+                                    <input  class="form-control" placeholder="Enter address " th:field="*{address}" required="required">
+                                </div>
+
+
+
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+
+</body>
+</html>

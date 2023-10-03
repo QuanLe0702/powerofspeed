@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"  layout:decorator="frontend/layout/frontend_layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area mt-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul class="d-flex align-items-center">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- Blog Page Start Here -->
+    <div class="blog ptb-100  ptb-sm-60">
+        <div class="container">
+            <div class="main-blog">
+                <div class="row">
+                    <!-- Single Blog Start -->
+                    <div th:each="blog:${blogs}" class="col-lg-6 col-sm-12">
+                        <div class="single-latest-blog">
+                            <div class="blog-img">
+                                <a href="blogDetail.html"><img th:src="@{'/backend/dist/img/blog/' + ${blog.image}}" alt="blog-image"></a>
+                            </div>
+                            <div class="blog-desc">
+                                <h4><a href="blogDetail.html">[[${blog.title}]]</a></h4>
+                                <ul class="meta-box d-flex">
+                                    <li><a href="#">By Truemart</a></li>
+                                </ul>
+                                <div style="width: 100%;overflow: hidden;text-overflow: ellipsis;line-height: 25px;-webkit-line-clamp:  3;height: 75px;
+display: -webkit-box; -webkit-box-orient: vertical" th:utext="${blog.description}"></div>
+                                <a class="readmore" th:href="@{'/blog/' + ${blog.getId()}}">Read More</a>
+                            </div>
+                            <div class="blog-date">
+                                <span th:text="${blog.createAt.getMonth() + '/' + blog.createAt.getDay()}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Blog End -->
+
+                </div>
+                <!-- Row End -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="pro-pagination">
+                            <ul class="blog-pagination">
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                            <div class="product-pagination">
+                                <span class="grid-item-list">Showing 1 to 12 of 51 (5 Pages)</span>
+                            </div>
+                        </div>
+                        <!-- Product Pagination Info -->
+                    </div>
+                </div>
+                <!-- Row End -->
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Blog Page End Here -->
+</div>
+</body>
+</html>

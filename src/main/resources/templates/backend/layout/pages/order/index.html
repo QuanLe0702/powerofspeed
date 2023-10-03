@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout"
+      xmlns:td="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Orders</title>
+</head>
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>View All Orders </h1>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">View All Orders</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+
+                        <div class="alert alert-danger alert-dismissible" th:if="${error != null }">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                            <span th:utext="${error}"></span>
+                        </div>
+
+                        <div class="alert alert-success alert-dismissible" th:if="${success != null }">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                            <span th:utext="${success}"></span>
+                        </div>
+
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Address</th>
+                                    <th>Customer Phone</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td th:utext="${order.id}">#</td>
+                                    <td th:utext="${order.createAt}"></td>
+                                    <td th:utext="${order.firstName + ' ' + order.lastName}"></td>
+                                    <td th:utext="${order.address}"></td>
+                                    <td th:utext="${order.phoneNumber}"></td>
+                                    <td th:utext="${order.amount}"></td>
+
+                                    <td>
+                                        <span class="badge badge-success" th:if="${order.isStatus() == true}">Waiting</span>
+                                        <span class="badge badge-danger" th:unless="${order.isStatus() == true}">Finish</span>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/order/edit/'+ ${order.id}}"><i class="fas fa-edit"></i></a>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/order/delete/{idDelete}(idDelete=${order.id})}" onclick="return confirm('Are you sure you want to Remove?');" ><i class="fas fa-trash"></i></a>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/order/orderDetail/'+ ${order.id}}"><i class="fas fa-search"></i>Order Detail</a>
+
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Address</th>
+                                    <th>Customer Phone</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script layout:fragment="scripts">
+    $(document).ready(function () {
+        $(".alert-dismissible").fadeTo(10000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert('close');
+        });
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    })
+</script>
+</body>
+</html>

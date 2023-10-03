@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout"
+      xmlns:td="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Products</title>
+</head>
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>View All Products </h1>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">View All Products</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+
+                        <div class="alert alert-danger alert-dismissible" th:if="${error != null }">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                            <span th:utext="${error}"></span>
+                        </div>
+
+                        <div class="alert alert-success alert-dismissible" th:if="${success != null }">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                            <span th:utext="${success}"></span>
+                        </div>
+
+
+                        <div class="card-header clearfix">
+                            <a style="margin:5px" class="btn btn-success float-left" th:href="@{/admin/product/create}" >
+                                <i class="fas fa-plus"> </i>   Add Product </a>
+
+
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>SKU</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Unit Price</th>
+                                    <th>Save Price</th>
+                                    <th>Stock</th>
+                                    <th>Type</th>
+                                    <th>Bid Increment</th>
+                                    <th>Auction Start</th>
+                                    <th>Auction End</th>
+                                    <th>Status</th>
+                                    <th>Auction</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="product : ${products}">
+                                    <td th:utext="${product.getId()}">#</td>
+                                    <td th:utext="${product.getSku()}"></td>
+                                    <td th:utext="${product.getProductName()}"></td>
+                                    <td th:utext="${product.getSubcategory().getCategory().getName()}"></td>
+                                    <td th:utext="${product.getSubcategory().getSubName()}"></td>
+                                    <td th:utext="${product.getUnitPrice()}"></td>
+                                    <td th:utext="${product.getSavePrice()}"></td>
+                                    <td th:utext="${product.getStock()}"></td>
+                                    <td th:utext="${product.getProductType()}"></td>
+
+                                    <td th:if="${product.getBidDetail() != null}" th:utext="${product.getBidDetail().getBidIncrement()}"></td>
+                                    <td th:unless="${product.getBidDetail() != null}">0</td>
+
+                                    <td th:if="${product.getBidDetail() != null}" th:utext="${product.getBidDetail().getAuctionStart()}"></td>
+                                    <td th:unless="${product.getBidDetail() != null}">NULL</td>
+
+                                    <td th:if="${product.getBidDetail() != null}" th:utext="${product.getBidDetail().getAuctionEnd()}"></td>
+                                    <td th:unless="${product.getBidDetail() != null}">NULL</td>
+                                    <td>
+                                        <span class="badge badge-success" th:if="${product.isStatus() == true}">ON</span>
+                                        <span class="badge badge-danger" th:unless="${product.isStatus() == true}">OFF</span>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/product/edit/'+ ${product.id}}"><i class="fas fa-edit"></i></a>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/product/delete/{idDelete}(idDelete=${product.id})}" onclick="return confirm('Are you sure you want to Remove?');" ><i class="fas fa-trash"></i></a>
+
+                                            </div>
+
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-warning" th:href="@{'/admin/product/imageList/' + ${product.id}}"><i class="fas fa-edit"></i>Image</a>
+
+                                            </div>
+
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/inventory/inventoryDetailProduct/'+ ${product.id}}"><i class="fas fa-search"></i>Inventory Detail</a>
+
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>SKU</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Unit Price</th>
+                                    <th>Save Price</th>
+                                    <th>Stock</th>
+                                    <th>Type</th>
+                                    <th>Bid Increment</th>
+                                    <th>Auction Start</th>
+                                    <th>Auction End</th>
+                                    <th>Status</th>
+                                    <th>Auction</th>
+
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script layout:fragment="scripts">
+    $(document).ready(function () {
+        $(".alert-dismissible").fadeTo(10000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert('close');
+        });
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    })
+</script>
+</body>
+</html>

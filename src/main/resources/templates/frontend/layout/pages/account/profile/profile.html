@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Breadcrumb Start -->
+        <div class="breadcrumb-area mt-30">
+            <div class="container">
+                <div class="breadcrumb">
+                    <ul class="d-flex align-items-center">
+                        <li><a href="../../index.html">Home</a></li>
+                        <li class="active"><a href="wishlist.html">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Breadcrumb End -->
+        <!--============= Dashboard Section Starts Here =============-->
+        <section class="dashboard-section padding-bottom mt--240 mt-lg--440 pos-rel">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-10 col-md-7 col-lg-4">
+                        <div class="dashboard-widget mb-30 mb-lg-0 sticky-menu">
+                            <div class="user">
+                                <div class="thumb-area">
+                                    <div class="thumb">
+                                        <img th:src="@{'/backend/dist/img/user-picture/' + ${currentUser.profilePicture}}" th:alt="${currentUser.profilePicture}">
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <h5 class="title"><a href="#0" th:utext="${currentUser.getFullName()}"></a></h5>
+                                    <span class="username" th:utext="${currentUser.getEmail()}"></span>
+                                </div>
+                            </div>
+                            <ul class="dashboard-menu" th:replace="frontend/layout/pages/account/menu :: menu"></ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="dash-pro-item mb-30 dashboard-widget">
+                                    <div class="header">
+                                        <h4 class="title">Personal Details</h4>
+                                        <a th:href="@{/account/profile/edit}" class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                    </div>
+                                    <ul class="dash-pro-body">
+                                        <li>
+                                            <div class="info-name">Name</div>
+                                            <div class="info-value" th:utext="${currentUser.getFullName()}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="info-name">Date of Birth</div>
+                                            <div class="info-value" th:utext="${currentUser.getDateOfBirth()}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="info-name">Status</div>
+                                            <div class="info-value"><i class="flaticon-check text-success"></i><span th:utext="${currentUser.isStatus()}"></span></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="dash-pro-item mb-30 dashboard-widget">
+                                    <div class="header">
+                                        <h4 class="title">Address</h4>
+                                        <a th:href="@{/account/profile/edit}" class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                    </div>
+                                    <ul class="dash-pro-body">
+                                        <li>
+                                            <div class="info-name">Address</div>
+                                            <div class="info-value" th:utext="${currentUser.getAddressDto().getAddress()}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="info-name">City</div>
+                                            <div class="info-value" th:utext="${currentUser.getAddressDto().getCity()}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="info-name">Country</div>
+                                            <div class="info-value" th:utext="${currentUser.getAddressDto().getCountry()}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="info-name">Postal Code</div>
+                                            <div class="info-value" th:utext="${currentUser.getAddressDto().getPostalCode()}"></div>
+                                        </li>
+                                        <li>
+                                            <div class="info-name">State/Region</div>
+                                            <div class="info-value" th:utext="${currentUser.getAddressDto().getStateOrRegion()}"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="dash-pro-item mb-30 dashboard-widget">
+                                    <div class="header">
+                                        <h4 class="title">Email Address</h4>
+                                        <a th:href="@{/account/profile/edit}" class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                    </div>
+                                    <ul class="dash-pro-body">
+                                        <li>
+                                            <div class="info-name">Email</div>
+                                            <div class="info-value" th:utext="${currentUser.getEmail()}"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="dash-pro-item mb-30 dashboard-widget">
+                                    <div class="header">
+                                        <h4 class="title">Phone</h4>
+                                        <a th:href="@{/account/profile/edit}" class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                    </div>
+                                    <ul class="dash-pro-body">
+                                        <li>
+                                            <div class="info-name">Mobile</div>
+                                            <div class="info-value" th:utext="${currentUser.getPhoneNumber()}"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="dash-pro-item dashboard-widget">
+                                    <div class="header">
+                                        <h4 class="title">Security</h4>
+                                        <a th:href="@{/account/profile/edit}" class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                                    </div>
+                                    <ul class="dash-pro-body">
+                                        <li>
+                                            <div class="info-name">Password</div>
+                                            <div class="info-value">xxxxxxxxxxxxxxxx</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--============= Dashboard Section Ends Here =============-->
+    </div>
+</body>
+</html>

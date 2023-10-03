@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 // import vn.aptech.powerofspeed.util.RandomStringUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,8 +25,10 @@ import vn.aptech.powerofspeed.model.user.User;
 import vn.aptech.powerofspeed.repository.user.AddressRepository;
 import vn.aptech.powerofspeed.repository.user.RoleRepository;
 import vn.aptech.powerofspeed.repository.user.UserRepository;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
+@EnableAsync
 public class PowerOfSpeedApplication {
 
     public static void main(String[] args) {

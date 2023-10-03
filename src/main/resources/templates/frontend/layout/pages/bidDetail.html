@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:utext="${productDetail.getProductName()}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area mt-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul class="d-flex align-items-center">
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li><a th:href="@{'/collection/' + ${productDetail.getSubcategory().getCategory().getSlug()}}"><span th:utext="${productDetail.getSubcategory().getCategory().getName()}"></span></a></li>
+                    <li><a th:href="@{'/collection/' + ${productDetail.getSubcategory().getCategory().getSlug() + '/' + productDetail.getSubcategory().getSlug()}}"><span th:utext="${productDetail.getSubcategory().getSubName()}"></span></a></li>
+                    <li class="active"><a href="#"><span th:utext="${productDetail.getProductName()}"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!--============= Product Details Section Starts Here =============-->
+    <section class="product-details padding-bottom mt--240 mt-lg--440">
+        <div class="container">
+            <div class="product-details-slider-top-wrapper">
+                <div class="product-details-slider owl-theme owl-carousel" id="sync1">
+                    <div class="slide-top-item"  th:each="image : ${productDetail.getImagesCollection()}">
+                        <div class="slide-inner">
+                            <img th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" th:alt="${image.getName()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-details-slider-wrapper">
+                <div class="product-bottom-slider owl-theme owl-carousel" id="sync2">
+                    <div class="slide-bottom-item" th:each="image : ${productDetail.getImagesCollection()}">
+                        <div class="slide-inner">
+                            <img th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" th:alt="${image.getName()}">
+                        </div>
+                    </div>
+                </div>
+                <span class="det-prev det-nav">
+                    <i class="fa fa-angle-left"></i>
+                </span>
+                <span class="det-next det-nav">
+                    <i class="fa fa-angle-right"></i>
+                </span>
+            </div>
+            <div class="row mt-40-60-80">
+                <div class="col-lg-8">
+                    <div class="product-details-content">
+                        <div class="product-details-header">
+                            <h2 class="title" th:utext="${productDetail.getProductName()}"></h2>
+                            <ul>
+                                <li>Product #: <span th:utext="${productDetail.getSku()}"></span></li>
+                            </ul>
+                        </div>
+                        <ul class="price-table mb-30">
+                            <li class="header">
+                                <h5 class="current">Current Price</h5>
+                                <h3 class="price" th:utext="${'$' + productDetail.getBidDetail().getCurrentPrice()}"></h3>
+                            </li>
+                            <li>
+                                <span class="details">Bid Increment</span>
+                                <h5 class="info" th:utext="${'$' + productDetail.getBidDetail().getBidIncrement()}"></h5>
+                            </li>
+                        </ul>
+                        <div class="product-bid-area" sec:authorize="isAuthenticated()">
+                            <form class="product-bid-form" th:action="@{/auction/bid}" th:object="${bidAuctionRequest}" method="post">
+                                <div class="search-icon">
+                                    <img th:src="@{/frontend/img/product/search-icon.png}" alt="search-icon">
+                                </div>
+                                <input type="number" th:field="*{bidAmout}" placeholder="Enter you bid amount">
+                                <span class="text-danger" th:if="${#fields.hasErrors('bidAmout')}" th:errors="*{bidAmout}"></span>
+                                <input type="hidden" th:field="*{id}">
+                                <button type="submit" class="custom-button">Submit a bid</button>
+                            </form>
+                            <span class="text-danger" th:if="${bidAmoutError != null}" th:utext="${bidAmoutError}"></span>
+                        </div>
+                        <div class="product-bid-area" sec:authorize="!isAuthenticated()">
+                            <h4 class="text-danger">Please login to be able to bid amout! <a th:href="@{/login}">Sign in</a></h4>
+                        </div>
+                        <div class="buy-now-area">
+                            <a href="#0" class="custom-button">Buy Now: <span th:utext="${'$' + productDetail.unitPrice}"></span></a>
+                            <a href="#0" class="rating custom-button active border"><i class="fa fa-star"></i> Add to Wishlist</a>
+                            <div class="share-area">
+                                <span>Share to:</span>
+                                <ul>
+                                    <li>
+                                        <a href="#0"><i class="fa fa-facebook-f"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#0"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#0"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="product-sidebar-area">
+                        <div class="product-single-sidebar mb-3">
+                            <h6 class="title">This Auction Ends in:</h6>
+                            <!-- Single Product Start -->
+
+                            <!-- Product Image Start -->
+                            <div class="pro-img">
+                                <div class="countdown" th:attr="data-countdown=${productDetail.getBidDetail().getAuctionEnd()}"></div>
+                            </div>
+                            <!-- Product Image End -->
+                            <!-- Single Product End -->
+                            <div class="side-counter-area">
+<!--                                <div class="side-counter-item">-->
+<!--                                    <div class="thumb">-->
+<!--                                        <img th:src="@{/frontend/img/product/icon1.png}" alt="product">-->
+<!--                                    </div>-->
+<!--                                    <div class="content">-->
+<!--                                        <h3 class="count-title"><span class="counter">61</span></h3>-->
+<!--                                        <p>Active Bidders</p>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="side-counter-item">
+                                    <div class="thumb">
+                                        <img th:src="@{/frontend/img/product/icon2.png}" alt="product">
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="count-title"><span class="counter" th:utext="${productDetail.getHot()}"></span></h3>
+                                        <p>Watching</p>
+                                    </div>
+                                </div>
+                                <div class="side-counter-item">
+                                    <div class="thumb">
+                                        <img th:src="@{/frontend/img/product/icon3.png}" alt="product">
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="count-title"><span class="counter" th:utext="${productDetail.getBidDetail().getBidHistories().size()}"></span></h3>
+                                        <p>Total Bids</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#0" class="cart-link">View Shipping, Payment & Auction Policies</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-tab-menu-area mb-40-60 mt-70-100">
+            <div class="container">
+                <ul class="product-tab-menu nav nav-tabs">
+                    <li>
+                        <a href="#details" class="active" data-toggle="tab">
+                            <div class="thumb">
+                                <img th:src="@{/frontend/img/product/tab1.png}" alt="product">
+                            </div>
+                            <div class="content">Description</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#history" data-toggle="tab">
+                            <div class="thumb">
+                                <img th:src="@{/frontend/img/product/tab3.png}" alt="product">
+                            </div>
+                            <div class="content">Bid History (<span th:utext="${productDetail.getBidDetail().getBidHistories().size()}"></span>)</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#questions" data-toggle="tab">
+                            <div class="thumb">
+                                <img th:src="@{/frontend/img/product/tab4.png}" alt="product">
+                            </div>
+                            <div class="content">Questions </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="details">
+                    <div class="tab-details-content">
+                        <div class="header-area">
+                            <h3 class="title" th:utext="${productDetail.getProductName()}"></h3>
+                            <div class="item" th:utext="${productDetail.getProductContent()}" th:remove="tag">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" id="history">
+                    <div class="history-wrapper">
+                        <div class="item">
+                            <h5 class="title">Bid History</h5>
+                            <div class="history-table-area">
+                                <table class="history-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Bidder</th>
+                                        <th>Date Time</th>
+                                        <th>unit price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="bidHistory : ${productDetail.getBidDetail().getBidHistories()}">
+                                        <td data-history="bidder">
+                                            <div class="user-info">
+                                                <div class="thumb">
+                                                    <img th:src="@{'/backend/dist/img/user-picture/' + ${bidHistory.getBidder().getProfilePicture()}}" th:alt="${bidHistory.getBidder().getProfilePicture()}">
+                                                </div>
+                                                <div class="content" th:utext="${bidHistory.getBidder().getFullName()}">
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-history="date" th:utext="${bidHistory.getCreateAt()}"></td>
+                                        <td data-history="unit price" th:utext="${bidHistory.getUnitPrice()}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center mb-3 mt-4">
+                                    <a href="#0" class="button-3">Load More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" id="questions">
+                    <h5 class="faq-head-title">Frequently Asked Questions</h5>
+                    <div class="faq-wrapper">
+                        <div class="faq-item">
+                            <div class="faq-title">
+                                <img th:src="@{/frontend/img/faq.jpg}" alt="css"><span class="title">How to start bidding?</span><span class="right-icon"></span>
+                            </div>
+                            <div class="faq-content">
+                                <p>All successful bidders can confirm their winning bid by checking the “Sbidu”. In addition, all successful bidders will receive an email notifying them of their winning bid after the auction closes.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-title">
+                                <img th:src="@{/frontend/img/faq.jpg}" alt="css"><span class="title">Security Deposit / Bidding Power </span><span class="right-icon"></span>
+                            </div>
+                            <div class="faq-content">
+                                <p>All successful bidders can confirm their winning bid by checking the “Sbidu”. In addition, all successful bidders will receive an email notifying them of their winning bid after the auction closes.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-title">
+                                <img th:src="@{/frontend/img/faq.jpg}" alt="css"><span class="title">Delivery time to the destination port </span><span class="right-icon"></span>
+                            </div>
+                            <div class="faq-content">
+                                <p>All successful bidders can confirm their winning bid by checking the “Sbidu”. In addition, all successful bidders will receive an email notifying them of their winning bid after the auction closes.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-title">
+                                <img th:src="@{/frontend/img/faq.jpg}" alt="css"><span class="title">How to register to bid in an auction?</span><span class="right-icon"></span>
+                            </div>
+                            <div class="faq-content">
+                                <p>All successful bidders can confirm their winning bid by checking the “Sbidu”. In addition, all successful bidders will receive an email notifying them of their winning bid after the auction closes.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item open active">
+                            <div class="faq-title">
+                                <img th:src="@{/frontend/img/faq.jpg}" alt="css"><span class="title">How will I know if my bid was successful?</span><span class="right-icon"></span>
+                            </div>
+                            <div class="faq-content">
+                                <p>All successful bidders can confirm their winning bid by checking the “Sbidu”. In addition, all successful bidders will receive an email notifying them of their winning bid after the auction closes.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-title">
+                                <img th:src="@{/frontend/img/faq.jpg}" alt="css"><span class="title">What happens if I bid on the wrong lot?</span><span class="right-icon"></span>
+                            </div>
+                            <div class="faq-content">
+                                <p>All successful bidders can confirm their winning bid by checking the “Sbidu”. In addition, all successful bidders will receive an email notifying them of their winning bid after the auction closes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</section>
+<!--============= Product Details Section Ends Here =============-->
+</div>
+</body>
+</html>
