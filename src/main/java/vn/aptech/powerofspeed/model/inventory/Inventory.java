@@ -1,20 +1,25 @@
 package vn.aptech.powerofspeed.model.inventory;
 
 
+import java.sql.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.CreatedDate;
 import vn.aptech.powerofspeed.model.products.Product;
-import vn.aptech.powerofspeed.model.subcategory.Subcategory;
 import vn.aptech.powerofspeed.model.supplier.Supplier;
-import vn.aptech.powerofspeed.model.user.BaseEntity;
-
-import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Getter
 @Setter

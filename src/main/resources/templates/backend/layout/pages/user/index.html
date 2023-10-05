@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>DataTables</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <div class="alert alert-danger alert-dismissible" th:if="${error != null}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                                        <span th:utext="${error}"></span>
+                                    </div>
+                                    <div class="alert alert-success alert-dismissible" th:if="${success != null}">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                                        <span th:utext="${success}"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div class="float-right">
+                                        <a th:href="@{/admin/user/create/}" class="btn btn-success" title="New">
+                                            <i class="fa fa-plus" title="Add new"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Gender</th>
+                                    <th>Roles</th>
+                                    <th>Create At</th>
+                                    <th>Update At</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${users}">
+                                    <td>
+                                        <img th:src="@{'/backend/dist/img/user-picture/' + ${user.profilePicture}}" height="60" width="60" class="img-circle elevation-2" th:alt="${user.profilePicture}">
+                                    </td>
+                                    <td th:utext="${user.id}"></td>
+                                    <td th:utext="${user.email}"></td>
+                                    <td th:utext="${user.getFullName()}"></td>
+                                    <td th:utext="${user.phoneNumber}"></td>
+                                    <td>
+                                        <span th:utext="${user.gender}" th:class="${user.gender == user.gender.Male} ? 'badge badge-primary' : 'badge badge-info'"></span>
+                                    </td>
+                                    <td>
+                                        <div th:each="role : ${user.roleDtos}">
+                                            <span class="badge badge-success" th:utext="${role.name}"></span>
+                                        </div>
+                                    </td>
+                                    <td th:utext="${user.createAt.toString()}"></td>
+                                    <td th:utext="${user.updateAt.toString()}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/user/edit/{id}(id=${user.id})}"><span title="Edit" type="button" class="btn btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
+                                        <a th:href="@{/admin/user/delete/{id}(id=${user.id})} "><span title="Delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></span></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Gender</th>
+                                    <th>Roles</th>
+                                    <th>Create At</th>
+                                    <th>Update At</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- page script -->
+<script layout:fragment="scripts">
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+</script>
+</body>
+</html>

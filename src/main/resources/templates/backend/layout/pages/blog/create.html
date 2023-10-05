@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>General Form</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-8 offset-2">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h3 class="card-title">Create New Blog</h3>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a th:href="@{/admin/blog}" class="btn float-right" title="List"><i class="fa fa-list"></i><span class="hidden-xs"> Back List</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- form start -->
+                        <form role="form" th:action="@{/admin/blog/create}" th:object="${blogDto}" enctype="multipart/form-data" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="title" class="form-control" th:field="*{title}" name="title" id="title" placeholder="Enter title">
+                                    <span id="title-error" class="error invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="textarea" th:field="*{description}" name="description" id="description" placeholder="Place some text here"
+                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                        <span id="description-error" class="error invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="multipartFile">Thumbnail</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" th:field="*{multipartFile}" class="custom-file-input" name="multipartFile"  id="multipartFile">
+                                                <label class="custom-file-label" for="multipartFile">Choose file</label>
+                                                <span id="multipartFile-error" class="error invalid-feedback" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!--/.col (left) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script layout:fragment="scripts">
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+        $('.textarea').summernote();
+    });
+</script>
+</body>
+</html>

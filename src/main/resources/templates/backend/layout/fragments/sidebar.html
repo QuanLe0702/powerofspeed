@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<aside class="main-sidebar sidebar-dark-primary elevation-4" th:fragment="sidebar">
+    <!-- Brand Logo -->
+    <a th:href="@{/admin/dashboard}" class="brand-link">
+        <img th:src="@{/frontend/img/logo/logo3.png}" alt="Amazing Model Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img th:src="@{'/backend/dist/img/user-picture/' + ${#request.userPrincipal.principal.profilePicture}}" class="img-circle elevation-2" th:alt="${#request.userPrincipal.principal.profilePicture}">
+            </div>
+            <div class="info">
+                <a th:href="@{'/admin/profile'}" class="d-block" th:utext="${#request.userPrincipal.principal.getFullName()}"></a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item has-treeview">
+                    <a th:href="@{/admin/dashboard}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/dashboard') ? ' active' : ''}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview" th:classappend="${#request.getServletPath().contains('/admin/supplier') ? ' menu-open' : ''}">
+                    <a href="#" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/supplier') ? ' active' : ''}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Supplier
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/supplier/index}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/supplier/index') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List All Supplier</p>
+                            </a>
+
+                            <a th:href="@{/admin/supplier/createFormSupplier}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/supplier/createFormSupplier') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create New Supplier</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-item has-treeview" th:classappend="${#request.getServletPath().contains('/admin/inventory') ? ' menu-open' : ''}">
+                    <a href="#" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/inventory') ? ' active' : ''}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Inventory
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/inventory/index}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/inventory/index') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Inventory</p>
+                            </a>
+
+                            <a th:href="@{/admin/inventory/createFormInvoiceDetail}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/inventory/createFormInvoiceDetail') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create New Invoice Detail</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview" th:classappend="${#request.getServletPath().contains('/admin/category') ? ' menu-open' : ''}">
+                    <a href="#" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/category') ? ' active' : ''}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Category
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/category/index}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/category/index') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List All Category</p>
+                            </a>
+
+                            <a th:href="@{/admin/category/createForm}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/category/createForm') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create New Category</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+
+                <li class="nav-item has-treeview" th:classappend="${#request.getServletPath().contains('/admin/product') ? ' menu-open' : ''}">
+                    <a href="#" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/product') ? ' active' : ''}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Products
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a th:href="@{/admin/product/index}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/product/index') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List All Products</p>
+                            </a>
+
+                            <a th:href="@{/admin/product/create}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/product/create') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create New Product</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-item has-treeview" th:classappend="${#request.getServletPath().contains('/admin/user') ? ' menu-open' : ''}">
+                    <a href="#" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/user') ? ' active' : ''}">
+                        <i class="nav-icon far fa-plus-square"></i>
+                        <p>
+                            Users
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/user}" class="nav-link" th:classappend="${#request.getServletPath().contains('/admin/user') ? ' active' : ''}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Users Management</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Blogs<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a th:href="@{/admin/blog/index}" class="nav-link">
+
+                                <i class="far fa-circle nav-icon"></i>
+                                    <p>List all new Blogs</p>
+                            </a>
+                            <a th:href="@{/admin/blog/create}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Creat new Blogs</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+</body>
+</html>

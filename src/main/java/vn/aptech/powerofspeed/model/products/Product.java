@@ -47,8 +47,8 @@ public class Product extends BaseEntity {
     @Column(name = "save_price", nullable = false)
     private int savePrice;
 
-    @Column(name = "brand")
-    private String brand;
+    @Column(name = "weight")
+    private double unitWeight;
 
     @Column(name = "stock", nullable = false)
     private int stock;

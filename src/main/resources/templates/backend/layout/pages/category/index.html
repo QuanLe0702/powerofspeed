@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout"
+      xmlns:td="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Category</title>
+</head>
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>View All Categories </h1>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">View All Categories</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+
+                        <div class="alert alert-danger alert-dismissible" th:if="${error != null }">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                            <span th:utext="${error}"></span>
+                        </div>
+
+                        <div class="alert alert-success alert-dismissible" th:if="${success != null }">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                            <span th:utext="${success}"></span>
+                        </div>
+
+
+                        <div class="card-header clearfix">
+                            <a style="margin:5px" class="btn btn-success float-left" th:href="@{/admin/category/createForm}" >
+                                <i class="fas fa-plus"> </i>   Add Category </a>
+
+
+
+                            <a style="margin:5px" class="btn btn-info " th:href="@{/admin/subcategory/createFormSubcategory}" >
+                                <i class="fas fa-plus"> </i>   Add Subcategory </a>
+
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Category ID</th>
+                                    <th>Name</th>
+                                    <th>Sub Category</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="category : ${categories}">
+
+                                    <td th:text="${category.categoryID}"></td>
+                                    <td th:text="${category.name}"></td>
+                                    <td>
+                                        <div class="row" th:each="subcategory : ${category.subcategories}">
+                                            <div class="col-lg-8" th:utext="'+  ' + ${subcategory.subName}"></div>
+                                            <div class="col-lg-4">
+                                                <a th:href="@{/admin/subcategory/delete/{idDelete}(idDelete=${subcategory.subcatId})}" onclick="return confirm('Are you sure you want to Remove?');"><i class="fas fa-trash"></i></a>
+                                                <a th:href="@{'/admin/subcategory/displayUpdateSubcategory/'+ ${subcategory.subcatId}}"><i class="fas fa-edit"></i></a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/category/displayUpdate/'+ ${category.categoryID}}">Update</a>
+
+                                            </div>
+
+
+                                            <div>
+
+                                                <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/category/delete/{idDelete}(idDelete=${category.categoryID})}" onclick="return confirm('Are you sure you want to Remove?');" >Delete </a>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Category ID</th>
+                                    <th>Name</th>
+                                    <th>Sub Category</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script layout:fragment="scripts">
+    $(document).ready(function () {
+        $(".alert-dismissible").fadeTo(10000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert('close');
+        });
+    })
+</script>
+</body>
+</html>

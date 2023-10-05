@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout"
+      xmlns:td="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Image</title>
+</head>
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>DataTables</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">DataTables</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">All Images of Product <a th:href="@{'/admin/product/' + ${product.getId()}}" th:utext="${product.getProductName()}"></a></h3>
+                        </div>
+                        <div class="card-header clearfix">
+                            <a style="margin:5px" class="btn btn-success float-left" th:href="@{'/admin/product/createImages/' + ${product.getId()}}" >
+                                <i class="fas fa-plus"> </i>   Add Image </a>
+
+
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="image : ${product.getImagesCollection()}">
+                                    <td th:utext="${image.getImageId()}"></td>
+                                    <td>
+                                        <img th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" width="50" height="50" th:alt="${image.getName()}">
+                                    </td>
+                                    <td th:utext="${image.getDescription()}"></td>
+                                    <td th:if="${image.isMainImage()} == true">
+                                        Default
+                                    </td>
+                                    <td th:unless="${image.isMainImage()} == true">
+                                        <a th:href="@{'/admin/product/doDefaultImage/' + ${image.imageId}}">Set Default</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Image</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script layout:fragment="scripts">
+    $(document).ready(function () {
+        $(".alert-dismissible").fadeTo(10000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert('close');
+        });
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    })
+</script>
+</body>
+</html>

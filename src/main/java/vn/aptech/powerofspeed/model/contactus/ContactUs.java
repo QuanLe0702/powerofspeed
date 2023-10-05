@@ -1,19 +1,18 @@
 package vn.aptech.powerofspeed.model.contactus;
 
 
-import lombok.EqualsAndHashCode;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 import vn.aptech.powerofspeed.model.user.BaseEntity;
-import vn.aptech.powerofspeed.model.user.User;
-
-import javax.persistence.*;
 
 @Getter
 @Setter
-@Accessors
+@Accessors(chain = true)
 @Entity
 @Table(name="contactUs")
 

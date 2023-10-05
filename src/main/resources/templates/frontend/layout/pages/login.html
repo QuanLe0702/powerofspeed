@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area mt-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul class="d-flex align-items-center">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a th:href="@{/login}">Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- LogIn Page Start -->
+    <div class="log-in ptb-100 ptb-sm-60">
+        <div class="container">
+            <div class="row">
+                <!-- New Customer Start -->
+                <div class="col-md-6">
+                    <div class="well mb-sm-30">
+                        <div class="new-customer">
+                            <h3 class="custom-title">new customer</h3>
+                            <p class="mtb-10"><strong>Register</strong></p>
+                            <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made</p>
+                            <a class="customer-btn" th:href="@{/register}">continue</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Customer End -->
+                <!-- Returning Customer Start -->
+                <div class="col-md-6">
+                    <div class="well">
+                        <div class="return-customer">
+                            <h3 class="mb-10 custom-title">returning customer</h3>
+                            <p class="mb-10"><strong>I am a returning customer</strong></p>
+                            <form th:action="@{/login}" method="post">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" name="email" placeholder="Enter your email address..." id="email" class="form-control" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password" placeholder="Password" id="password" class="form-control" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label for="remember-me">
+                                            Remember Me
+                                        </label>
+                                        <input type="checkbox" id="remember-me">
+                                    </div>
+                                </div>
+
+                                <p class="lost-password"><a href="forgot-password.html">Forgot password?</a></p>
+                                <input type="submit" value="Login" class="return-customer-btn">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Returning Customer End -->
+            </div>
+            <!-- Row End -->
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- LogIn Page End -->
+</div>
+
+</body>
+</html>

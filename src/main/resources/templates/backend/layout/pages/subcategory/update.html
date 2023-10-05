@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="backend/layout/backend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Subcategory</title>
+</head>
+<body>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Update Subcategory</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Update Subcategory</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form role="form" th:action="@{/admin/subcategory/doUpdateSubcategory}" th:object="${subcategory}" method="post">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label >Subcategory ID</label>
+                                    <input  class="form-control" th:field="*{subcatId}" readonly="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label ></label>
+                                    <input  class="form-control" placeholder="Enter Subcategory Name" th:field="*{subName}" th:required>
+                                </div>
+
+                                <div>
+                                    <label >Categorie Name</label>
+                                    <input  class="form-control" th:field="*{catId.name}" readonly="true" />
+                                    <!--                                    <input  class="form-control" placeholder="Enter Subcategory Name" th:field="*{subName}" required>-->
+                                    <!--                                    <select th:field="*{catId.categoryID}">-->
+                                    <!--                                        <option th:each="category : ${categories}"-->
+
+                                    <!--                                                th:value="${category.categoryID}" th:utext="${category.name}"></option>-->
+
+                                    <!--                                    </select>-->
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <input type="hidden" th:value="${subcategory.catId}" th:field="*{catId}">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+
+
+
+
+
+                </div>
+
+            </div>
+
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+</body>
+</html>
