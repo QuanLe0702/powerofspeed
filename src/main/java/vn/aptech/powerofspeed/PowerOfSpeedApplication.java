@@ -11,17 +11,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-// import vn.aptech.powerofspeed.util.RandomStringUtil;
+import vn.aptech.powerofspeed.util.RandomStringUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import vn.aptech.powerofspeed.model.user.Address;
 import vn.aptech.powerofspeed.model.user.Role;
 import vn.aptech.powerofspeed.model.user.User;
-// import vn.aptech.powerofspeed.repository.category.CategoryRepository;
-// import vn.aptech.powerofspeed.repository.images.ImagesRepository;
-// import vn.aptech.powerofspeed.repository.product.ProductRepository;
-// import vn.aptech.powerofspeed.repository.subcategory.SubcategoryRepository;
+import vn.aptech.powerofspeed.repository.category.CategoryRepository;
+import vn.aptech.powerofspeed.repository.images.ImagesRepository;
+import vn.aptech.powerofspeed.repository.product.ProductRepository;
+import vn.aptech.powerofspeed.repository.subcategory.SubcategoryRepository;
 import vn.aptech.powerofspeed.repository.user.AddressRepository;
 import vn.aptech.powerofspeed.repository.user.RoleRepository;
 import vn.aptech.powerofspeed.repository.user.UserRepository;
@@ -38,19 +38,14 @@ public class PowerOfSpeedApplication {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-   
-
-  
-
     @Bean
     CommandLineRunner init(UserRepository userRepository,
             RoleRepository roleRepository,
-            AddressRepository addressRepository) {
-
-        // CategoryRepository categoryRepository,
-        // SubcategoryRepository subcategoryRepository,
-        // ProductRepository productRepository,
-        // ImagesRepository imagesRepository) {
+            AddressRepository addressRepository,
+            CategoryRepository categoryRepository,
+            SubcategoryRepository subcategoryRepository,
+            ProductRepository productRepository,
+            ImagesRepository imagesRepository) {
 
         return args -> {
 

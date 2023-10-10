@@ -67,9 +67,9 @@ public class ApplicationConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Amazing Toy - REST APIs")
-                .description("Proejct Amazing Toy with Spring Boot.").termsOfServiceUrl("")
-                .contact(new Contact("International Plaza", "https://google.com/", "support@amazingtoy.com"))
+        return new ApiInfoBuilder().title("Power of Speed - REST APIs")
+                .description("Demo project for Spring Boot").termsOfServiceUrl("")
+                .contact(new Contact("International Plaza", "https://google.com/", "support@powerofspeed.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
                 .version("1.0")
