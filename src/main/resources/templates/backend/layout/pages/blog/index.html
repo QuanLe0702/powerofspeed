@@ -37,7 +37,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
@@ -65,7 +65,8 @@ display: -webkit-box; -webkit-box-orient: vertical" th:utext="${blog.description
 
                                         <div>
 
-                                            <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/blog/delete/{idDelete}(idDelete=${blog.id})}" onclick="return confirm('Are you sure you want to Remove?');" >Delete </a>
+                                            <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/blog/delete/{idDelete}(idDelete=${blog.id})}"
+                                               onclick="return confirm('Are you sure you want to Remove?');" >Delete </a>
 
                                         </div></td>
 
@@ -86,6 +87,17 @@ display: -webkit-box; -webkit-box-orient: vertical" th:utext="${blog.description
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script layout:fragment="scripts">
+    $(document).ready(function () {
+        $(".alert-dismissible").fadeTo(10000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert('close');
+        });
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    })
+</script>
 </body>
 </html>
 

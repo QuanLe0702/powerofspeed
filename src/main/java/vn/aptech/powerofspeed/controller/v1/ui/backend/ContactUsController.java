@@ -3,6 +3,8 @@ package vn.aptech.powerofspeed.controller.v1.ui.backend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import vn.aptech.powerofspeed.dto.model.user.contactUs.ContactUsDto;
@@ -30,6 +32,15 @@ public class ContactUsController {
         model.addAttribute("contactUsDto",new ContactUsDto());
         return "backend/layout/pages/contactUs/create";
 
+    }
+
+
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    public String detail(Model model, @PathVariable("id") Long id){
+
+        model.addAttribute("contactUs", contactUsService.findById(id).get());
+
+        return "backend/layout/pages/contactUs/contactDetail";
     }
 
 }

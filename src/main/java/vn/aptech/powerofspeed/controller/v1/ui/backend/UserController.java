@@ -1,10 +1,5 @@
 package vn.aptech.powerofspeed.controller.v1.ui.backend;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import vn.aptech.powerofspeed.controller.v1.command.UserRegisterFormCommand;
 import vn.aptech.powerofspeed.controller.v1.command.UserUpdateFormCommand;
 import vn.aptech.powerofspeed.dto.mapper.UserMapper;
@@ -23,6 +17,10 @@ import vn.aptech.powerofspeed.dto.model.user.RoleDto;
 import vn.aptech.powerofspeed.dto.model.user.UserDto;
 import vn.aptech.powerofspeed.service.RoleService;
 import vn.aptech.powerofspeed.service.UserService;
+
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "admin/user")
@@ -140,4 +138,3 @@ public class UserController {
     }
 
 }
-

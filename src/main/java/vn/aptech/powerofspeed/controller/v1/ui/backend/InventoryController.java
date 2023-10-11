@@ -1,4 +1,4 @@
-package vn.aptech.powerofspeed.controller.v1.ui.backend;
+package  vn.aptech.powerofspeed.controller.v1.ui.backend;
 
 
 import io.swagger.models.auth.In;
@@ -6,19 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import vn.aptech.powerofspeed.model.inventory.Inventory;
-import vn.aptech.powerofspeed.model.products.Product;
-import vn.aptech.powerofspeed.model.review.Review;
-import vn.aptech.powerofspeed.model.subcategory.Subcategory;
-import vn.aptech.powerofspeed.model.supplier.Supplier;
-import vn.aptech.powerofspeed.service.*;
+import  vn.aptech.powerofspeed.controller.v1.request.ProductInventoryRequest;
+import  vn.aptech.powerofspeed.model.inventory.Inventory;
+import  vn.aptech.powerofspeed.model.products.Product;
+import  vn.aptech.powerofspeed.model.products.ProductType;
+import  vn.aptech.powerofspeed.model.review.Review;
+import  vn.aptech.powerofspeed.model.subcategory.Subcategory;
+import  vn.aptech.powerofspeed.model.supplier.Supplier;
+import  vn.aptech.powerofspeed.service.*;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,37 +54,71 @@ public class InventoryController {
         return "backend/layout/pages/inventory/inventoryDetail";
     }
 
+    @RequestMapping(value = "/reportInvoice", method = RequestMethod.GET)
+    public String reportInvoice(Model model){
+//        Product product = productService.findPk(id);
+//        model.addAttribute("inventoryProduct",  product);
+        return "backend/layout/pages/inventory/inventoryReport";
+    }
+
+    @RequestMapping(value = "/printReportInvoice", method = RequestMethod.GET)
+    public String printReportInvoice(Model model){
+//        Product product = productService.findPk(id);
+//        model.addAttribute("inventoryProduct",  product);
+        return "backend/layout/pages/inventory/inventory-print";
+    }
 
     //CREATE - GET
 
-    @RequestMapping(value= "/createFormInvoiceDetail")
-    public String displayCreateFormInvoiceDetail(Model model) {
+    @RequestMapping(value= "/createFormInvoiceDetail", method = RequestMethod.GET)
+    public String displayCreateFormInvoiceDetail(Model model, @ModelAttribute("productInventoryRequest") ProductInventoryRequest productInventoryRequest) {
         Inventory inventory = new Inventory();
-        List<Product> productList = productService.findAllPro();
-        List<Supplier> supplierList = supplierService.findAllSupplier();
+        List<Product> productSellerList = new ArrayList<>();
+        List<Product> products = productService.findAllPro();
+        List<Product> productTableList = new ArrayList<>();
 
-        model.addAttribute("products", productList);
-        model.addAttribute("suppliers", supplierList);
+        for (Product product : products) {
+            if (product.getProductType() == ProductType.Sell) {
+                productSellerList.add(product);
+            }
+        }
+
+        if (productInventoryRequest.getProductIdList() != null) {
+            for (String productId : productInventoryRequest.getProductIdList()) {
+                Product product = productService.findPk(Long.parseLong(productId));
+                productTableList.add(product);
+            }
+
+            productInventoryRequest.setProductInventorList(productTableList);
+        }
+
+        model.addAttribute("productInventoryRequest", productInventoryRequest);
+        model.addAttribute("products", products);
         model.addAttribute("inventory",inventory);
         return "backend/layout/pages/inventory/create";
     }
-
 
     //CREATE - POST
 
     @RequestMapping(value= "/createInvoiceDetail", method = RequestMethod.POST)
     public String createNewInvoiceDetail(Model model,
-                                @ModelAttribute("inventory") Inventory inventory) {
-        Product product = productService.findPk(inventory.getProduct().getId());
-        Supplier supplier = supplierService.findPk(inventory.getSupplier().getId());
-        Integer total = inventory.getStartingInventory() + inventory.getQuantityReceived();
-        Integer stockTotal = product.getStock() + total;
-        product.setStock(stockTotal);
-        inventory.setProduct(product);
-        inventory.setSupplier(supplier);
-        inventory.setInventoryOnHand(total);
-        productService.update(product);
-        inventoryService.create(inventory);
+                                @ModelAttribute("productInventoryRequest") ProductInventoryRequest productInventoryRequest) {
+        for (Product productInventory : productInventoryRequest.getProductInventorList()) {
+            Inventory inventory = new Inventory();
+            Product product = productService.findPk(productInventory.getId());
+
+            int totalStock = product.getStock() + productInventory.getQuantityInventory();
+
+            inventory.setProduct(product);
+            inventory.setStartingInventory(product.getStock());
+            inventory.setQuantityReceived(productInventory.getQuantityInventory());
+            inventory.setInventoryOnHand(totalStock);
+            product.setStock(totalStock);
+
+            inventoryService.create(inventory);
+            productService.update(product);
+        }
+
         return "redirect:/admin/inventory/index";
     }
 

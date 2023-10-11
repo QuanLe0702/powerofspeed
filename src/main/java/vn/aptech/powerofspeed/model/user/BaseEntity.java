@@ -1,6 +1,5 @@
 package vn.aptech.powerofspeed.model.user;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;

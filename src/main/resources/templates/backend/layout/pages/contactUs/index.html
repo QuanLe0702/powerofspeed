@@ -37,7 +37,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
@@ -46,16 +46,18 @@
                                     <th>Subject </th>
                                     <th>Phone</th>
                                     <th>Message</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="contactUs : ${contactUses}">
-                                    <td th: utext="${contactUs.id}"></td>
-                                    <td th: utext="${contactUs.name}"></td>
-                                    <td th: utext="${contactUs.email}"></td>
-                                    <td th: utext="${contactUs.subject}"></td>
-                                    <td th: utext="${contactUs.phone}"></td>
-                                    <td th: utext="${contactUs.message}"></td>
+                                    <td th:utext="${contactUs.id}"></td>
+                                    <td th:utext="${contactUs.name}"></td>
+                                    <td th:utext="${contactUs.email}"></td>
+                                    <td th:utext="${contactUs.subject}"></td>
+                                    <td th:utext="${contactUs.phone}"></td>
+                                    <td th:utext="${contactUs.message}"></td>
+                                    <td><a th:href="@{'/admin/contactUs/detail/' + ${contactUs.id}}"><button class="btn btn-info">Send Mail</button></a></td>
 
 
                                 </tr>
@@ -75,6 +77,13 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
+<script layout:fragment="scripts">
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    });
+</script>
 </body>
 </html>

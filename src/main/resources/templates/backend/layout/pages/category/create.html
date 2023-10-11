@@ -42,8 +42,15 @@
                         <form role="form" th:action="@{/admin/category/create}" th:object="${category}" method="post" enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label ></label>
-                                    <input  class="form-control" placeholder="Enter Category Name" th:field="*{name}" required>
+                                    <label>Category Name</label>
+                                    <input  class="form-control" placeholder="Enter Category Name" th:field="*{name}" >
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Slug</label>
+                                    <input  class="form-control" placeholder="Enter slug" th:field="*{slug}" >
+                                    <span th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}">Slug Error</span>
                                 </div>
                             </div>
                             <!-- /.card-body -->

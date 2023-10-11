@@ -1,26 +1,20 @@
 package vn.aptech.powerofspeed.model.user;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import vn.aptech.powerofspeed.model.blog.Blog;
+import vn.aptech.powerofspeed.model.order.Order;
+import vn.aptech.powerofspeed.model.orderdetail.OrderDetail;
+import vn.aptech.powerofspeed.model.wishlist.Wishlist;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -63,21 +57,16 @@ public class User extends BaseEntity {
     @JoinColumn(name = "address_id")
     public Address address;
 
-
-
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
 
     public User() {
     }
 
-    public User(String email, boolean emailConfirmed, String password, String phoneNumber, boolean phoneConfirmed, String firstName, String lastName, GenderType gender, Date dateOfBirth, String profilePicture, boolean status, Address address, Set<Role> roles) {
+    public User(String email, boolean emailConfirmed, String password, String phoneNumber, boolean phoneConfirmed,
+            String firstName, String lastName, GenderType gender, Date dateOfBirth, String profilePicture,
+            boolean status, Address address, Set<Role> roles) {
         this.email = email;
         this.emailConfirmed = emailConfirmed;
         this.password = password;
@@ -102,12 +91,14 @@ public class User extends BaseEntity {
         Female,
         Other
     }
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có
+                                                             // nhiều người ở)
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khoonhg sử dụng trong toString()
     private Collection<Blog> blogs;
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private Collection<Order> orders;
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    // private Collection<Order> orders;
 
 }

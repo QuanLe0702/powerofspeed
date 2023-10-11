@@ -14,10 +14,13 @@ import vn.aptech.powerofspeed.model.review.Review;
 import vn.aptech.powerofspeed.model.subcategory.Subcategory;
 import vn.aptech.powerofspeed.model.user.Address;
 import vn.aptech.powerofspeed.model.user.BaseEntity;
+import vn.aptech.powerofspeed.model.wishlist.Wishlist;
 
 import java.util.Collection;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -42,6 +45,8 @@ public class Product extends BaseEntity {
     private String productContent;
 
     @Column(name = "unit_price", nullable = false)
+    @NotNull
+    @Size(min = 1)
     private int unitPrice;
 
     @Column(name = "save_price", nullable = false)
@@ -59,6 +64,9 @@ public class Product extends BaseEntity {
     @Column(name = "hot")
     private int hot;
 
+    @Transient
+    private int quantityInventory;
+
     @OneToOne()
     @JoinColumn(name = "bid_detail_id")
     public BidDetail bidDetail;
@@ -68,7 +76,6 @@ public class Product extends BaseEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Subcategory subcategory;
-
 
     @Column(name = "inventory_shipped")
     private Integer inventoryShipped;

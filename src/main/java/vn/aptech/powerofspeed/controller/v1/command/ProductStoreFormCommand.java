@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class ProductStoreFormCommand {
     private String productContent;
 
     @NotNull
+    @Size(min = 1)
     private int unitPrice;
 
     @NotNull

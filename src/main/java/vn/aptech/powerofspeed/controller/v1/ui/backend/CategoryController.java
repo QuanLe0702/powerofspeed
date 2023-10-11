@@ -13,6 +13,7 @@ import vn.aptech.powerofspeed.model.category.Category;
 import vn.aptech.powerofspeed.service.CategoryService;
 import vn.aptech.powerofspeed.util.RandomStringUtil;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -59,11 +60,19 @@ public class CategoryController {
 
     //cua thang em lao
         @RequestMapping(value= "/create", method = RequestMethod.POST)
-    public String create(Model model,
+    public String create(@Valid Category model,
                              @ModelAttribute("category") Category cat,
-                             BindingResult result) {
+                             BindingResult result,
+                             RedirectAttributes redirectAttributes) {
         String uniqueSlug = RandomStringUtil.makeSlug(cat.getName());
         if (!categoryService.checkSlugExists(uniqueSlug)) {
+
+            if (result.hasErrors()) {
+                return "backend/layout/pages/category/create";
+            }
+
+            redirectAttributes.addAttribute("name", model.getName());
+            redirectAttributes.addAttribute("slug", model.getSlug());
             cat.setSlug(uniqueSlug);
             Category saveCate = categoryService.create(cat);
         }

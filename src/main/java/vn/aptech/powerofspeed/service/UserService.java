@@ -7,9 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vn.aptech.powerofspeed.controller.v1.command.UserUpdateFormCommand;
 import vn.aptech.powerofspeed.dto.model.user.UserDto;
+import vn.aptech.powerofspeed.model.user.User;
 
 public interface UserService {
-
     UserDto findByEmail(String email);
 
     UserDto findById(Long id);
@@ -23,5 +23,7 @@ public interface UserService {
     UserDto update(UserDto userDto, MultipartFile filePicture) throws IOException;
 
     void delete(Long id);
+
+    User findUserByEmail(String email);
 
 }

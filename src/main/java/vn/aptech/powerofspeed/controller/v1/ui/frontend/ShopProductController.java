@@ -1,11 +1,14 @@
 package vn.aptech.powerofspeed.controller.v1.ui.frontend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import vn.aptech.powerofspeed.controller.v1.request.BidAuctionRequest;
 import vn.aptech.powerofspeed.model.category.Category;
 import vn.aptech.powerofspeed.model.products.Product;
@@ -14,8 +17,11 @@ import vn.aptech.powerofspeed.service.CategoryService;
 import vn.aptech.powerofspeed.service.ProductService;
 import vn.aptech.powerofspeed.service.SubcategoryService;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class ShopProductController {
@@ -99,14 +105,63 @@ public class ShopProductController {
     }
 
     @RequestMapping(value = "/collections", method = RequestMethod.GET)
-    public String getProductCollections(Model model) {
+    public String getProductCollections(Model model,
+                                        @RequestParam(value = "page", required = false) String page,
+                                        @RequestParam(value = "size", required = false) String size,
+                                        @RequestParam(value = "order", required = false) String orderby) {
 
-        List<Product> products = productService.findAllPro();
+        int pageDefault = 1;
+        int sizeDefault = 6;
+
+        if (page != null && !page.isEmpty()) {
+            pageDefault = Integer.parseInt(page);
+        }
+
+        if (size != null && !size.isEmpty()) {
+            sizeDefault = Integer.parseInt(size);
+        }
+
+        PageRequest pageRequest = PageRequest.of(pageDefault - 1, sizeDefault);
+        Page<Product> products = null;
+
+        if (orderby != null && !orderby.isEmpty()) {
+            switch (orderby) {
+                case "new_product": {
+                    products = productService.sortNewProduct(pageRequest);
+                }
+                break;
+                case "much_discount": {
+
+                    products = productService.sortProductByMuchDiscount(pageRequest);
+                }
+                break;
+                case "price_low_to_heigh": {
+
+                    products = productService.sortProductByPriceAsc(pageRequest);
+                }
+                break;
+                case "price_heigh_to_low": {
+
+                    products = productService.sortProductByPriceDesc(pageRequest);
+
+                }
+                break;
+            }
+        } else {
+            products = productService.findAllByPaging(pageRequest);
+        }
+
         List<Category> categories = categoryService.findAllCat();;
 
-        if (products.size() == 0) {
-            return "redirect:/accessDenied";
+
+        int totalPages = products.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
         }
+
+
+
 
         model.addAttribute("categories", categories);
         model.addAttribute("products", products);

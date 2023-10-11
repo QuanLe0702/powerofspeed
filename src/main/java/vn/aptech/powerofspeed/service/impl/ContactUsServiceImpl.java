@@ -12,6 +12,7 @@ import vn.aptech.powerofspeed.service.ContactUsService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContactUsServiceImpl implements ContactUsService {
@@ -34,6 +35,7 @@ public class ContactUsServiceImpl implements ContactUsService {
             contactUsDto.setName(contactUs.getName());
             contactUsDto.setPhone(contactUs.getPhone());
             contactUsDto.setMessage(contactUs.getMessage());
+            contactUsDto.setSubject(contactUs.getSubject());
             result.add(contactUsDto);
         }
         return result;
@@ -49,6 +51,11 @@ public class ContactUsServiceImpl implements ContactUsService {
         contactUs.setSubject(contactUsDto.getSubject());
         contactUs.setMessage(contactUsDto.getMessage());
         return ContactUsMapper.toContactUsDto(contactUsRepository.save(contactUs));
+    }
+
+    @Override
+    public Optional<ContactUs> findById(long id) {
+        return contactUsRepository.findById(id);
     }
 }
 

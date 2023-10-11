@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,6 +24,7 @@ import vn.aptech.powerofspeed.model.subcategory.Subcategory;
 import vn.aptech.powerofspeed.model.user.User;
 import vn.aptech.powerofspeed.service.*;
 import vn.aptech.powerofspeed.util.FileUtil;
+import vn.aptech.powerofspeed.util.RandomStringUtil;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -70,6 +72,8 @@ public class ProductController {
         model.addAttribute("product", product);
         return "backend/layout/pages/image/index";
     }
+
+
     @RequestMapping(value = "/doDefaultImage/{idImage}", method = RequestMethod.GET)
     public String doDefaultImage(@PathVariable("idImage") String id){
         Optional<Image> image = imageService.findPk(Integer.parseInt(id));
@@ -132,7 +136,24 @@ public class ProductController {
     //CREATE - POST
 
     @RequestMapping(value= "/create", method = RequestMethod.POST)
-    public String create(@Valid ProductStoreFormCommand productStoreFormCommand, BindingResult bindingResult) {
+    public String create(@Valid @ModelAttribute("productStoreFormCommand") ProductStoreFormCommand productStoreFormCommand, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        Product checkSlugExists = productService.findBySlug(RandomStringUtil.makeSlug(productStoreFormCommand.getProductName()));
+        Product checkSkuExists = productService.findBySKU(productStoreFormCommand.getSku());
+        if (checkSlugExists != null) {
+            redirectAttributes.addFlashAttribute("slugErr", "Product name is exists!");
+            return "redirect:/admin/product/create";
+        }
+
+        if (checkSkuExists != null) {
+            redirectAttributes.addFlashAttribute("skuErr", "SKU is exists!");
+            return "redirect:/admin/product/create";
+        }
+
+        if (productStoreFormCommand.getUnitPrice() <= 0) {
+            redirectAttributes.addFlashAttribute("unitPrice", "Unit price greater than 0");
+            return "redirect:/admin/product/create";
+        }
 
         if (bindingResult.hasErrors()) {
             return "backend/layout/pages/product/create";
@@ -188,8 +209,8 @@ public class ProductController {
     }
 
 
-    //UPDATE - GET
-    @RequestMapping(value = "/edit/{productId}")
+    //UPDATE PRODUCT - GET
+    @RequestMapping(value = "/edit/{productId}", method = RequestMethod.GET)
     public String edit(Model model, @PathVariable("productId") Long productId) {
         Product product = productService.findPk(productId);
         if(product != null) {
@@ -220,13 +241,87 @@ public class ProductController {
         return "backend/layout/pages/product/update";
     }
 
+
+    //UPDATE IMAGE PRODUCT - GET
+    @RequestMapping(value = "/editImage/{imageId}", method = RequestMethod.GET)
+    public String editImage(Model model, @PathVariable("imageId") int id){
+        Optional<Image> image = imageService.findPk(id);
+        if (image.isPresent()) {
+
+            model.addAttribute("image", image.get());
+        }
+        return "backend/layout/pages/image/edit";
+    }
+
+    //UPDATE IMAGE PRODUCT - POST
+
+    @RequestMapping(value = "/doUpdateImage", method = RequestMethod.POST)
+    public String updateImage(@Valid @ModelAttribute("image") Image imageUpdate, @RequestParam("filePicture") MultipartFile multipartFile, RedirectAttributes redirectAttributes) throws IOException {
+
+        Optional<Image> imageOrigin = imageService.findPk(imageUpdate.getImageId());
+
+        if (imageOrigin.isPresent()) {
+            String pictureOrigin =  imageOrigin.get().getName();
+
+            String uniqueFileName = FileUtil.UploadedFile(multipartFile, PRODUCTS_IMAGE_PATH);
+
+            imageOrigin.get().setDescription(imageUpdate.getDescription());
+            imageOrigin.get().setName(uniqueFileName);
+
+            imageService.saveImage(imageOrigin.get());
+            FileUtil.DeletedFile(PRODUCTS_IMAGE_PATH, pictureOrigin);
+
+
+            redirectAttributes.addFlashAttribute("success", "Update image with id " + imageOrigin.get().getImageId() + " successfully");
+            return "redirect:/admin/product/imageList/" + imageOrigin.get().getProduct().getId().toString();
+        }
+
+
+        redirectAttributes.addFlashAttribute("error", "Image not found with id " + imageUpdate.getImageId() + ". Please check id again!");
+        return "redirect:/admin/product/imageList/" + imageUpdate.getProduct().getId().toString();
+    }
+
     //UPDATE - POST
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(Model model,
-                           @ModelAttribute("product") Product product) {
-        Subcategory subcategory = subcategoryService.findPk(product.getSubcategory().getSubcatId());
-        product.setSubcategory(subcategory);
+                           @ModelAttribute("productUpdateFormCommand") ProductUpdateFormCommand productUpdateFormCommand) {
+
+        Product product = productService.findPk(productUpdateFormCommand.getId());
+        Subcategory subcategory = subcategoryService.findPk(productUpdateFormCommand.getCategory());
+
+        if (product.getProductType() == ProductType.Auction) {
+
+            product.setSlug(productUpdateFormCommand.getSlug());
+            product.setSku(productUpdateFormCommand.getSku());
+            product.setProductName(productUpdateFormCommand.getProductName());
+            product.setProductDescription(productUpdateFormCommand.getProductDescription());
+            product.setProductContent(productUpdateFormCommand.getProductContent());
+            product.setUnitPrice(productUpdateFormCommand.getUnitPrice());
+            product.setSavePrice(productUpdateFormCommand.getSavePrice());
+            product.setUnitWeight(productUpdateFormCommand.getUnitWeight());
+            product.setStock(productUpdateFormCommand.getStock());
+            product.setProductType(productUpdateFormCommand.getProductType());
+            BidDetail bidDetail = bidDetailService.stored(new BidDetail()
+                    .setBidIncrement(productUpdateFormCommand.getBidIncrement())
+                    .setAuctionStart(productUpdateFormCommand.getAuctionStart())
+                    .setAuctionEnd(productUpdateFormCommand.getAuctionEnd()));
+            product.setBidDetail(bidDetail);
+            product.setSubcategory(subcategory);
+        } else {
+            product.setSlug(productUpdateFormCommand.getSlug());
+            product.setSku(productUpdateFormCommand.getSku());
+            product.setProductName(productUpdateFormCommand.getProductName());
+            product.setProductDescription(productUpdateFormCommand.getProductDescription());
+            product.setProductContent(productUpdateFormCommand.getProductContent());
+            product.setUnitPrice(productUpdateFormCommand.getUnitPrice());
+            product.setSavePrice(productUpdateFormCommand.getSavePrice());
+            product.setUnitWeight(productUpdateFormCommand.getUnitWeight());
+            product.setStock(productUpdateFormCommand.getStock());
+            product.setProductType(productUpdateFormCommand.getProductType());
+            product.setSubcategory(subcategory);
+        }
+
         productService.update(product);
         return "redirect:/admin/product";
 
@@ -243,5 +338,25 @@ public class ProductController {
         return "redirect:/admin/product";
     }
 
+    //DELETE IMAGE
+    @RequestMapping(value = "/deleteImage/{imageId}/product/{productId}", method = RequestMethod.GET)
+    public String deleteImage(RedirectAttributes redirectAttributes, @PathVariable("imageId") int idDelete, @PathVariable("productId") Long productId) {
+
+        Optional<Image> image = imageService.findPk(idDelete);
+
+
+        if (image.get().isMainImage()) {
+            redirectAttributes.addFlashAttribute("error", "Default is not allow to be deleted!");
+            return "redirect:/admin/product/imageList/" + productId.toString();
+        }
+
+        imageService.delete(image.get());
+
+        redirectAttributes.addFlashAttribute("success", "Deleted successfully");
+
+        return "redirect:/admin/product/imageList/" + productId.toString();
+    }
 }
+
+
 

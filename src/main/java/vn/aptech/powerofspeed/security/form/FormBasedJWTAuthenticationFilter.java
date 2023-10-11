@@ -1,30 +1,25 @@
 package vn.aptech.powerofspeed.security.form;
 
-import static vn.aptech.powerofspeed.security.SecurityConstants.EXPIRATION_TIME;
-import static vn.aptech.powerofspeed.security.SecurityConstants.HEADER_STRING;
-import static vn.aptech.powerofspeed.security.SecurityConstants.SECRET;
-import static vn.aptech.powerofspeed.security.SecurityConstants.TOKEN_PREFIX;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import vn.aptech.powerofspeed.model.user.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import vn.aptech.powerofspeed.model.user.User;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static vn.aptech.powerofspeed.security.SecurityConstants.*;
 
 public class FormBasedJWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;

@@ -1,12 +1,7 @@
 package vn.aptech.powerofspeed.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import vn.aptech.powerofspeed.dto.mapper.AboutMapper;
 import vn.aptech.powerofspeed.dto.model.user.about.AboutDto;
 import vn.aptech.powerofspeed.model.about.About;
@@ -14,6 +9,11 @@ import vn.aptech.powerofspeed.repository.about.AboutRepository;
 import vn.aptech.powerofspeed.repository.user.UserRepository;
 import vn.aptech.powerofspeed.service.AboutService;
 import vn.aptech.powerofspeed.util.FileUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AboutServiceImpl implements AboutService {
@@ -44,28 +44,37 @@ public class AboutServiceImpl implements AboutService {
 
     @Override
     public AboutDto findById(long id) {
-        return null;
+        return AboutMapper.toAboutDto(aboutRepository.findById(id).get());
     }
 
     @Override
     public AboutDto create(AboutDto aboutDto) throws IOException {
        About about = new About();
        String uniqueFileName = FileUtil.UploadedFile(aboutDto.getMultipartFile(),ABOUT_IMAGE_PATH);
-       about.setName((about.getName()));
-       about.setDescription(about.getDescription());
-       about.setCreateAt(about.getCreateAt());
+       about.setName((aboutDto.getName()));
+       about.setDescription(aboutDto.getDescription());
        about.setImage(uniqueFileName);
        return AboutMapper.toAboutDto(aboutRepository.save(about));
     }
 
     @Override
     public About update(AboutDto aboutDto) throws IOException {
-        return null;
+        About about = new About();
+        String uniqueFileName = FileUtil.UploadedFile(aboutDto.getMultipartFile(),ABOUT_IMAGE_PATH);
+        about.setId(aboutDto.getId());
+        about.setName(aboutDto.getName());
+        about.setDescription((aboutDto.getDescription()));
+        about.setImage(uniqueFileName);
+
+        return aboutRepository.save(about);
     }
+
+
 
     @Override
     public void delete(long id) {
-
+About about = aboutRepository.findById(id).get();
+aboutRepository.delete(about);
     }
 }
 

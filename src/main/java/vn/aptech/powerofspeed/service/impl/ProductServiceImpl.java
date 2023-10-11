@@ -1,6 +1,9 @@
 package vn.aptech.powerofspeed.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.aptech.powerofspeed.model.products.BidHistory;
 import vn.aptech.powerofspeed.model.products.Product;
@@ -22,6 +25,11 @@ public class ProductServiceImpl implements ProductService {
     private BidHistoryRepository bidHistoryRepository;
 
     @Override
+    public Page<Product> findAllByPaging(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Product> findAllPro() {
         List<Product> result = new ArrayList<>();
         Iterable<Product> listPro = productRepository.findAll();
@@ -30,6 +38,11 @@ public class ProductServiceImpl implements ProductService {
             result.add(pro);
         }
         return result;
+    }
+
+    @Override
+    public List<Product> findAllBySalePrice() {
+        return productRepository.findAllBySalePrice();
     }
 
     @Override
@@ -65,6 +78,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product findBySKU(String sku) {
+        return productRepository.findBySku(sku);
+    }
+
+    @Override
     public void delete(Long id) {
         Product product = productRepository.findById(id).get();
         productRepository.delete(product);
@@ -78,5 +96,41 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public BidHistory storeBidHistory(BidHistory bidHistory) {
         return bidHistoryRepository.save(bidHistory);
+    }
+
+    @Override
+    public List<Product> findProductBySearch(String name) {
+        return productRepository.productSearchList(name);
+    }
+
+    @Override
+    public List<Product> filterProductByPrice(Integer from, Integer to) {
+        return productRepository.filterProductByPrice(from, to);
+    }
+
+    @Override
+    public List<Product> searchProductBySubCategory(Long subCategoryId, String searchProductName) {
+        List<Product> products =  productRepository.searchProductBySubCategory(subCategoryId, searchProductName);
+        return products;
+    }
+
+    @Override
+    public Page<Product> sortProductByPriceAsc(Pageable pageable) {
+        return productRepository.sortProductByAsc(pageable);
+    }
+
+    @Override
+    public Page<Product> sortProductByPriceDesc(Pageable pageable) {
+        return productRepository.sortProductByDesc(pageable);
+    }
+
+    @Override
+    public Page<Product> sortNewProduct(Pageable pageable) {
+        return productRepository.sortNewProduct(pageable);
+    }
+
+    @Override
+    public Page<Product> sortProductByMuchDiscount(Pageable pageable) {
+        return productRepository.sortProductByMuchDiscount(pageable);
     }
 }

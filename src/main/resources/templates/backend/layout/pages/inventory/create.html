@@ -13,88 +13,148 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-
+                <div class="col-sm-6">
+                    <h1>Invoice</h1>
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Create New Invoice Detail</li>
+                        <li class="breadcrumb-item active">Invoice</li>
                     </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <!-- left column -->
-                <div class="col-md-6">
-                    <!-- general form elements -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Create New Invoice Detail</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <form role="form" th:action="@{/admin/inventory/createInvoiceDetail}" th:object="${inventory}" method="post" >
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label >Purchase Date</label>
-                                    <input  class="form-control" placeholder="Enter Purchase Date" th:field="*{purchaseDate}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label >Starting Inventory</label>
-                                    <input  class="form-control" placeholder="Enter Starting Inventory " th:field="*{startingInventory}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label >Quantity Received</label>
-                                    <input  class="form-control" placeholder="Enter Quantity Received " th:field="*{quantityReceived}" required>
-                                </div>
-
-
-
-                                <div class="form-group">
-                                    <label >Product</label>
-                                    <select th:field="*{product.id}">
-                                        <option th:each="product : ${products}"
-
-                                                th:value="${product.id}" th:utext="${product.productName}"></option>
-
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label >Supplier</label>
-                                    <select th:field="*{supplier.id}">
-                                        <option th:each="supplier : ${suppliers}"
-
-                                                th:value="${supplier.id}" th:utext="${supplier.name}"></option>
-
-                                    </select>
-                                </div>
-
-
-                            </div>
-                            <!-- /.card-body -->
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Create</button>
-                            </div>
-                        </form>
+                <div class="col-12">
+                    <div class="callout callout-info">
+                        <h5><i class="fas fa-info"></i> Note:</h5>
+                        This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
                     </div>
 
-                </div>
 
-            </div>
+                    <!-- Main content -->
+                    <div class="invoice p-3 mb-3">
+                        <!-- title row -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>
+                                    <i class="fas fa-globe"></i> Amazing Model, Inc.
+                                    <small class="float-right">Date: <input type="date" name="receivingDate" id="receivingDate"></small>
+                                </h4>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- info row -->
+                        <div class="row invoice-info">
+                            <!-- /.card-header -->
+                            <form th:action="@{/admin/inventory/createFormInvoiceDetail}" th:object="${productInventoryRequest}" method="get">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Multiple</label>
+                                                <select th:field="*{productIdList}" class="duallistbox" multiple="multiple">
+                                                    <option th:each="product : ${products}" th:value="${product.getId()}" th:utext="${product.getProductName()}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-primary">Added</button>
+                                            </div>
+                                            <!-- /.form-group -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                            </form>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.row -->
+                        <form th:action="@{/admin/inventory/createInvoiceDetail}" th:object="${productInventoryRequest}" method="post">
+                        <!-- Table row -->
+                        <div class="row">
+                            <div class="col-12 table-responsive">
 
-        </div>
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>SKU</th>
+                                            <th>Product Name</th>
+                                            <th>Starting Inventory</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="productInventory, stat : ${productInventoryRequest.getProductInventorList()}">
+                                            <td th:utext="${productInventory.getId()}"></td>
+                                            <td th:utext="${productInventory.getSku()}"></td>
+                                            <td th:utext="${productInventory.getProductName()}"></td>
+                                            <th th:utext="${productInventory.getStock()}"></th>
+                                            <td>
+
+                                                <input type="number" th:field="*{productInventorList[__${stat.index}__].quantityInventory}" th:value="1">
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+
+                        <div class="row">
+                            <div class="col-6 offset-3">
+                                <p class="lead">Inventory Details</p>
+
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th style="width:50%">Total Product:</th>
+                                            <td th:if="${productInventoryRequest.getProductInventorList() != null}" th:utext="${productInventoryRequest.getProductInventorList().size()}"></td>
+                                            <td th:unless="${productInventoryRequest.getProductInventorList() != null}">0</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <input type="hidden" th:field="*{productInventorList}">
+                                    <button type="submit" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Update
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                        </form>
+                    </div>
+                    <!-- /.invoice -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </section>
-
+    <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->
+<script layout:fragment="scripts">
+    $(function () {
 
+        document.getElementById("receivingDate").valueAsDate = new Date();
+        // Summernote
+        $('.textarea').summernote();
+        //Initialize Select2 Elements
+        $('.select2').select2();
+        $("input[data-bootstrap-switch]").each(function(){
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+        //Bootstrap Duallistbox
+        $('.duallistbox').bootstrapDualListbox();
+    })
+</script>
 
 </body>
 </html>

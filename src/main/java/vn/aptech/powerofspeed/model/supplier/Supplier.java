@@ -1,20 +1,16 @@
 package vn.aptech.powerofspeed.model.supplier;
 
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import vn.aptech.powerofspeed.model.inventory.Inventory;
+import vn.aptech.powerofspeed.model.products.Product;
 import vn.aptech.powerofspeed.model.user.BaseEntity;
+
+import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -32,7 +28,6 @@ public class Supplier extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -48,4 +43,3 @@ public class Supplier extends BaseEntity {
         this.inventory = inventory;
     }
 }
-

@@ -36,4 +36,10 @@ public class OrderController {
         order.ifPresent(orderDetail->model.addAttribute("orderDetail", orderDetail));
         return "backend/layout/pages/order/orderDetail";
     }
+
+    @RequestMapping(value = "/delete/{orderId}", method = RequestMethod.GET)
+    public String removeOrder(@PathVariable("orderId") Long id){
+        orderService.deleteOrder(id);
+        return "redirect:/admin/order/index";
+    }
 }

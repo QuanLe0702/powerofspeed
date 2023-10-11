@@ -1,16 +1,15 @@
 package vn.aptech.powerofspeed.controller.v1.ui.frontend;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import vn.aptech.powerofspeed.repository.blog.BlogRepository;
 import vn.aptech.powerofspeed.service.BlogService;
+
+import java.io.IOException;
 
 @Controller
 

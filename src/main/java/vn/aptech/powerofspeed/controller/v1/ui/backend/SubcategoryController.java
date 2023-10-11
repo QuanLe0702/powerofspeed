@@ -1,4 +1,4 @@
-package vn.aptech.powerofspeed.controller.v1.ui.backend;
+package  vn.aptech.powerofspeed.controller.v1.ui.backend;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import vn.aptech.powerofspeed.model.category.Category;
-import vn.aptech.powerofspeed.model.products.Product;
-import vn.aptech.powerofspeed.model.subcategory.Subcategory;
-import vn.aptech.powerofspeed.service.CategoryService;
-import vn.aptech.powerofspeed.service.SubcategoryService;
-import vn.aptech.powerofspeed.util.RandomStringUtil;
+import  vn.aptech.powerofspeed.model.category.Category;
+import  vn.aptech.powerofspeed.model.products.Product;
+import  vn.aptech.powerofspeed.model.subcategory.Subcategory;
+import  vn.aptech.powerofspeed.service.CategoryService;
+import  vn.aptech.powerofspeed.service.SubcategoryService;
+import  vn.aptech.powerofspeed.util.RandomStringUtil;
 
 
 import java.util.List;
@@ -82,9 +82,12 @@ public class SubcategoryController {
     @RequestMapping(value = "/doUpdateSubcategory", method = RequestMethod.POST)
     public String doUpdate(Model model,
                            @ModelAttribute("subcategory") Subcategory subcategory) {
+        Subcategory subcategoryUpdate = subService.findPk(subcategory.getSubcatId());
         Category category = categoryService.findPk(subcategory.getCategory().getCategoryID());
-        subcategory.setCategory(category);
-        subService.update(subcategory);
+        subcategoryUpdate.setSubName(subcategory.getSubName());
+        subcategoryUpdate.setSlug(RandomStringUtil.makeSlug(subcategory.getSubName()));
+        subcategoryUpdate.setCategory(category);
+        subService.update(subcategoryUpdate);
         return "redirect:/admin/category";
 
     }

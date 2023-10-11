@@ -1,20 +1,17 @@
 package vn.aptech.powerofspeed.model.products;
 
-import java.sql.Date;
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import vn.aptech.powerofspeed.model.subcategory.Subcategory;
+import vn.aptech.powerofspeed.model.user.Address;
 import vn.aptech.powerofspeed.model.user.BaseEntity;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.Collection;
 
 @Getter
 @Setter

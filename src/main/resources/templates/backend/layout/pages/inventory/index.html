@@ -66,9 +66,6 @@
                                     <th>Quantity Received</th>
                                     <th>Inventory on Hand</th>
                                     <th>Product Name</th>
-                                    <th>Category</th>
-                                    <th>Subcategory</th>
-                                    <th>Supplier</th>
                                     <th>Action</th>
 
 
@@ -84,9 +81,8 @@
                                     <td th:text="${inventory.quantityReceived}"></td>
                                     <td th:text="${inventory.inventoryOnHand}"></td>
                                     <td th:text="${inventory.product.productName}"></td>
-                                    <td th:text="${inventory.product.getSubcategory().getCategory().getName()}"></td>
-                                    <td th:text="${inventory.product.getSubcategory().getSubName()}"></td>
-                                    <td th:text="${inventory.supplier.name}"></td>
+<!--                                    <td th:text="${inventory.product.getSubcategory().getCategory().getName()}"></td>-->
+<!--                                    <td th:text="${inventory.product.getSubcategory().getSubName()}"></td>-->
 
 
                                     <td>
@@ -119,10 +115,10 @@
                                     <th>Purchase Date</th>
                                     <th>Starting Inventory</th>
                                     <th>Quantity Received</th>
+                                    <th>Inventory on Hand</th>
                                     <th>Product Name</th>
-                                    <th>Category</th>
-                                    <th>Subcategory</th>
-                                    <th>Supplier</th>
+<!--                                    <th>Category</th>-->
+<!--                                    <th>Subcategory</th>-->
                                     <th>Action</th>
 
 

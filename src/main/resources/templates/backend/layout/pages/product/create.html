@@ -41,7 +41,7 @@
                             <h2 class="card-title">Create a new product</h2>
                             <div class="card-tools">
                                 <div class="btn-group float-right mr-5">
-                                    <a href="https://demo.s-cart.org/sc_admin/product" class="btn  btn-flat btn-default" title="List">
+                                    <a th:href="@{/admin/product}" class="btn  btn-flat btn-default" title="List">
                                         <i class="fa fa-list"></i><span class="hidden-xs"> Back List</span>
                                     </a>
                                 </div>
@@ -138,6 +138,7 @@
                                                 <span class="form-text" th:unless="${#fields.hasErrors('sku')}">
                                                     Only characters in the group: "A-Z", "a-z", "0-9" and "-_"
                                                 </span>
+                                                <span class="text-danger" th:if="${skuErr != null}" th:utext="${skuErr}"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -154,24 +155,25 @@
                                                 <span class="form-text">
                                                     Maximum 100 characters in the group: "A-Z", "a-z", "0-9" and "-_"
                                                 </span>
+                                                <span class="text-danger" th:if="${slugErr != null}" th:utext="${slugErr}"></span>
                                             </div>
                                         </div>
-                                        <div class="form-group row ">
-                                            <label for="suppliers" class="col-sm-2 col-form-label">
-                                                Suppliers
-                                            </label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control select2" name="suppliers" id="suppliers" style="width: 100%;">
-                                                    <option selected="selected">Alabama</option>
-                                                    <option>Alaska</option>
-                                                    <option>California</option>
-                                                    <option>Delaware</option>
-                                                    <option>Tennessee</option>
-                                                    <option>Texas</option>
-                                                    <option>Washington</option>
-                                                </select>
-                                            </div>
-                                        </div>
+<!--                                        <div class="form-group row ">-->
+<!--                                            <label for="suppliers" class="col-sm-2 col-form-label">-->
+<!--                                                Suppliers-->
+<!--                                            </label>-->
+<!--                                            <div class="col-sm-8">-->
+<!--                                                <select class="form-control select2" name="suppliers" id="suppliers" style="width: 100%;">-->
+<!--                                                    <option selected="selected">Alabama</option>-->
+<!--                                                    <option>Alaska</option>-->
+<!--                                                    <option>California</option>-->
+<!--                                                    <option>Delaware</option>-->
+<!--                                                    <option>Tennessee</option>-->
+<!--                                                    <option>Texas</option>-->
+<!--                                                    <option>Washington</option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                         <div class="form-group row">
                                             <label for="unitPrice" class="col-sm-2 col-form-label">Unit Price</label>
                                             <div class="col-sm-8">
@@ -182,7 +184,8 @@
                                                     <input type="number" style="width: 100px;" th:field="*{unitPrice}" th:if="${#fields.hasErrors('unitPrice')}" th:classappend="is-invalid" id="unitPrice" name="unitPrice" value="0" class="form-control input-sm" placeholder="">
                                                     <input type="number" style="width: 100px;" th:field="*{unitPrice}" th:unless="${#fields.hasErrors('unitPrice')}" id="unitPrice" name="unitPrice" value="0" class="form-control input-sm" placeholder="">
                                                 </div>
-                                                <span class="form-text" th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}"></span>
+                                                <span class="text-danger" th:if="${unitPrice != null}" th:utext="${unitPrice}"></span>
+                                                <span class="text-danger" th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">

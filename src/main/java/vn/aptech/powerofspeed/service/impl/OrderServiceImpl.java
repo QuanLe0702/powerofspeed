@@ -6,6 +6,8 @@ import vn.aptech.powerofspeed.model.order.Order;
 import vn.aptech.powerofspeed.repository.order.OrderRepository;
 import vn.aptech.powerofspeed.service.OrderService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,4 +35,15 @@ public class OrderServiceImpl implements OrderService {
     public Optional<Order> findOrderById(Long id) {
         return orderRepository.findById(id);
     }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+//    @Override
+//    public List<Order> findOrderedByIdLimitedTo(int limit) {
+//        return entityManager.createQuery("SELECT p.id FROM Order p ORDER BY p.id",
+//                Order.class).setMaxResults(limit).getResultList();
+//    }
+
+
 }

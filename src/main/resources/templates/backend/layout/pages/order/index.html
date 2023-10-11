@@ -74,17 +74,11 @@
                                     <td th:utext="${order.amount}"></td>
 
                                     <td>
-                                        <span class="badge badge-success" th:if="${order.isStatus() == true}">Waiting</span>
-                                        <span class="badge badge-danger" th:unless="${order.isStatus() == true}">Finish</span>
-                                    </td>
+                                        <span class="badge badge-danger" th:if="${order.statusType == Confirm}">Waiting</span></td>
+                                        <span class="badge badge-primary" th:if="${order.statusType == InShipping}">In Shipping</span></td>
+                                        <span class="badge badge-success" th:if="${order.statusType == Finish}">Finish</span></td>
                                     <td>
                                         <div class="row">
-                                            <div>
-
-                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/order/edit/'+ ${order.id}}"><i class="fas fa-edit"></i></a>
-
-                                            </div>
-
 
                                             <div>
 

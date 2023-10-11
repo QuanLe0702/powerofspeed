@@ -70,6 +70,10 @@
                                     <br>
                                     <b th:text="'Order ID:' + ${orderDetail.id}"></b><br>
                                     <b th:text="'Payment Method: '+ ${orderDetail.paymentMethod}"></b><br>
+                                    <b style="color: green">Status:</b> <select class="form-control" id="productType" name="productType">
+                                        <option th:each="type : ${T(vn.aptech.springboot.amazingtoy.model.order.StatusType).values()}" th:value="${type}" th:utext="${type}"></option>
+                                    </select>
+
                                 </div>
                                 <!-- /.col -->
                             </div>
@@ -81,17 +85,18 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
+                                            <th>Image</th>
                                             <th>Product Name</th>
-                                            <th>Product Image</th>
                                             <th>Quantity</th>
-                                            <th>Subtotal</th>
+                                            <th>Price</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="orderItem: ${orderDetail.getOrderDetails()}">
-
+                                            <td>
+                                                <img width="70" height="70" th:each="image: ${orderItem.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image">
+                                            </td>
                                             <td th:text="${orderItem.product.productName}"></td>
-                                            <td></td>
                                             <td th:text="${orderItem.quantity}"></td>
                                             <td th:text="${orderItem.price}"></td>
                                         </tr>
@@ -101,9 +106,38 @@
                                 <!-- /.col -->
                             </div>
                             <!-- /.row -->
+                            <div class="row">
+                                <!-- accepted payments column -->
+                                <div class="col-6">
 
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-6">
+                                    <p class="lead">Amount</p>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th style="width:50%">Subtotal:</th>
+                                                <td th:text="${orderDetail.amount}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Shipping:</th>
+                                                <td th:text="${orderDetail.amount * 0.1}"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total:</th>
+                                                <td th:text="${orderDetail.amount + (orderDetail.amount * 0.1)}"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
                             <!-- this row will not appear when printing -->
                             <div class="row no-print">
+
                                 <div class="col-12">
                                     <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
                                     <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit

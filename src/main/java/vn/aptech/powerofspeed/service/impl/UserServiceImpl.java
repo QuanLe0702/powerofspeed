@@ -1,24 +1,8 @@
 package vn.aptech.powerofspeed.service.impl;
 
-import static vn.aptech.powerofspeed.exception.EntityType.USER;
-import static vn.aptech.powerofspeed.exception.ExceptionType.DUPLICATE_ENTITY;
-import static vn.aptech.powerofspeed.exception.ExceptionType.ENTITY_NOT_FOUND;
-
-import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import vn.aptech.powerofspeed.controller.v1.command.UserUpdateFormCommand;
 import vn.aptech.powerofspeed.dto.mapper.UserMapper;
 import vn.aptech.powerofspeed.dto.model.user.UserDto;
@@ -31,9 +15,22 @@ import vn.aptech.powerofspeed.model.user.User;
 import vn.aptech.powerofspeed.repository.user.AddressRepository;
 import vn.aptech.powerofspeed.repository.user.RoleRepository;
 import vn.aptech.powerofspeed.repository.user.UserRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
+
 import vn.aptech.powerofspeed.service.EmailService;
 import vn.aptech.powerofspeed.service.UserService;
 import vn.aptech.powerofspeed.util.FileUtil;
+
+import java.io.IOException;
+import java.sql.Date;
+import java.util.*;
+
+import static vn.aptech.powerofspeed.exception.EntityType.USER;
+import static vn.aptech.powerofspeed.exception.ExceptionType.DUPLICATE_ENTITY;
+import static vn.aptech.powerofspeed.exception.ExceptionType.ENTITY_NOT_FOUND;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -50,12 +47,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // @Autowired
-    // private ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
     private final String PROFILE_IMAGE_PATH = "backend/dist/img/user-picture";
+
     @Autowired
     private EmailService emailService;
+
 
     @Transactional
     public UserDto findByEmail(String email) {
@@ -215,6 +214,7 @@ public class UserServiceImpl implements UserService {
                 addressUpdate.setStateOrRegion(userDto.getAddressDto().getStateOrRegion());
                 userUpdate.setAddress(addressUpdate);
 
+
                 returnUser = UserMapper.toUserDto(userRepository.save(userUpdate));
                 return returnUser;
             }
@@ -230,6 +230,11 @@ public class UserServiceImpl implements UserService {
         } else {
             throw exception(USER, ENTITY_NOT_FOUND, id.toString());
         }
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     private RuntimeException exception(EntityType entityType, ExceptionType exceptionType, String... args) {

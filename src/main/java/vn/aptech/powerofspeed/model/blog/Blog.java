@@ -16,13 +16,12 @@ import javax.persistence.Table;
 @Accessors(chain = true)
 @Entity
 @Table(name = "blogs")
-public class Blog extends BaseEntity{
+public class Blog extends BaseEntity {
 
-
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="description", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "image")
@@ -34,36 +33,4 @@ public class Blog extends BaseEntity{
     @ToString.Exclude
     private User user;
 
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -40,12 +40,13 @@ public class PowerOfSpeedApplication {
 
     @Bean
     CommandLineRunner init(UserRepository userRepository,
-            RoleRepository roleRepository,
-            AddressRepository addressRepository,
-            CategoryRepository categoryRepository,
-            SubcategoryRepository subcategoryRepository,
-            ProductRepository productRepository,
-            ImagesRepository imagesRepository) {
+                           RoleRepository roleRepository,
+                           AddressRepository addressRepository,
+                           CategoryRepository categoryRepository,
+                           SubcategoryRepository subcategoryRepository,
+                           ProductRepository productRepository,
+                           ImagesRepository imagesRepository) {
+
 
         return args -> {
 

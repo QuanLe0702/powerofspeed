@@ -1,21 +1,10 @@
 package vn.aptech.powerofspeed.security.api;
 
-
-import static vn.aptech.powerofspeed.security.SecurityConstants.EXPIRATION_TIME;
-import static vn.aptech.powerofspeed.security.SecurityConstants.HEADER_STRING;
-import static vn.aptech.powerofspeed.security.SecurityConstants.SECRET;
-import static vn.aptech.powerofspeed.security.SecurityConstants.TOKEN_PREFIX;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import vn.aptech.powerofspeed.model.user.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,13 +12,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import vn.aptech.powerofspeed.model.user.User;
+import static vn.aptech.powerofspeed.security.SecurityConstants.*;
 
+/**
+ * Created by Arpit Khandelwal.
+ */
 public class ApiJWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
@@ -77,4 +73,3 @@ public class ApiJWTAuthenticationFilter extends UsernamePasswordAuthenticationFi
         }
     }
 }
-
