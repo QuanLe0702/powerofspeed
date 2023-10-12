@@ -12,10 +12,10 @@
         <h3 class="mb-30 about-title">our exclusive team</h3>
         <div class="row text-center">
             <!-- Single Team Start Here -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6" th:each="about:${abouts}">
                 <div class="single-team mb-all-30">
                     <div class="team-img sidebar-img">
-                        <img src="img\team\2.jpg" alt="team-image">
+                        <img th:src="@{'/backend/dist/img/about/' + ${about.image}}" alt="team-image}">
                         <div class="team-link">
                             <ul>
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -25,72 +25,14 @@
                         </div>
                     </div>
                     <div class="team-info">
-                        <h4>Marcos Alonso</h4>
-                        <p>web designer</p>
+                        <h4 th:utext="${about.name}"></h4>
+                        <p th:utext="${about.description}"></p>
                     </div>
                 </div>
             </div>
             <!-- Single Team End Here -->
-            <!-- Single Team Start Here -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="single-team mb-all-30">
-                    <div class="team-img sidebar-img">
-                        <img src="img\team\1.jpg" alt="team-image">
-                        <div class="team-link">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4>Luis Aragones</h4>
-                        <p>web developer</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Team End Here -->
-            <!-- Single Team Start Here -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="single-team mb-xxs-30">
-                    <div class="team-img sidebar-img">
-                        <img src="img\team\3.jpg" alt="team-image">
-                        <div class="team-link">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4>Maria Alessis</h4>
-                        <p>class master</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Team End Here -->
-            <!-- Single Team Start Here -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                <div class="single-team">
-                    <div class="team-img sidebar-img">
-                        <img src="img\team\4.jpg" alt="team-image">
-                        <div class="team-link">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4>John Doe</h4>
-                        <p>php developer</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Single Team End Here -->
+
+
         </div>
     </div>
     <!-- Container End -->

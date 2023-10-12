@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home || Truemart Responsive Html5 Ecommerce Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicons -->
     <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
@@ -52,37 +51,11 @@
                 <!-- Header Top Start -->
                 <div class="header-top">
                     <ul>
-                        <li><a href="#">Free Shipping on order over $99</a></li>
-                        <li><a th:href="@{/cart}">Shopping Cart</a></li>
+                        <li><a th:href="@{/searchOrder}">View Your Order</a></li>
                         <li><a th:href="@{/wishlist}">My WishList</a></li>
                     </ul>
                     <ul>
-<!--                        <li><span>Language</span> <a href="#">English<i class="lnr lnr-chevron-down"></i></a>-->
-<!--                            &lt;!&ndash; Dropdown Start &ndash;&gt;-->
-<!--                            <ul class="ht-dropdown">-->
-<!--                                <li><a href="#"><img th:src="@{/frontend/img/header/1.jpg}" alt="language-selector">English</a></li>-->
-<!--                                <li><a href="#"><img th:src="@{/frontend/img/header/2.jpg}" alt="language-selector">Francis</a></li>-->
-<!--                            </ul>-->
-<!--                            &lt;!&ndash; Dropdown End &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li><span>Currency</span><a href="#"> USD $ <i class="lnr lnr-chevron-down"></i></a>-->
-<!--                            &lt;!&ndash; Dropdown Start &ndash;&gt;-->
-<!--                            <ul class="ht-dropdown">-->
-<!--                                <li><a href="#">&#36; USD</a></li>-->
-<!--                                <li><a href="#"> € Euro</a></li>-->
-<!--                                <li><a href="#">&#163; Pound Sterling</a></li>-->
-<!--                            </ul>-->
-<!--                            &lt;!&ndash; Dropdown End &ndash;&gt;-->
-<!--                        </li>-->
                         <li sec:authorize="hasAnyAuthority('ADMIN', 'STAFF')"><a th:href="@{/admin/dashboard}">Admin Page</a>
-                        </li>
-                        <li sec:authorize="!isAuthenticated()"><a href="#" >My Account<i class="lnr lnr-chevron-down"></i></a>
-                            <!-- Dropdown Start -->
-                            <ul class="ht-dropdown">
-                                <li><a th:href="@{/login}">Login</a></li>
-                                <li><a th:href="@{/register}">Register</a></li>
-                            </ul>
-                            <!-- Dropdown End -->
                         </li>
                         <li sec:authorize="isAuthenticated()"><a href="#" th:utext="${#request.userPrincipal.principal.getFullName()}"><i class="lnr lnr-chevron-down"></i></a>
                             <!-- Dropdown Start -->
@@ -112,73 +85,48 @@
                     <!-- Categorie Search Box Start Here -->
                     <div class="col-lg-5 col-md-8 ml-auto mr-auto col-10">
                         <div class="categorie-search-box">
-                            <form action="#">
+                            <form action="#" th:action="@{/search}" method="get">
                                 <div class="form-group">
                                     <select class="bootstrap-select" name="poscats">
                                         <option value="0">All categories</option>
-                                        <option value="2">Arrivals</option>
-                                        <option value="3">Cameras</option>
-                                        <option value="4">Cords and Cables</option>
-                                        <option value="5">gps accessories</option>
-                                        <option value="6">Microphones</option>
-                                        <option value="7">Wireless Transmitters</option>
-                                        <option value="8">GamePad</option>
-                                        <option value="9">cube lifestyle hd</option>
-                                        <option value="10">Bags</option>
-                                        <option value="11">Bottoms</option>
-                                        <option value="12">Shirts</option>
-                                        <option value="13">Tailored</option>
-                                        <option value="14">Home &amp; Kitchen</option>
-                                        <option value="15">Large Appliances</option>
-                                        <option value="16">Armchairs</option>
-                                        <option value="17">Bunk Bed</option>
-                                        <option value="18">Mattress</option>
-                                        <option value="19">Sideboard</option>
-                                        <option value="20">Small Appliances</option>
-                                        <option value="21">Bootees Bags</option>
-                                        <option value="22">Jackets</option>
-                                        <option value="23">Shelf</option>
-                                        <option value="24">Shoes</option>
-                                        <option value="25">Phones &amp; Tablets</option>
-                                        <option value="26">Tablet</option>
-                                        <option value="27">phones</option>
+                                        <option th:each="subCategory : ${@getSubCategoryLit}" th:value="${subCategory.getSubcatId()}" th:utext="${subCategory.getSubName()}"></option>
                                     </select>
                                 </div>
-                                <input type="text" name="search" placeholder="I’m shopping for...">
-                                <button><i class="lnr lnr-magnifier"></i></button>
+                                <input type="text" name="query" placeholder="I’m shopping for...">
+                                <button type="submit"><i class="lnr lnr-magnifier"></i></button>
                             </form>
                         </div>
                     </div>
                     <!-- Categorie Search Box End Here -->
                     <!-- Cart Box Start Here -->
                     <div class="col-lg-4 col-md-12">
-                        <div class="cart-box mt-all-30">
+                            <div class="cart-box mt-all-30">
                             <ul class="d-flex justify-content-lg-end justify-content-center align-items-center">
-                                <li><a th:href="@{/cart}"><i class="lnr lnr-cart"></i><span class="my-cart"><span class="total-pro"><th:block th:text="${session.myCartNum}"></th:block></span><span>cart</span></span></a>
+                                <li th:if="${session.gioHang != null}"><a th:href="@{/cart}"><i class="lnr lnr-cart"></i><span class="my-cart"><span class="total-pro"><th:block th:text="${session.gioHang.itemCount}"></th:block></span><span>cart</span></span></a>
                                     <ul class="ht-dropdown cart-box-width">
                                         <li>
                                             <!-- Cart Box Start -->
-                                            <div class="single-cart-box" th:each="map : ${session.myCartItems}">
-                                                <div class="cart-img">
-                                                    <a th:href="@{'/productDetail/' + ${map.value.product.id}}"><img th:each="image: ${map.value.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image"></a>
-                                                    <span class="pro-quantity" th:text="${map.value.quantity} + 'X'"></span>
-                                                </div>
-                                                <div class="cart-content">
-                                                    <h6><a th:href="@{'/productDetail/' + ${map.value.product.id}}" th:text="${map.value.product.productName}"></a></h6>
-                                                    <div style="display: flex; align-items: center";>
-                                                        <span th:text="${map.value.product.getSavePrice()}+' X '+ ${map.value.quantity} + ' = '"></span>
-                                                        <span class="cart-price" th:text="${map.value.product.getSavePrice()}*${map.value.quantity}"></span>
+                                            <div class="single-cart-box" th:each="map : ${session.gioHang.items}">
+                                                    <div class="cart-img">
+                                                        <a th:href="@{'/productDetail/' + ${map.product.id}}"><img th:each="image: ${map.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image"></a>
+                                                        <span class="pro-quantity" th:text="${map.quantity} + 'X'"></span>
+                                                    </div>
+                                                    <div class="cart-content">
+                                                        <h6><a th:href="@{'/productDetail/' + ${map.product.id}}" th:text="${map.product.productName}"></a></h6>
+                                                        <div style="display: flex; align-items: center";>
+                                                            <span th:text="${map.product.getSavePrice()}+' X '+ ${map.quantity} + ' = '"></span>
+                                                            <span class="cart-price" th:text="${map.subTotal}"></span>
+                                                        </div>
                                                     </div>
 
-
-                                                </div>
-                                                <a class="del-icone" th:href="@{'/cart/remove/'+${map.value.product.id}}"><i class="ion-close"></i></a>
+                                                <a class="del-icone" th:href="@{'/cart/remove/'+${map.product.id}}"><i class="ion-close"></i></a>
                                             </div>
+
                                             <!-- Cart Box End -->
                                             <!-- Cart Footer Inner Start -->
                                             <div class="cart-footer">
                                                 <ul class="price-content">
-                                                    <li>Total <span th:text="${session.myCartTotal}"></span></li>
+                                                    <li>Total <span th:text="${session.gioHang.total}"></span></li>
                                                 </ul>
                                                 <div class="cart-actions text-center">
                                                     <a class="cart-checkout" th:href="@{/checkout}">Checkout</a>
@@ -188,14 +136,34 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li th:unless="${session.gioHang != null}"><a th:href="@{/cart}"><i class="lnr lnr-cart"></i><span class="my-cart"><span class="total-pro">0</span><span>cart</span></span></a>
+                                    <ul class="ht-dropdown cart-box-width">
+                                        <li>
+                                            <!-- Cart Footer Inner Start -->
+                                            <div class="cart-footer">
+                                                <div class="cart-actions text-center">
+                                                    <p class="cart-checkout">No items cart</p>
+                                                </div>
+                                            </div>
+                                            <!-- Cart Footer Inner End -->
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li><a href="#"><i class="lnr lnr-heart"></i><span class="my-cart"><span>Wish</span><span>list (0)</span></span></a>
                                 </li>
-                                <li><a href="#"><i class="lnr lnr-user"></i><span class="my-cart"><span> <strong>Sign in</strong> Or</span><span> Join My Site</span></span></a>
+                                <li sec:authorize="!isAuthenticated()"><a href="#"><i class="lnr lnr-user"></i><span class="my-cart"><span> <strong>Sign in</strong> Or</span><span> Join My Site</span></span></a>
 
-
+                                    <!-- Dropdown Start -->
+                                    <ul class="ht-dropdown cart-box-width-2">
+                                        <li><a th:href="@{/login}">Login</a></li>
+                                        <li><a th:href="@{/register}">Register</a></li>
+                                    </ul>
+                                    <!-- Dropdown End -->
 
                                 </li>
+
                             </ul>
+                        </div>
                         </div>
                     </div>
                     <!-- Cart Box End Here -->
@@ -251,9 +219,8 @@
 
                                     <!-- Home Version Dropdown End -->
                                 </li>
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="contactUs.html">contact us</a></li>
-                                <li><a href="dashboard.html">Dashboard</a></li>
+                                <li><a th:href="@{about}">About us</a></li>
+                                <li><a th:href="@{/contactUs}">contact us</a></li>
                             </ul>
                         </nav>
                         <div class="mobile-menu d-block d-lg-none">
@@ -584,113 +551,6 @@
         <!-- Footer Bottom End -->
     </footer>
     <!-- Footer Area End Here -->
-    <!-- Quick View Content Start -->
-    <div class="main-product-thumbnail quick-thumb-content">
-        <div class="container">
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <div class="row">
-                                <!-- Main Thumbnail Image Start -->
-                                <div class="col-lg-5 col-md-6 col-sm-5">
-                                    <!-- Thumbnail Large Image start -->
-                                    <div class="tab-content">
-                                        <div id="thumb1" class="tab-pane fade show active">
-                                            <a data-fancybox="images" th:href="@{/frontend/img/products/35.jpg}"><img th:src="@{/frontend/img/products/35.jpg}" alt="product-view"></a>
-                                        </div>
-                                        <div id="thumb2" class="tab-pane fade">
-                                            <a data-fancybox="images" th:href="@{/frontend/img/products/13.jpg}"><img th:src="@{/frontend/img/products/13.jpg}" alt="product-view"></a>
-                                        </div>
-                                        <div id="thumb3" class="tab-pane fade">
-                                            <a data-fancybox="images" th:href="@{/frontend/img/products/15.jpg}"><img th:src="@{/frontend/img/products/15.jpg}" alt="product-view"></a>
-                                        </div>
-                                        <div id="thumb4" class="tab-pane fade">
-                                            <a data-fancybox="images" th:href="@{/frontend/img/products/4.jpg}"><img th:src="@{/frontend/img/products/4.jpg}" alt="product-view"></a>
-                                        </div>
-                                        <div id="thumb5" class="tab-pane fade">
-                                            <a data-fancybox="images" th:href="@{/frontend/img/products/5.jpg}"><img th:src="@{/frontend/img/products/5.jpg}" alt="product-view"></a>
-                                        </div>
-                                    </div>
-                                    <!-- Thumbnail Large Image End -->
-                                    <!-- Thumbnail Image End -->
-                                    <div class="product-thumbnail mt-20">
-                                        <div class="thumb-menu owl-carousel nav tabs-area" role="tablist">
-                                            <a class="active" data-toggle="tab" href="#thumb1"><img th:src="@{/frontend/img/products/35.jpg}" alt="product-thumbnail"></a>
-                                            <a data-toggle="tab" href="#thumb2"><img th:src="@{/frontend/img/products/13.jpg}" alt="product-thumbnail"></a>
-                                            <a data-toggle="tab" href="#thumb3"><img th:src="@{/frontend/img/products/15.jpg}" alt="product-thumbnail"></a>
-                                            <a data-toggle="tab" href="#thumb4"><img th:src="@{/frontend/img/products/4.jpg}" alt="product-thumbnail"></a>
-                                            <a data-toggle="tab" href="#thumb5"><img th:src="@{/frontend/img/products/5.jpg}" alt="product-thumbnail"></a>
-                                        </div>
-                                    </div>
-                                    <!-- Thumbnail image end -->
-                                </div>
-                                <!-- Main Thumbnail Image End -->
-                                <!-- Thumbnail Description Start -->
-                                <div class="col-lg-7 col-md-6 col-sm-7">
-                                    <div class="thubnail-desc fix mt-sm-40">
-                                        <h3 class="product-header">Printed Summer Dress</h3>
-                                        <div class="pro-price mtb-30">
-                                            <p class="d-flex align-items-center"><span class="prev-price">16.51</span><span class="price">$15.19</span><span class="saving-price">save 8%</span></p>
-                                        </div>
-                                        <p class="mb-20 pro-desc-details">Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress.</p>
-                                        <div class="product-size mb-20 clearfix">
-                                            <label>Size</label>
-                                            <select class="">
-                                                <option>S</option>
-                                                <option>M</option>
-                                                <option>L</option>
-                                            </select>
-                                        </div>
-                                        <div class="color mb-20">
-                                            <label>color</label>
-                                            <ul class="color-list">
-                                                <li>
-                                                    <a class="orange active" href="#"></a>
-                                                </li>
-                                                <li>
-                                                    <a class="paste" href="#"></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="box-quantity d-flex">
-                                            <form action="#">
-                                                <input class="quantity mr-40" type="number" min="1" value="1">
-                                            </form>
-                                            <a class="add-cart" href="cart.html">add to cart</a>
-                                        </div>
-                                        <div class="pro-ref mt-15">
-                                            <p><span class="in-stock"><i class="ion-checkmark-round"></i> IN STOCK</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Thumbnail Description End -->
-                            </div>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="custom-footer">
-                            <div class="socila-sharing">
-                                <ul class="d-flex">
-                                    <li>share</li>
-                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quick View Content End -->
 </div>
 <!-- Main Wrapper End Here -->
 

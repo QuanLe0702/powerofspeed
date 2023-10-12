@@ -63,37 +63,39 @@
                                 </div>
                             </div>
                             <div class="pro-price mtb-30">
-                                <p class="d-flex align-items-center"><span class="prev-price" th:utext="${'$' + productDetail.getSavePrice()}"></span><span class="price" th:utext="${'$' + productDetail.getUnitPrice()}"></span><span class="saving-price">save <span th:utext="${productDetail.savePrice * 100 / productDetail.getUnitPrice() + '%'}"></span></span></p>
+                                <p class="d-flex align-items-center"><span class="prev-price" th:utext="${'$' + productDetail.getSavePrice()}"></span><span class="price" th:utext="${'$' + productDetail.getUnitPrice()}"></span><span th:if="${productDetail.savePrice>0}" class="saving-price">save <span th:utext="${productDetail.savePrice * 100 / productDetail.getUnitPrice() + '%'}"></span></span></p>
                             </div>
                             <p class="mb-20 pro-desc-details" th:utext="${productDetail.getProductDescription()}"></p>
                             <div class="box-quantity d-flex hot-product2">
-                                <form action="#">
-                                    <input class="quantity mr-15" type="number" min="1" value="1">
+                                <form class="d-flex" th:action="@{/cart/addMulti}" method="post">
+                                    <input type="hidden" th:value="${productDetail.id}" name="id">
+                                    <input class="quantity" type="number" min="1" value="1" name="qty">
+                                    <div class="pro-actions">
+                                        <div class="actions-primary">
+                                            <button class="mr-10 btn btn-danger" type="submit">Add to cart</button>
+                                        </div>
+                                        <div class="actions-secondary">
+                                            <a th:href="@{'/wishlist/add/' + ${productDetail.id}}" title="" data-original-title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
+                                        </div>
+                                    </div>
                                 </form>
-                                <div class="pro-actions">
-                                    <div class="actions-primary">
-                                        <a th:href="@{'/cart/add/' + ${productDetail.getId()}}" title="" data-original-title="Add to Cart"> + Add To Cart</a>
-                                    </div>
-                                    <div class="actions-secondary">
-                                        <a href="compare.html" title="" data-original-title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                        <a href="wishlist.html" title="" data-original-title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="pro-ref mt-20">
-<!--                                <p><span class="in-stock" th:if="${product.getStock()>0}"><i class="ion-checkmark-round"></i> IN STOCK</span></p>-->
+                                <p th:if="${productDetail.getStock() == 0}"><span class="out-stock" ><i class="fa fa-times"></i> OUT OF STOCK</span></p>
+                                <p th:unless="${productDetail.getStock() == 0}"><span class="in-stock" ><i class="ion-checkmark-round"></i> IN STOCK (<th:block th:utext="${productDetail.getStock()}"></th:block>)</span></p>
+                                <p th:if="${outofstock != null}"><span class="out-stock" ><i class="fa fa-times"></i> <th:block th:utext="${outofstock}"></th:block></span></p>
 
-<!--                                <p><span class="out-stock" th:unless="${product.getStock()>0}"><i class="fa fa-times"></i> OUT OF STOCK</span></p>-->
+
                             </div>
-<!--                            <div class="socila-sharing mt-25">-->
-<!--                                <ul class="d-flex">-->
-<!--                                    <li>share</li>-->
-<!--                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>-->
-<!--                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>-->
-<!--                                    <li><a href="#"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a></li>-->
-<!--                                    <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
+                            <div class="socila-sharing mt-25">
+                                <ul class="d-flex">
+                                    <li>Share</li>
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <!-- Thumbnail Description End -->

@@ -50,7 +50,7 @@
                         <div class="search-filter mb-40">
                             <h3 class="sidebar-title">filter by price</h3>
                             <form action="#" th:action="@{/collections/}" class="sidbar-style" method="get">
-                                    min :<input type="number" id="from" name="from" value="0" style="margin-right: 10px; width: 60px"/>
+                                min :<input type="number" id="from" name="from" value="0" style="margin-right: 10px; width: 60px"/>
                                 max :<input type="number" id="to" name="to" value="0" style="width:60px" />
                                 <input type="submit" value="Filter" />
                             </form>
@@ -109,7 +109,7 @@
                             <div id="grid-view" class="tab-pane fade show active">
                                 <div class="row">
                                     <!-- Single Product Start -->
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6" th:each="product : ${products.getContent()}" th:if="${product.getBidDetail() == null}">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6" th:each="product : ${products}" th:if="${product.getBidDetail() == null}">
                                         <div class="single-product">
                                             <!-- Product Image Start -->
                                             <div class="pro-img">
@@ -146,7 +146,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6" th:each="product : ${products.getContent()}" th:if="${product.getBidDetail() != null}">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6" th:each="product : ${products}" th:if="${product.getBidDetail() != null}">
                                         <!-- Single Product Start -->
                                         <div class="single-product">
                                             <!-- Product Image Start -->
@@ -206,7 +206,7 @@
                             <!-- #grid view End -->
                             <div id="list-view" class="tab-pane fade">
                                 <!-- Single Product Start -->
-                                <div class="single-product" th:each="product : ${products.getContent()}">
+                                <div class="single-product" th:each="product : ${products}">
                                     <div class="row">
                                         <!-- Product Image Start -->
                                         <div class="col-lg-4 col-md-5 col-sm-12">
@@ -249,35 +249,6 @@
                                 <!-- Single Product End -->
                             </div>
                             <!-- #list view End -->
-                            <div class="pro-pagination" th:if="${products.totalPages gt 0}">
-
-                                <ul class="blog-pagination">
-                                    <li th:if="${products.number ne 0}">
-                                        <a th:if="${#request.getParameter('size') != null}" th:href="@{/collections(page=${products.number lt 2 ? 1 : products.number}, size=${#request.getParameter('size')})}"><i class="fa fa-angle-left"></i>
-                                        </a>
-                                        <a th:unless="${#request.getParameter('size') != null}" th:href="@{/collections(page=${products.number lt 2 ? 1 : products.number})}"><i class="fa fa-angle-left"></i>
-                                        </a>
-                                    </li>
-                                    <li th:classappend="${i eq products.number + 1} ? 'active'"
-                                        th:each="i : ${#numbers.sequence( products.number + 1, products.totalPages > 10 + products.number ? products.number + 10 : products.totalPages, 1)}">
-                                        <a th:if="${#request.getParameter('size') != null}" th:href="@{/collections(page=${i}, size=${#request.getParameter('size')})}" th:text="${i}"
-                                           th:title="${'Page '+ i}"></a>
-                                        <a th:unless="${#request.getParameter('size') != null}" th:href="@{/collections(page=${i})}" th:text="${i}"
-                                           th:title="${'Page '+ i}"></a>
-                                    </li>
-                                    <li th:if="${products.number + 10 < products.totalPages}"><a href="#"></a></li>
-                                    <li th:if="${products.number + 1 ne products.totalPages}">
-                                        <a th:if="${#request.getParameter('size') != null}" th:href="@{/collections(page=${products.number + 2}, size=${#request.getParameter('size')})}"><i class="fa fa-angle-right"></i>
-                                        </a>
-                                        <a th:unless="${#request.getParameter('size') != null}" th:href="@{/collections(page=${products.number + 2})}"><i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="product-pagination">
-                                    <span class="grid-item-list">Showing <th:block th:utext="${products.numberOfElements}"></th:block> to <th:block th:utext="${products.size}"></th:block>  of <th:block th:utext="${products.totalElements}"></th:block> (<th:block th:utext="${products.totalPages}"></th:block> Pages)</span>
-                                </div>
-                            </div>
-                            <!-- Product Pagination Info -->
                         </div>
                         <!-- Grid & List Main Area End -->
                     </div>

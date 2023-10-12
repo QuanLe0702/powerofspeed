@@ -12,8 +12,8 @@
             <div class="container">
                 <div class="breadcrumb">
                     <ul class="d-flex align-items-center">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active"><a href="cart.html">Cart</a></li>
+                        <li><a th:href="@{/}">Home</a></li>
+                        <li class="active"><a th:href="@{/cart}">Cart</a></li>
                     </ul>
                 </div>
             </div>
@@ -23,33 +23,39 @@
         <!-- Cart Main Area Start -->
         <div class="cart-main-area ptb-100 ptb-sm-60">
             <div class="container">
-                <div class="row">
+                <!-- Row start-->
+                <p th:if="${outofstock != null}"><span class="out-stock" ><i class="fa fa-times"></i> <th:block th:utext="${outofstock}"></th:block></span></p>
+                <div class="row" th:if="${session.gioHang != null}">
                     <div class="col-md-12 col-sm-12">
-                        <!-- Form Start -->
-                        <form th:action="@{/cart/update}" method="post">
                             <!-- Table Content Start -->
                             <div class="table-content table-responsive mb-45">
                                 <table>
                                     <thead>
-                                    <tr>
+                                    <tr style="background: black; color: white;">
                                         <th class="product-thumbnail">Image</th>
                                         <th class="product-name">Product</th>
                                         <th class="product-price">Price</th>
                                         <th class="product-quantity">Quantity</th>
-                                        <th class="product-subtotal">Total</th>
+                                        <th class="product-subtotal">Sub Total</th>
                                         <th class="product-remove">Remove</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="map : ${session.myCartItems}">
+                                    <tr th:each="map : ${session.gioHang.items}">
                                         <td class="product-thumbnail">
-                                            <a href="#"><img th:each="image: ${map.value.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image"></a>
+                                            <a href="#"><img th:each="image: ${map.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image"></a>
                                         </td>
-                                        <td class="product-name"><a href="#" th:text="${map.value.product.productName}"></a></td>
-                                        <td class="product-price"><span class="amount" th:text="${map.value.product.savePrice}"></span></td>
-                                        <td class="product-quantity"><input type="number" th:name="quantity" th:value="${map.value.quantity}"></td>
-                                        <td class="product-subtotal" th:text="${map.value.product.savePrice} * ${map.value.quantity}"></td>
-                                        <td class="product-remove"> <a th:href="@{'/cart/remove/'+${map.value.product.id}}"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                        <td class="product-name"><a href="#" th:text="${map.product.productName}"></a></td>
+                                        <td class="product-price"><span class="amount" th:text="${map.product.savePrice}"></span></td>
+                                        <td class="product-quantity">
+                                            <form th:action="@{/cart/update}" method="post">
+                                                <input type="hidden" th:value="${map.product.id}" name="id">
+                                                <input type="number" min="1" th:value="${map.quantity}" name="qty">
+                                                <button class="btn btn-primary" type="submit">Update</button>
+                                            </form>
+                                        </td>
+                                        <td class="product-subtotal" th:text="${map.subTotal}"></td>
+                                        <td class="product-remove"> <a th:href="@{'/cart/remove/' + ${map.product.id}}"><i class="fa fa-times" aria-hidden="true"></i></a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -59,7 +65,6 @@
                                 <!-- Cart Button Start -->
                                 <div class="col-md-8 col-sm-12">
                                     <div class="buttons-cart">
-                                        <input type="submit" value="Update"/>
                                         <a th:href="@{/shop}">Continue Shopping</a>
                                     </div>
                                 </div>
@@ -74,7 +79,7 @@
                                             <tr class="order-total">
                                                 <th>Total</th>
                                                 <td>
-                                                    <strong><span class="amount" th:text="${session.myCartTotal}"></span></strong>
+                                                    <strong><span class="amount" th:text="${session.gioHang.total}"></span></strong>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -87,14 +92,35 @@
                                 <!-- Cart Totals End -->
                             </div>
                             <!-- Row End -->
-                        </form>
                         <!-- Form End -->
                     </div>
                 </div>
                 <!-- Row End -->
+
+                <div class="row" th:unless="${session.gioHang != null}">
+                    <div class="col-md-12">
+                        <div class="error-wrapper text-center">
+                            <div class="error-text">
+                                <h2>CART IS EMPTY</h2>
+                                <p>You should add items to cart</p>
+                            </div>
+                            <div class="error-button">
+                                <a th:href="@{/}">Back to home page</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Cart Main Area End -->
     </div>
+<script layout:fragment="scripts">
+    $(document).ready(function(){
+        $('.qty').on('change keyup', function() {
+            console.log('nice');
+        });
+    });
+</script>
+
 </body>
 </html>

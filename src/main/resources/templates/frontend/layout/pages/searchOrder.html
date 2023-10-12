@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area mt-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul class="d-flex align-items-center">
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li class="active"><a href="#">View Order</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- Error 404 Area Start -->
+    <div class="error404-area ptb-100 ptb-sm-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="error-wrapper text-center">
+                        <div class="error-text">
+                            <h2>View Your Order</h2>
+                            <p>Enter your Order number to view:</p>
+                        </div>
+                        <div class="search-error">
+                            <form id="search-form" th:action="searchOrder" method="post">
+                                <input type="text" placeholder="Order number" name="id">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div th:object="${order}" th:if="${order !=null}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body p-0">
+                                                <div class="row p-5">
+                                                    <div class="col-md-6">
+                                                        <img style="max-width:100%;width:auto;height:58px;" th:src="@{/frontend/img/logo/logo3.png}" alt="logo-image">
+                                                    </div>
+
+                                                    <div class="col-md-6 text-right">
+                                                        <p class="font-weight-bold mb-1" th:text="'Invoice: ' + *{id}"></p>
+                                                        <p class="text-muted" th:text="'Due to: ' + *{createAt}"></p>
+                                                    </div>
+                                                </div>
+
+                                                <hr class="my-5">
+
+                                                <div class="row pb-5 p-5">
+                                                    <div class="col-md-6">
+                                                        <p class="font-weight-bold mb-4">Client Information</p>
+                                                        <p class="mb-1" th:text="*{firstName+' ' + lastName}"></p>
+                                                        <p th:text="*{address}"></p>
+                                                        <p class="mb-1" th:text="*{city + ', ' + stateOrRegion + ', ' + country}"></p>
+                                                        <p class="mb-1" th:text="*{phoneNumber}"></p>
+                                                    </div>
+
+                                                    <div class="col-md-6 text-right">
+                                                        <p class="font-weight-bold mb-4">Payment Details</p>
+                                                        <p class="mb-1"><span class="text-muted" th:text="${order.paymentMethod}"> </span></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row p-5">
+                                                    <div class="col-md-12">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="border-0 text-uppercase small font-weight-bold">ID</th>
+                                                                <th class="border-0 text-uppercase small font-weight-bold">Item</th>
+                                                                <th class="border-0 text-uppercase small font-weight-bold">Quantity</th>
+                                                                <th class="border-0 text-uppercase small font-weight-bold">Price</th>
+                                                                <th class="border-0 text-uppercase small font-weight-bold">Total</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="map : ${order.getOrderDetails()}">
+                                                                <td class="product-image">
+                                                                <img width="70" height="70" th:each="image: ${map.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image">
+                                                            </td>
+                                                                <td th:text="${map.product.productName}"></td>
+                                                                <td th:text="${map.quantity}"></td>
+                                                                <td th:text="${map.price}"></td>
+                                                                <td th:text="${map.price * map.quantity}"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex flex-row-reverse bg-dark text-white p-4">
+                                                    <div class="py-3 px-5 text-right">
+                                                        <div class="mb-2">Grand Total</div>
+                                                        <div class="h2 font-weight-light" th:text="*{amount + amount*0.1}"></div>
+                                                    </div>
+
+                                                    <div class="py-3 px-5 text-right">
+                                                        <div class="mb-2">Shipping</div>
+                                                        <div class="h2 font-weight-light" th:text="*{amount*0.1}"></div>
+                                                    </div>
+
+                                                    <div class="py-3 px-5 text-right">
+                                                        <div class="mb-2">Sub - Total amount</div>
+                                                        <div class="h2 font-weight-light" th:text="*{amount}"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-light mt-5 mb-5 text-center small">by : <a class="text-light" target="_blank" href="http://totoprayogo.com">totoprayogo.com</a></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Error 404 Area End -->
+</div>
+</body>
+</html>

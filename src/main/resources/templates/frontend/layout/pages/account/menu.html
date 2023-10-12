@@ -7,10 +7,10 @@
 <body>
 <ul class="dashboard-menu" th:fragment="menu">
     <li>
-        <a href="dashboard.html"><i class="fa fa-dashboard"></i>Dashboard</a>
+        <a th:href="@{/account/dashboard}" th:classappend="${#request.getServletPath().contains('/account/dashboard') ? ' active' : ''}"><i class="fa fa-dashboard"></i>Dashboard</a>
     </li>
     <li>
-        <a href="#0" class="active"><i class="fa fa-user"></i>Personal Profile </a>
+        <a th:href="@{/account/profile}" th:classappend="${#request.getServletPath().contains('/account/profile') ? ' active' : ''}"><i class="fa fa-user"></i>Personal Profile </a>
     </li>
     <li>
         <a href="my-bid.html"><i class="fa fa-balance-scale"></i>My Bids</a>
@@ -18,11 +18,11 @@
     <li>
         <a href="winning-bids.html"><i class="fa fa-trophy" aria-hidden="true"></i>Winning Bids</a>
     </li>
+<!--    <li>-->
+<!--        <a href="notifications.html"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>My Cart</a>-->
+<!--    </li>-->
     <li>
-        <a href="notifications.html"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>My Cart</a>
-    </li>
-    <li>
-        <a href="my-favorites.html"><i class="fa fa-heart" aria-hidden="true"></i>My Favorites</a>
+        <a th:href="@{/account/wishlist}" th:classappend="${#request.getServletPath().contains('/account/wishlist') ? ' active' : ''}"><i class="fa fa-heart" aria-hidden="true"></i>My Wishlist</a>
     </li>
 </ul>
 </body>

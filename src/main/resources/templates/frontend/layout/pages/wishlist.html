@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlist</title>
+</head>
+<body>
+<div layout:fragment="content">
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-area mt-30">
+    <div class="container">
+        <div class="breadcrumb">
+            <ul class="d-flex align-items-center">
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="wishlist.html">Wishlist</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Container End -->
+</div>
+<!-- Breadcrumb End -->
+<!-- Wish List Start -->
+<div class="cart-main-area wish-list ptb-100 ptb-sm-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- Form Start -->
+                <form action="#">
+                    <!-- Table Content Start -->
+                    <div class="table-content table-responsive">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="product-remove">Remove</th>
+                                <th class="product-thumbnail">Image</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Unit Price</th>
+<!--                                <th class="product-quantity">Stock Status</th>-->
+                                <th class="product-subtotal">add to cart</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="product : ${wishlist.getProducts()}">
+
+
+                                <td class="product-remove"> <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a></td>
+                                <td class="product-thumbnail">
+                                    <a th:href="@{'/productDetail/' + ${product.id}}">
+                                        <img th:each="image : ${product.getImagesCollection()}"
+                                                     th:if="${image.mainImage} == true" class="primary-img"
+                                                     th:src="@{'/backend/dist/img/products/' + ${image.getName()}}"
+                                                  width="50" height="50" th:alt="${image.getName()}"></a>
+                                </td>
+                                <td class="product-name"><a href="#" th:text="${product.productName}"></a></td>
+                                <td class="product-price"><span class="amount" th:utext="${product.getUnitPrice()}"> </span></td>
+<!--                                <td class="product-stock-status"><span th:utext="${product.get}"></span></td>-->
+                                <td class="product-add-to-cart"><a href="#">add to cart</a></td>
+                                
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Table Content Start -->
+                </form>
+                <!-- Form End -->
+            </div>
+        </div>
+        <!-- Row End -->
+    </div>
+</div>
+<!-- Wish List End -->
+
+</div>
+</body>
+</html>
