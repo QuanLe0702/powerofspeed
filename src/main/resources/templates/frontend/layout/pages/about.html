@@ -1,42 +1,56 @@
-<!doctype html>
-<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"  layout:decorator="frontend/layout/frontend_layout">
-
-<head>
-    <meta charset="UTF-8">
+<!DOCTYPE html>
+<html
+  class="no-js"
+  lang="zxx"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+  layout:decorator="frontend/layout/frontend_layout"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<!-- About Us Team Start Here -->
-<div class="about-team pt-100 pt-sm-60" layout:fragment="content">
-    <div class="container">
+  </head>
+  <style>
+    .single-team {
+      text-align: center;
+    }
+
+    .team-img img {
+      width: 100%; /* Đảm bảo rằng ảnh sẽ chiếm toàn bộ chiều rộng của div cha */
+      height: auto; /* Giữ tỷ lệ khung hình */
+      max-height: 200px; /* Đặt chiều cao tối đa cho ảnh (thay đổi theo nhu cầu của bạn) */
+    }
+  </style>
+
+  <body>
+    <!-- About Us Team Start Here -->
+    <div class="about-team pt-100 pt-sm-60" layout:fragment="content">
+      <div class="container">
         <h3 class="mb-30 about-title">our exclusive team</h3>
         <div class="row text-center">
-            <!-- Single Team Start Here -->
-            <div class="col-lg-3 col-md-6 col-sm-6 col-6" th:each="about:${abouts}">
-                <div class="single-team mb-all-30">
-                    <div class="team-img sidebar-img">
-                        <img th:src="@{'/backend/dist/img/about/' + ${about.image}}" alt="team-image}">
-                        <div class="team-link">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="team-info">
-                        <h4 th:utext="${about.name}"></h4>
-                        <p th:utext="${about.description}"></p>
-                    </div>
-                </div>
+          <!-- Single Team Start Here -->
+          <div
+            class="col-lg-3 col-md-6 col-sm-6 col-6"
+            th:each="about:${abouts}"
+          >
+            <div class="single-team mb-all-30">
+              <div class="team-img sidebar-img">
+                <img
+                  th:src="@{'/backend/dist/img/about/' + ${about.image}}"
+                  alt="team-image"
+                />
+              </div>
+              <div class="team-info">
+                <h4 th:utext="${about.name}"></h4>
+                <p th:utext="${about.description}"></p>
+              </div>
             </div>
-            <!-- Single Team End Here -->
-
-
+          </div>
+          <!-- Single Team End Here -->
         </div>
+      </div>
+      <!-- Container End -->
     </div>
-    <!-- Container End -->
-</div>
-<!-- About Us Team End Here -->
-</body>
+    <!-- About Us Team End Here -->
+  </body>
 </html>
