@@ -8,6 +8,8 @@ import vn.aptech.powerofspeed.service.OrderService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +40,12 @@ public class OrderServiceImpl implements OrderService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public Order update(Order order) {
+        return orderRepository.save(order);
+    }
 
 //    @Override
 //    public List<Order> findOrderedByIdLimitedTo(int limit) {
