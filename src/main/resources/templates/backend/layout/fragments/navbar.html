@@ -12,11 +12,11 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a th:href="@{/}" class="nav-link">User Page</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
-        </li>
+        </li> -->
     </ul>
 
     <!-- SEARCH FORM -->
@@ -118,12 +118,12 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
-        <li class="nav-item dropdown user-menu show">
+        <li class="nav-item dropdown user-menu">
 
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
                 <img th:src="@{'/backend/dist/img/user-picture/' + ${#request.userPrincipal.principal.profilePicture}}" class="user-image" th:alt="${#request.userPrincipal.principal.profilePicture}">
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right show" style="left: inherit; right: 0px;">
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                 <!-- User image -->
                 <div class="text-center">
                     <img th:src="@{'/backend/dist/img/user-picture/' + ${#request.userPrincipal.principal.profilePicture}}" width="70" height="70" class="img-circle" th:alt="${#request.userPrincipal.principal.profilePicture}">
