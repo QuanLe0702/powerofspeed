@@ -52,7 +52,7 @@
                 <div class="header-top">
                     <ul>
                         <li><a th:href="@{/searchOrder}">View Your Order</a></li>
-                        <li><a th:href="@{/wishlist}">My WishList</a></li>
+                        <li><a th:href="@{/account/wishlist}">My WishList</a></li>
                     </ul>
                     <ul>
                         <li sec:authorize="hasAnyAuthority('ADMIN', 'STAFF')"><a th:href="@{/admin/dashboard}">Admin Page</a>
@@ -149,7 +149,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="#"><i class="lnr lnr-heart"></i><span class="my-cart"><span>Wish</span><span>list (0)</span></span></a>
+                                <li><a th:href="@{/account/wishlist}"><i class="lnr lnr-heart"></i><span class="my-cart"><span>Wish</span><span>list (0)</span></span></a>
                                 </li>
                                 <li sec:authorize="!isAuthenticated()"><a href="#"><i class="lnr lnr-user"></i><span class="my-cart"><span> <strong>Sign in</strong> Or</span><span> Join My Site</span></span></a>
 
@@ -366,7 +366,7 @@
                                 <ul class="footer-list">
                                     <li><a th:href="@{/account/profile}">Profile</a></li>
                                     <li><a th:href="@{/searchOrder}">Order History</a></li>
-                                    <li><a th:href="@{/wishlist}">Wish List</a></li>
+                                    <li><a th:href="@{/account/wishlist}">Wish List</a></li>
                                     <li><a th:href="@{/cart}">Cart</a></li>
                                     <li><a th:href="@{/logout}">Log out</a></li>
                                 </ul>
