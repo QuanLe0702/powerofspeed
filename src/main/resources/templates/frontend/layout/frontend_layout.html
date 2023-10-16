@@ -78,8 +78,8 @@
             <div class="container">
                 <div class="row align-items-center no-gutters">
                     <div class="col-lg-3 col-md-12">
-                        <div class="logo mb-all-30">
-                            <a th:href="@{/}"><img style="max-width:100%;width:auto;height:58px;" th:src="@{/frontend/img/logo/logo3.png}" alt="logo-image"></a>
+                        <div class="logo mb-all-30" style="padding-left: 2cm;">
+                            <a th:href="@{/}"><img style="max-width:100%;width:auto;height:58px;" th:src="@{/frontend/img/logo/speed.png}" alt="logo-image"></a>
                         </div>
                     </div>
                     <!-- Categorie Search Box Start Here -->
@@ -207,18 +207,7 @@
                                     </ul>
                                     <!-- Home Version Dropdown End -->
                                 </li>
-                                <li><a th:href="@{/blog}">Blogs<i class="fa fa-angle-down"></i></a>
-                                    <!-- Home Version Dropdown Start -->
-<!--                                    <ul class="ht-dropdown dropdown-style-two">-->
-<!--                                        <li><a href="contact.html">contact us</a></li>-->
-<!--                                        <li><a href="register.html">register</a></li>-->
-<!--                                        <li><a href="login.html">sign in</a></li>-->
-<!--                                        <li><a href="forgot-password.html">forgot password</a></li>-->
-<!--                                        <li><a href="404.html">404</a></li>-->
-<!--                                    </ul>-->
-
-                                    <!-- Home Version Dropdown End -->
-                                </li>
+                                <li><a th:href="@{/blog}">Blogs</a></li>
                                 <li><a th:href="@{/about}">About us</a></li>
                                 <li><a th:href="@{/contactUs}">contact us</a></li>
                             </ul>
@@ -375,11 +364,11 @@
                             <h3 class="footer-title">Account</h3>
                             <div class="footer-content">
                                 <ul class="footer-list">
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Returns</a></li>
-                                    <li><a href="#">Order History</a></li>
-                                    <li><a href="#">Wish List</a></li>
-                                    <li><a href="#">Site Map</a></li>
+                                    <li><a th:href="@{/account/profile}">Profile</a></li>
+                                    <li><a th:href="@{/searchOrder}">Order History</a></li>
+                                    <li><a th:href="@{/wishlist}">Wish List</a></li>
+                                    <li><a th:href="@{/cart}">Cart</a></li>
+                                    <li><a th:href="@{/logout}">Log out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -399,7 +388,7 @@
                                     </li>
                                 </ul>
                                <div class="payment mt-25 bdr-top pt-30">
-                                   <a href="#"><img class="img" th:src="@{/frontend/img/payment/1.png}" alt="payment-image"></a>
+                                   <img class="img" th:src="@{/frontend/img/payment/1.png}" alt="payment-image">
                               </div>
                             </div>
                         </div>
