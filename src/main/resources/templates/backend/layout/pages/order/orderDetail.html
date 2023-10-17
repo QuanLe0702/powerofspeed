@@ -71,7 +71,7 @@
                                     <b th:text="'Order ID:' + ${orderDetail.id}"></b><br>
                                     <b th:text="'Payment Method: '+ ${orderDetail.paymentMethod}"></b><br>
                                     <b style="color: green">Status:</b> <select class="form-control" id="productType" name="productType">
-                                        <option th:each="type : ${T(vn.aptech.springboot.amazingtoy.model.order.StatusType).values()}" th:value="${type}" th:utext="${type}"></option>
+                                        <option th:each="type : ${T(vn.aptech.powerofspeed.model.order.StatusType).values()}" th:value="${type}" th:utext="${type}"></option>
                                     </select>
 
                                 </div>

@@ -8,7 +8,7 @@
     <!-- Favicons -->
     <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
     <!-- Fontawesome css -->
-    <link rel="stylesheet" th:href="@{/frontend/css/font-awesome.min.css}">
+        <link rel="stylesheet" th:href="@{/frontend/css/font-awesome.min.css}">
     <!-- Ionicons css -->
     <link rel="stylesheet" th:href="@{/frontend/css/ionicons.min.css}">
     <!-- linearicons css -->
@@ -18,7 +18,7 @@
     <!-- Jquery fancybox css -->
     <link rel="stylesheet" th:href="@{/frontend/css/jquery.fancybox.css}">
     <!-- Jquery ui price slider css -->
-    <link rel="stylesheet" th:href="@{/frontend/css/jquery-ui.min.css}">
+        <link rel="stylesheet" th:href="@{/frontend/css/jquery-ui.min.css}">
     <!-- Meanmenu css -->
     <link rel="stylesheet" th:href="@{/frontend/css/meanmenu.min.css}">
     <!-- Nivo slider css -->
@@ -33,6 +33,18 @@
     <link rel="stylesheet" th:href="@{/frontend/style.css}">
     <!-- Responsive css -->
     <link rel="stylesheet" th:href="@{/frontend/css/responsive.css}">
+
+
+     <!-- css include in assets file -->
+     <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
+     <!-- <link rel="stylesheet" href="assets/css/fontawesome.css">
+     <link rel="stylesheet" href="assets/css/animate.css">
+     <link rel="stylesheet" href="assets/css/metisMenu.css">
+     <link rel="stylesheet" href="assets/css/uikit.min.css">
+     <link rel="stylesheet" href="assets/css/jquery-ui.css">
+     <link rel="stylesheet" href="assets/css/slick.css">
+     <link rel="stylesheet" href="assets/css/magnific-popup.css">
+     <link rel="stylesheet" href="assets/css/main.css"> -->
 
 </head>
 
@@ -319,24 +331,18 @@
     </div>
     <!-- Support Area End Here -->
     <!-- Footer Area Start Here -->
-    <footer class="off-white-bg2 pt-95 bdr-top pt-sm-55">
-        <!-- Footer Top Start -->
-        <div class="footer-top">
+    <footer class="footer" data-background="assets/img/bg/footer_bg.jpg">
+        <div class="newslater newslater__border pt-30 pb-30">
             <div class="container">
-                <!-- Signup Newsletter Start -->
-                <div class="row mb-60">
-                    <div class="col-xl-7 col-lg-7 ml-auto mr-auto col-md-8">
-                        <div class="news-desc text-center mb-30">
-                            <h3>Sign Up For Newsletters</h3>
-                            <p>Be the First to Know. Sign up for newsletter today</p>
-                        </div>
-                        <div class="newsletter-box">
-                            <form action="#">
-                                <input class="subscribe" placeholder="your email address" name="email" id="subscribe" type="text">
-                                <button type="submit" class="submit">subscribe!</button>
-                            </form>
-                        </div>
+                <div class="newslater__two ul_li">
+                    <div class="newslater__content">
+                        <h2 class="title">We are ready to <span>help</span></h2>
+                        <p>For information Consult with our expert members</p>
                     </div>
+                    <form class="newslater__form" action="#!">
+                        <input placeholder="Enter your Email" type="text">
+                        <button>Subscribe</button>
+                    </form>
                 </div>
                 <!-- Signup-Newsletter End -->
 
@@ -408,8 +414,8 @@
                     <!-- Single Footer Start -->
 
                 </div>
-                <!-- Row End -->
             </div>
+
             <!-- Container End -->
         </div>
         <!-- Footer Top End -->
@@ -445,10 +451,10 @@
                 </div>
                 <!-- Copyright -->
             </div>
-            <!-- Container End -->
         </div>
-        <!-- Footer Bottom End -->
     </footer>
+
+
     <!-- Footer Area End Here -->
 </div>
 <!-- Main Wrapper End Here -->
@@ -482,6 +488,22 @@
 <!-- Main activaion js -->
 <script th:src="@{/frontend/js/main.js}"></script>
 
+
+<!-- jquery include -->
+    <!-- <script src="assets/js/jquery-3.5.1.min.js"></script> -->
+<!-- <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/slick.js"></script>
+    <script src="assets/js/backToTop.js"></script>
+<script src="assets/js/uikit.min.js"></script>
+<script src="assets/js/resize-sensor.min.js"></script>
+<script src="assets/js/theia-sticky-sidebar.min.js"></script>
+<script src="assets/js/wow.min.js"></script>
+<script src="assets/js/jqueryui.js"></script>
+<script src="assets/js/touchspin.js"></script>
+<script src="assets/js/countdown.js"></script>
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="assets/js/metisMenu.min.js"></script>
+<script src="assets/js/main.js"></script> -->
 </body>
 
 </html>
