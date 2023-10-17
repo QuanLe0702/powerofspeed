@@ -94,13 +94,13 @@
                                         <div class="col-md-6">
                                             <div class="checkout-form-list mb-30">
                                                 <label>Town / City <span class="required">*</span></label>
-                                                <input type="text" placeholder="Town / City" th:value="${currentUser.getAddressDto().city}" name="city">
+                                                <input required readonly type="text" placeholder="Town / City" th:value="${currentUser.getAddressDto().city}" name="city">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="checkout-form-list mb-30">
                                                 <label>Postcode / Zip <span class="required">*</span></label>
-                                                <input type="text" placeholder="Postcode / Zip" th:value="${currentUser.getAddressDto().postalCode}" name="postalCode">
+                                                <input readonly required type="text" placeholder="Postcode / Zip" th:value="${currentUser.getAddressDto().postalCode}" name="postalCode">
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                         <div class="col-md-12">
                                             <div class="checkout-form-list mb-30">
                                                 <label>Address <span class="required">*</span></label>
-                                                <input type="text" placeholder="Street address" th:value="${currentUser.getAddressDto().address}" name="address">
+                                                <input readonly required type="text" placeholder="Street address" th:value="${currentUser.getAddressDto().address}" name="address">
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                                             <div class="col-md-12">
                                                 <div class="checkout-form-list mb-30">
                                                     <label>Email  <span class="required">*</span></label>
-                                                    <input type="email" placeholder="Email" th:value="${currentUser.email}" name="email">
+                                                    <input readonly required type="email" placeholder="Email" th:value="${currentUser.email}" name="email">
                                                 </div>
                                             </div>
                                         </div>

@@ -122,26 +122,7 @@ public class CheckoutController {
                         break;
                     }
                 }
-                //update cart and order before change page?
-                // orderService.save(order);
-                // for(int i=0; i<cart.getItems().size(); i++){
 
-                //     OrderDetail orderDetail = new OrderDetail();
-                //     orderDetail.setOrder(order);
-                //     orderDetail.setProduct(cart.getItems().get(i).getProduct());
-                //     orderDetail.setPrice(cart.getItems().get(i).getProduct().getSavePrice());
-                //     orderDetail.setQuantity(cart.getItems().get(i).getQuantity());
-                //     orderDetail.setStatus(true);
-
-                //     Product product = productService.findPk(cart.getItems().get(i).getProduct().getId());
-                //     int quantityTotal = product.getStock() - cart.getItems().get(i).getQuantity();
-                //     product.setStock(quantityTotal);
-                //     productService.update(product);
-                //     orderDetailService.save(orderDetail);
-                // }
-                // cartManager.removeCart(session);
-                // model.addAttribute("orderTest", orderRepository.getNextId());
-                // Redirect the user to the PayPal payment page for approval
                 return "redirect:" + approvalUrl;
             } catch (PayPalRESTException e) {
                 // Handle PayPal API errors
