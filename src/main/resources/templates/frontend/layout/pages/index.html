@@ -303,65 +303,22 @@
       <!-- Arrivals Products Area Start Here -->
       <div class="second-arrivals-product pb-45 pb-sm-5">
         <div class="container">
-            <div class="main-product-tab-area">
-                <div class="tab-menu mb-25">
-                    <div class="section-ttitle">
-                        <h2>New Arrivals</h2>
-                    </div>
-                    <!-- Nav tabs -->
-                    <ul class="nav tabs-area" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#all">All</a>
-                        </li>
-                    </ul>
-
-                </div>
-
-                <!-- Tab Contetn Start -->
-                <div class="tab-content">
-                    <div id="all" class="tab-pane fade show active">
-                        <!-- Arrivals Product Activation Start Here -->
-                        <div class="electronics-pro-active owl-carousel">
-                            <!-- Single Product Start -->
-                            <div class="single-product" th:each="productArrival : ${productArrivals}">
-                                <!-- Product Image Start -->
-                                <div class="pro-img">
-                                    <a th:href="@{'/product/' + ${productArrival.getSlug()}}">
-                                        <img style="height: 382px; width: auto" th:each="image : ${productArrival.getImagesCollection()}" th:if="${image.mainImage} == true" class="primary-img" th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" th:alt="${image.getName()}">
-                                        <img style="height: 382px; width: auto" class="secondary-img" th:src="@{'/backend/dist/img/products/' + ${productArrival.imagesCollection[1].getName()}}" th:alt="${productArrival.imagesCollection[1].getName()}">
-                                    </a>
-                                </div>
-                                <!-- Product Image End -->
-                                <!-- Product Content Start -->
-                                <div class="pro-content">
-                                    <div class="pro-info">
-                                        <h4><a th:href="@{'/product/' + ${productArrival.getSlug()}}" th:utext="${productArrival.getProductName()}"></a></h4>
-                                        <p th:if="${productArrival.getSavePrice() == 0}"><span class="price" th:utext="${'$' + productArrival.getUnitPrice()}"></span></p>
-                                        <p th:unless="${productArrival.getSavePrice() == 0}"><span class="price" th:utext="${'$' + productArrival.getSavePrice()}"></span><del class="prev-price" th:utext="${'$' + productArrival.getUnitPrice()}"></del></p>
-                                        <div th:if="${productArrival.getSavePrice() != 0}" class="label-product l_sale"><span th:utext="${productArrival.getSavePrice() * 100 / productArrival.getUnitPrice()}"></span><span class="symbol-percent">%</span></div>
-                                    </div>
-                                    <div class="pro-actions">
-                                        <div class="actions-primary">
-                                            <a th:href="@{'/cart/add/' + ${productArrival.getId()}}" title="Add to Cart"> + Add To Cart</a>
-                                        </div>
-                                        <div class="actions-secondary">
-                                            <a th:href="@{'/wishlist/add/' + ${productArrival.getId()}}" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Product Content End -->
-                                <span th:if="${productArrival.getSavePrice() == 0}" class="sticker-new">new</span>
-
-                                <span  th:unless="${productArrival.getSavePrice() == 0}" class="sticker-sale">sale</span>
-
-                            </div>
-                            <!-- Single Product End -->
-                        </div>
-                        <!-- Arrivals Product Activation End Here -->
-                    </div>
-
-                </div>
-                <!-- Tab Content End -->
+          <div class="main-product-tab-area">
+            <div class="tab-menu mb-25">
+              <div class="section-ttitle">
+                <h2>Sales Price</h2>
+              </div>
+              <!-- Nav tabs -->
+              <ul class="nav tabs-area" role="tablist">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active"
+                    data-toggle="tab"
+                    href="#bestpricerall"
+                    >All
+                  </a>
+                </li>
+              </ul>
             </div>
 
             <!-- Tab Contetn Start -->
