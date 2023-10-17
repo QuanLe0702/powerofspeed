@@ -47,7 +47,7 @@ public class LoginController {
         } else {
             try {
                 UserDto newUser = registerUser(userRegisterFormCommand);
-                return "redirect:/login";
+                return "redirect:/user/dashboard";
             } catch (Exception exception) {
                 bindingResult.rejectValue("email", "error.userRegisterFormCommand", exception.getMessage());
                 return "frontend/layout/pages/register";
