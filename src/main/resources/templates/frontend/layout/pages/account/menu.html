@@ -6,9 +6,9 @@
 </head>
 <body>
 <ul class="dashboard-menu" th:fragment="menu">
-    <li>
+    <!-- <li>
         <a th:href="@{/account/dashboard}" th:classappend="${#request.getServletPath().contains('/account/dashboard') ? ' active' : ''}"><i class="fa fa-dashboard"></i>Dashboard</a>
-    </li>
+    </li> -->
     <li>
         <a th:href="@{/account/profile}" th:classappend="${#request.getServletPath().contains('/account/profile') ? ' active' : ''}"><i class="fa fa-user"></i>Personal Profile </a>
     </li>
