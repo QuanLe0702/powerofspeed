@@ -13,6 +13,9 @@
         <a th:href="@{/account/profile}" th:classappend="${#request.getServletPath().contains('/account/profile') ? ' active' : ''}"><i class="fa fa-user"></i>Personal Profile </a>
     </li>
     <li>
+        <a th:href="@{/searchOrder}" th:classappend="${#request.getServletPath().contains('/searchOrder') ? ' active' : ''}"><i class="fa fa-check-circle "></i>History Order</a>
+    </li>
+    <li>
         <a href="my-bid.html"><i class="fa fa-balance-scale"></i>My Bids</a>
     </li>
     <li>
