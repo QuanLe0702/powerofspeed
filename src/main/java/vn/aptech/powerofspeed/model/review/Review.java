@@ -8,12 +8,18 @@ import  vn.aptech.powerofspeed.model.user.User;
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "review")
-public class Review extends BaseEntity {
+public class Review  {
 
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+ 
     @Column(name = "content")
     private String content;
 

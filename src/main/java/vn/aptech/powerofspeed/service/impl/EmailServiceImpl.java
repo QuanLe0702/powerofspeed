@@ -9,10 +9,12 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -79,9 +81,46 @@ public class EmailServiceImpl implements EmailService {
             throw new RuntimeException(exception.getMessage());
         }
     }
+    @Override
+    public String randomString() {
+        StringBuilder sb = new StringBuilder();
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        int len = characters.length();
+        for (int i = 0; i < 8; i++) {
+            double index = Math.random() * len;
+            sb.append(characters.charAt((int) index));
+        }
+        return sb.toString();
+    }
 
     private MimeMessage getMimeMessage() {
         return emailSender.createMimeMessage();
+    }
+
+    @Override
+    public String templateResolve(String templateName, Map<String, Object> map){
+        Context ctx = new Context();
+        if (map != null) {
+            for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
+                Map.Entry pair = (Map.Entry) stringObjectEntry;
+                ctx.setVariable(pair.getKey().toString(), pair.getValue());
+            }
+        }
+        return templateEngine.process(templateName, ctx);
+    }
+
+    @Override
+    public void sendTemplateMessage(String to, @DefaultValue(value = "") String from, String subject, String text) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setFrom(fromEmail);
+            messageHelper.setTo(to);
+            messageHelper.setSubject(subject);
+            messageHelper.setText(text, true);
+        };
+
+        emailSender.send(messagePreparator);
+        System.out.printf("An email has been sent to " + to);
     }
 
 }

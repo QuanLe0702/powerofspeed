@@ -2,6 +2,8 @@ package vn.aptech.powerofspeed.controller.v1.ui.frontend;
 
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,16 +42,16 @@ public class WishlistUserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
-    public String add(HttpServletRequest httpServletRequest, @PathVariable("id") Long id){
+     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
+    public ResponseEntity<String> add(HttpServletRequest httpServletRequest, @PathVariable("id") Long id){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getName() == null) {
-            return "redirect:/login";
+        if (!authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
         User user = userService.findUserByEmail(authentication.getName()); // get user by email
         Wishlist wishlistCurrent = wishlistService.checkExists(id, user.getId());
         if (wishlistCurrent != null) {
-            return "redirect:" + httpServletRequest.getHeader("Referer").toString();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Wishlist already exists");
         } else {
             Product product = productService.findPk(id);
 
@@ -57,15 +59,13 @@ public class WishlistUserController {
             wishlist.setProduct(product);
             wishlist.setUser(user);
             wishlistService.create(wishlist);
+            // boolean created = wishlistService.create(wishlist);
+            // if (!created) {
+            //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create wishlist");
+            // }
         }
 
-        return "redirect:/account/wishlist";
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-
-
-
-
-
-    
 }

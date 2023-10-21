@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2023 at 12:24 PM
+-- Generation Time: Oct 19, 2023 at 07:44 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -398,6 +398,13 @@ CREATE TABLE `review` (
   `user_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`id`, `create_at`, `status`, `update_at`, `content`, `rating`, `product_id`, `user_id`) VALUES
+(1, NULL, NULL, NULL, 'a', 8, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -502,9 +509,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `create_at`, `status`, `update_at`, `date_of_birth`, `email`, `email_confirmed`, `first_name`, `gender`, `last_name`, `password`, `phone_confirmed`, `phone_number`, `profile_picture`, `address_id`) VALUES
-(1, '2020-11-09 20:32:41.656000', b'1', '2020-11-09 20:32:41.656000', '1999-07-26', 'admin@amazingtoy.com', b'1', 'Trinh Hao', 0, 'Hiep', '$2a$10$oIseFM/zxPc9JIfniH.pBO8qD8eMmZQrckufZKMQTkzQ9NfOPlPa6', b'1', '0123456789', 'avatar.png', 1),
-(2, '2020-11-09 20:32:41.793000', b'1', '2020-11-09 20:32:41.793000', '1999-07-26', 'staff@amazingtoy.com', b'1', 'Nguyen Nhat', 0, 'Hoang Ha', '$2a$10$TTSIUApzujmw/JMfJuImyu2P2h5pfQYzD3b45GY92uVU347eVJ.Ey', b'1', '0123456789', 'avatar2.png', 2),
-(3, '2020-11-09 20:32:41.906000', b'1', '2020-11-09 20:32:41.906000', '1999-07-26', 'customer@amazingtoy.com', b'1', 'To Dao', 0, 'Viet Hoang', '$2a$10$Op0pIxb7cNpvJkvWvVscw.KQOeLSwuQjzOOTU2xo3K80YIJTThnBK', b'1', '0123456789', 'avatar3.png', 3),
+(1, '2020-11-09 20:32:41.656000', b'1', '2020-11-09 20:32:41.656000', '1999-07-26', 'admin@powerofspeed.com', b'1', 'Nguyen Van', 0, 'A', '$2a$10$oIseFM/zxPc9JIfniH.pBO8qD8eMmZQrckufZKMQTkzQ9NfOPlPa6', b'1', '0123456789', 'avatar.png', 1),
+(2, '2020-11-09 20:32:41.793000', b'1', '2020-11-09 20:32:41.793000', '1999-07-26', 'staff@powerofspeed.com', b'1', 'Nguyen Van', 0, 'B', '$2a$10$TTSIUApzujmw/JMfJuImyu2P2h5pfQYzD3b45GY92uVU347eVJ.Ey', b'1', '0123456789', 'avatar2.png', 2),
+(3, '2020-11-09 20:32:41.906000', b'1', '2020-11-09 20:32:41.906000', '1999-07-26', 'customer@powerofspeed.com', b'1', 'Nguyen Van', 0, 'C', '$2a$10$Op0pIxb7cNpvJkvWvVscw.KQOeLSwuQjzOOTU2xo3K80YIJTThnBK', b'1', '0123456789', 'avatar3.png', 3),
 (5, '2023-10-13 21:32:49.000000', b'1', '2023-10-13 21:32:49.000000', '1999-07-26', 'bbaoloc311@gmail.com', b'1', 'as', 0, 'asc', '$2a$10$yZeWdm1rDdV8wxQoVUL3JutZYraMdDIUmYiagd.71yDbv7jjfWEO.', b'1', '145615', 'e2b20d3e-c8e3-492c-be4e-5e74b3e81391_duck.jpg', 5);
 
 -- --------------------------------------------------------
@@ -761,7 +768,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`

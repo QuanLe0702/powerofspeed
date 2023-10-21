@@ -71,16 +71,16 @@ public class PowerOfSpeedApplication {
                 roleRepository.save(roleCustomer);
             }
 
-            User admin = userRepository.findByEmail("admin@amazingtoy.com");
+            User admin = userRepository.findByEmail("admin@powerofspeed.com");
             if (admin == null) {
                 admin = new User();
-                admin.setEmail("admin@amazingtoy.com");
+                admin.setEmail("admin@powerofspeed.com");
                 admin.setEmailConfirmed(true);
                 admin.setPassword(passwordEncoder.encode("123456"));
                 admin.setPhoneNumber("0123456789");
                 admin.setPhoneConfirmed(true);
-                admin.setFirstName("Trinh Hao");
-                admin.setLastName("Hiep");
+                admin.setFirstName("Nguyen Van");
+                admin.setLastName("A");
                 admin.setGender(User.GenderType.Male);
                 admin.setDateOfBirth(Date.valueOf("1999-07-26"));
                 admin.setProfilePicture("avatar.png");
@@ -103,16 +103,16 @@ public class PowerOfSpeedApplication {
 
             }
 
-            User staff = userRepository.findByEmail("staff@amazingtoy.com");
+            User staff = userRepository.findByEmail("staff@powerofspeed.com");
             if (staff == null) {
                 staff = new User();
-                staff.setEmail("staff@amazingtoy.com");
+                staff.setEmail("staff@powerofspeed.com");
                 staff.setEmailConfirmed(true);
                 staff.setPassword(passwordEncoder.encode("123456"));
                 staff.setPhoneNumber("0123456789");
                 staff.setPhoneConfirmed(true);
-                staff.setFirstName("Nguyen Nhat");
-                staff.setLastName("Hoang Ha");
+                staff.setFirstName("Nguyen Van");
+                staff.setLastName("B");
                 staff.setGender(User.GenderType.Male);
                 staff.setDateOfBirth(Date.valueOf("1999-07-26"));
                 staff.setProfilePicture("avatar2.png");
@@ -134,16 +134,16 @@ public class PowerOfSpeedApplication {
 
             }
 
-            User customer = userRepository.findByEmail("customer@amazingtoy.com");
+            User customer = userRepository.findByEmail("customer@powerofspeed.com");
             if (customer == null) {
                 customer = new User();
-                customer.setEmail("customer@amazingtoy.com");
+                customer.setEmail("customer@powerofspeed.com");
                 customer.setEmailConfirmed(true);
                 customer.setPassword(passwordEncoder.encode("123456"));
                 customer.setPhoneNumber("0123456789");
                 customer.setPhoneConfirmed(true);
-                customer.setFirstName("To Dao");
-                customer.setLastName("Viet Hoang");
+                customer.setFirstName("Nguyen Van");
+                customer.setLastName("C");
                 customer.setGender(User.GenderType.Male);
                 customer.setDateOfBirth(Date.valueOf("1999-07-26"));
                 customer.setProfilePicture("avatar3.png");

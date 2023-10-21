@@ -127,10 +127,11 @@
                      <div class="form-group">
                        <label>Role</label>
                        <select multiple th:field="*{roles}" name="roles" id="roles" class="form-control">
-                           <option th:each="roleDto : ${roleDtos}" th:value="${roleDto.id}" th:utext="${roleDto.name}"></option>
+                           <!-- <option th:each="roleDto : ${roleDtos}" th:value="${roleDto.id}" th:utext="${roleDto.name}"></option> -->
+                           <option th:each="roleDto : ${roleDtos}" th:value="${roleDto.id}" th:utext="${roleDto.name}" th:if="${roleDto.name == 'STAFF' || roleDto.name == 'CUSTOMER'}"></option>
                        </select>
                      </div>
-                   </div>
+                   </div>                   
                  </div>
                </div>
                <!-- /.card-body -->
