@@ -1,5 +1,7 @@
 package vn.aptech.powerofspeed.repository.order;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -10,4 +12,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     @Query(value = "select id from orders o order by o.id desc limit 1", nativeQuery = true)
     int getNextId();
+
+    List<Order> findOrderByEmail(String email);
 }

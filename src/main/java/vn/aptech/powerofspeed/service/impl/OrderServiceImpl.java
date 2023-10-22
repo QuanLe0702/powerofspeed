@@ -47,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.save(order);
     }
 
+    @Override
+    public List<Order> getOrderByEmail(String email) {
+        return orderRepository.findOrderByEmail(email);
+    }
+
 //    @Override
 //    public List<Order> findOrderedByIdLimitedTo(int limit) {
 //        return entityManager.createQuery("SELECT p.id FROM Order p ORDER BY p.id",

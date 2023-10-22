@@ -72,11 +72,7 @@
                                     <td th:utext="${order.address}"></td>
                                     <td th:utext="${order.phoneNumber}"></td>
                                     <td th:utext="${order.amount}"></td>
-
-                                    <td>
-                                        <span class="badge badge-danger" th:if="${order.statusType == Confirm}">Waiting</span></td>
-                                        <span class="badge badge-primary" th:if="${order.statusType == InShipping}">In Shipping</span></td>
-                                        <span class="badge badge-success" th:if="${order.statusType == Finish}">Finish</span></td>
+                                    <td th:utext="${order.statusType}"></td>
                                     <td>
                                         <div class="row">
 

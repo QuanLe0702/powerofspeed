@@ -27,16 +27,57 @@
                 <div class="col-md-12">
                     <div class="error-wrapper text-center">
                         <div class="error-text">
-                            <h2>View Your Order</h2>
-                            <p>Enter your Order number to view:</p>
+                            <h2>View All Your Order</h2>
                         </div>
-                        <div class="search-error">
-                            <form id="search-form" th:action="searchOrder" method="post">
-                                <input type="text" placeholder="Order number" name="id">
-                                <button type="submit"><i class="fa fa-search"></i></button>
-                            </form>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Address</th>
+                                    <th>Customer Phone</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td th:utext="${order.id}">#</td>
+                                    <td th:utext="${order.createAt}"></td>
+                                    <td th:utext="${order.firstName + ' ' + order.lastName}"></td>
+                                    <td th:utext="${order.address}"></td>
+                                    <td th:utext="${order.phoneNumber}"></td>
+                                    <td th:utext="${order.amount}"></td>
+                                    <td th:utext="${order.statusType}"></td>
+                                    <td>
+                                        <div class="row">
+                                            <div>
+                                                <a style="margin:5px" class="btn btn-info" th:href="@{'/order/orderDetail/'+ ${order.id}}"></i>View Order Detail</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer Address</th>
+                                    <th>Customer Phone</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+
+                                </tr>
+                                </tfoot>
+                            </table>
                         </div>
-                        <div th:object="${order}" th:if="${order !=null}">
+                        <!-- <div th:object="${order}" th:if="${order !=null}">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12">
@@ -122,7 +163,7 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

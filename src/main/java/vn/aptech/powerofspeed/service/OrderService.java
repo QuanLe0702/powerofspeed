@@ -11,4 +11,6 @@ public interface OrderService {
     Order update(Order order);
     void deleteOrder(Long id);
     Optional<Order> findOrderById(Long id);
+
+    List<Order> getOrderByEmail(String email);
 }
