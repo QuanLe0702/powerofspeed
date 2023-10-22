@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area mt-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul class="d-flex align-items-center">
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li class="active"><a href="#">Check out Paypal</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- Error 404 Area Start -->
+    <div class="error404-area ptb-100 ptb-sm-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="error-wrapper text-center">
+                        <div class="error-text">
+                            <h2>Order Canceled</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Error 404 Area End -->
+</div>
+</body>
+</html>

@@ -63,8 +63,8 @@
                 <!-- Header Top Start -->
                 <div class="header-top">
                     <ul>
-                        <li><a th:href="@{/searchOrder}">View Your Order</a></li>
-                        <li><a th:href="@{/account/wishlist}">My WishList</a></li>
+                        <li><a th:href="@{/orderHistory}">View Your Order</a></li>
+                        <li><a th:href="@{/wishlist}">My WishList</a></li>
                     </ul>
                     <ul>
                         <li sec:authorize="hasAnyAuthority('ADMIN', 'STAFF')"><a th:href="@{/admin/dashboard}">Admin Page</a>
