@@ -59,8 +59,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="checkbox-form mb-sm-40">
-                            <h3>Confirm Billing Details</h3>
                                 <div sec:authorize="isAuthenticated()">
+                                    <h3>Confirm Billing Details</h3>
                                     <form th:action="@{/doCheckout}" th:object="${order}" method="post">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -140,7 +140,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     <div class="row">
                                         <div class="col-md-12">
                                             <a href="/cart" class="readmore pull-left">Shopping Cart</a>
@@ -149,146 +148,56 @@
                                         </div>
                                     </div>
                                 </form>
-                                </div>
-                            <div sec:authorize="!isAuthenticated()">
-                            <form th:action="@{/doCheckout}" th:object="${order}" method="post">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list mb-sm-30">
-                                            <label>First Name</label>
-                                            <input type="text" placeholder="First Name" id="firstName" th:field="*{firstName}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Last Name</label>
-                                            <input type="text" placeholder="Last name" th:field="*{lastName}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>County</label>
-                                            <input type="text" placeholder="Country" th:field="*{country}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>State</label>
-                                            <input type="text" placeholder="State" th:field="*{stateOrRegion}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Town / City</label>
-                                            <input type="text" placeholder="Town / City" th:field="*{city}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Postcode / Zip</label>
-                                            <input type="text" placeholder="Postcode / Zip" th:field="*{postalCode}" required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Address</label>
-                                            <input type="text" placeholder="Street address" th:field="*{address}" required>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="your-order">
+                                        <h3>Your order</h3>
+                                        <div class="your-order-table table-responsive">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th class="product-image">Image</th>
+                                                    <th class="product-name">Product</th>
+                                                    <th class="product-quantity">Quantity</th>
+                                                    <th class="product-total">Total</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="cart_item" th:each="map: ${session.gioHang.items}">
+                                                    <td class="product-image">
+                                                        <img width="70" height="70" th:each="image: ${map.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image">
+                                                    </td>
+                                                    <td class="product-name" th:text="${map.product.productName}"></td>
+                                                    <td class="product-quantity" th:text="'X ' + ${map.quantity}"></td>
+                                                    <td class="product-total">
+                                                        <span class="amount" th:text="${map.subTotal}"></span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr class="cart-subtotal">
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Cart Subtotal</th>
+                                                    <td><span class="amount" th:text="${session.gioHang.total}"></span></td>
+                                                </tr>
+                                                <tr class="cart-subtotal">
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Price Ship</th>
+                                                    <td><span class="amount" th:text="${session.gioHang.total} * 0.1"></span></td>
+                                                </tr>
+                                                <tr class="order-total">
+                                                    <th></th>
+                                                    <th></th>
+                                                    <th>Order Total</th>
+                                                    <td><span class=" total amount" th:text="${session.gioHang.total+(session.gioHang.total * 0.1)}"></span>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Email</label>
-                                            <input type="email" placeholder="Email" th:field="*{email}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Phone</label>
-                                            <input type="text" placeholder="Phone number" th:field="*{phoneNumber}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list mb-30">
-                                            <label>Method Payment  <span class="required">*</span></label>
-                                            <div class="custom-control custom-radio custom-control-inline" th:each="model : ${T(vn.aptech.powerofspeed.model.order.PaymentMethod).values()}">
-                                                <input type="radio" th:field="*{paymentMethod}" th:value="${model}" class="custom-control-input" required>
-                                                <label class="custom-control-label" th:for="${#ids.prev('paymentMethod')}"  th:text="${model}"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a href="#" class="readmore pull-left">Shopping Cart</a>
-                                        <input type="submit" class="readmore pull-right" value="Check out"/>
-                                    </div>
-                                </div>
-
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="your-order">
-                            <h3>Your order</h3>
-                            <div class="your-order-table table-responsive">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="product-image">Image</th>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-quantity">Quantity</th>
-                                        <th class="product-total">Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="cart_item" th:each="map: ${session.gioHang.items}">
-                                        <td class="product-image">
-                                            <img width="70" height="70" th:each="image: ${map.product.imagesCollection}" th:if="${image.mainImage==true}" th:src="@{'/backend/dist/img/products/' + ${image.name}}" alt="cart-image">
-                                        </td>
-                                        <td class="product-name" th:text="${map.product.productName}"></td>
-                                        <td class="product-quantity" th:text="'X ' + ${map.quantity}"></td>
-                                        <td class="product-total">
-                                            <span class="amount" th:text="${map.subTotal}"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr class="cart-subtotal">
-                                        <th></th>
-                                        <th></th>
-                                        <th>Cart Subtotal</th>
-                                        <td><span class="amount" th:text="${session.gioHang.total}"></span></td>
-                                    </tr>
-                                    <tr class="cart-subtotal">
-                                        <th></th>
-                                        <th></th>
-                                        <th>Price Ship</th>
-                                        <td><span class="amount" th:text="${session.gioHang.total} * 0.1"></span></td>
-                                    </tr>
-                                    <tr class="order-total">
-                                        <th></th>
-                                        <th></th>
-                                        <th>Order Total</th>
-                                        <td><span class=" total amount" th:text="${session.gioHang.total+(session.gioHang.total * 0.1)}"></span>
-                                        </td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
                             </div>
                         </div>
                     </div>
