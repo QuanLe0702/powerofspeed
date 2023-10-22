@@ -46,7 +46,7 @@ public class InventoryController {
         return "backend/layout/pages/inventory/index";
     }
 
-    // Invoice detail of product
+    // Inventory detail of product
     @RequestMapping(value = "/inventoryDetailProduct/{productId}", method = RequestMethod.GET)
     public String inventoryDetailProduct(Model model, @PathVariable("productId") Long id){
         Product product = productService.findPk(id);
@@ -54,15 +54,15 @@ public class InventoryController {
         return "backend/layout/pages/inventory/inventoryDetail";
     }
 
-    @RequestMapping(value = "/reportInvoice", method = RequestMethod.GET)
-    public String reportInvoice(Model model){
+    @RequestMapping(value = "/reportInventory", method = RequestMethod.GET)
+    public String reportInventory(Model model){
 //        Product product = productService.findPk(id);
 //        model.addAttribute("inventoryProduct",  product);
         return "backend/layout/pages/inventory/inventoryReport";
     }
 
-    @RequestMapping(value = "/printReportInvoice", method = RequestMethod.GET)
-    public String printReportInvoice(Model model){
+    @RequestMapping(value = "/printReportInventory", method = RequestMethod.GET)
+    public String printReportInventory(Model model){
 //        Product product = productService.findPk(id);
 //        model.addAttribute("inventoryProduct",  product);
         return "backend/layout/pages/inventory/inventory-print";
@@ -70,8 +70,8 @@ public class InventoryController {
 
     //CREATE - GET
 
-    @RequestMapping(value= "/createFormInvoiceDetail", method = RequestMethod.GET)
-    public String displayCreateFormInvoiceDetail(Model model, @ModelAttribute("productInventoryRequest") ProductInventoryRequest productInventoryRequest) {
+    @RequestMapping(value= "/createFormInventoryDetail", method = RequestMethod.GET)
+    public String displayCreateFormInventoryDetail(Model model, @ModelAttribute("productInventoryRequest") ProductInventoryRequest productInventoryRequest) {
         Inventory inventory = new Inventory();
         List<Product> productSellerList = new ArrayList<>();
         List<Product> products = productService.findAllPro();
@@ -100,8 +100,8 @@ public class InventoryController {
 
     //CREATE - POST
 
-    @RequestMapping(value= "/createInvoiceDetail", method = RequestMethod.POST)
-    public String createNewInvoiceDetail(Model model,
+    @RequestMapping(value= "/createInventoryDetail", method = RequestMethod.POST)
+    public String createNewInventoryDetail(Model model,
                                 @ModelAttribute("productInventoryRequest") ProductInventoryRequest productInventoryRequest) {
         for (Product productInventory : productInventoryRequest.getProductInventorList()) {
             Inventory inventory = new Inventory();
