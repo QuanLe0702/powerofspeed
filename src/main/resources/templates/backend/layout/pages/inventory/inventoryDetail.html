@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 th:text="'Invoice Detail of' + ${inventoryProduct.getProductName()}"> </h1>
+                    <h1 th:text="'Inventory Detail of' + ${inventoryProduct.getProductName()}"> </h1>
                 </div>
 
                 <div class="col-sm-6">
@@ -35,8 +35,8 @@
                     <div class="card">
 
                         <div class="card-header clearfix">
-                            <a style="margin:5px" class="btn btn-success float-left" th:href="@{/admin/inventory/createFormInvoiceDetail}" >
-                                <i class="fas fa-plus"> </i>   Add new Invoice Detail </a>
+                            <a style="margin:5px" class="btn btn-success float-left" th:href="@{/admin/inventory/createFormInventoryDetail}" >
+                                <i class="fas fa-plus"> </i>Add new </a>
 
 
                         </div>
