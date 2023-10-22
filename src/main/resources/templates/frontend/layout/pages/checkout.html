@@ -59,48 +59,48 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="checkbox-form mb-sm-40">
-                            <h3>Billing Details</h3>
+                            <h3>Confirm Billing Details</h3>
                                 <div sec:authorize="isAuthenticated()">
                                     <form th:action="@{/doCheckout}" th:object="${order}" method="post">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="checkout-form-list mb-sm-30">
-                                                <label>First Name <span class="required">*</span></label>
-                                                <input type="text" placeholder="First Name"th:value="${currentUser.getFirstName()}" name="firstName">
+                                                <label>First Name</label>
+                                                <input readonly type="text" placeholder="First Name"th:value="${currentUser.getFirstName()}" name="firstName">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="checkout-form-list mb-30">
-                                                <label>Last Name <span class="required">*</span></label>
-                                                <input type="text" placeholder="Last name" th:value="${currentUser.getLastName()}" name="lastName">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list mb-30">
-                                                <label>County <span class="required">*</span></label>
-                                                <input type="text" placeholder="Country" th:value="${currentUser.getAddressDto().country}" name="country">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list mb-30">
-                                                <label>State<span class="required">*</span></label>
-                                                <input type="text" placeholder="State" th:value="${currentUser.getAddressDto().stateOrRegion}" name="stateOrRegion">
+                                                <label>Last Name</label>
+                                                <input readonly type="text" placeholder="Last name" th:value="${currentUser.getLastName()}" name="lastName">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="checkout-form-list mb-30">
-                                                <label>Town / City <span class="required">*</span></label>
-                                                <input required readonly type="text" placeholder="Town / City" th:value="${currentUser.getAddressDto().city}" name="city">
+                                                <label>County</label>
+                                                <input readonly type="text" placeholder="Country" th:value="${currentUser.getAddressDto().country}" name="country">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="checkout-form-list mb-30">
-                                                <label>Postcode / Zip <span class="required">*</span></label>
-                                                <input readonly required type="text" placeholder="Postcode / Zip" th:value="${currentUser.getAddressDto().postalCode}" name="postalCode">
+                                                <label>State</label>
+                                                <input readonly type="text" placeholder="State" th:value="${currentUser.getAddressDto().stateOrRegion}" name="stateOrRegion">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list mb-30">
+                                                <label>Town / City</label>
+                                                <input readonly type="text" placeholder="Town / City" th:value="${currentUser.getAddressDto().city}" name="city">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list mb-30">
+                                                <label>Postcode / Zip</label>
+                                                <input readonly type="text" placeholder="Postcode / Zip" th:value="${currentUser.getAddressDto().postalCode}" name="postalCode">
                                             </div>
                                         </div>
                                     </div>
@@ -108,31 +108,31 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="checkout-form-list mb-30">
-                                                <label>Address <span class="required">*</span></label>
-                                                <input readonly required type="text" placeholder="Street address" th:value="${currentUser.getAddressDto().address}" name="address">
+                                                <label>Address</label>
+                                                <input readonly type="text" placeholder="Street address" th:value="${currentUser.getAddressDto().address}" name="address">
                                             </div>
                                         </div>
                                     </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="checkout-form-list mb-30">
-                                                    <label>Email  <span class="required">*</span></label>
-                                                    <input readonly required type="email" placeholder="Email" th:value="${currentUser.email}" name="email">
+                                                    <label>Email</label>
+                                                    <input readonly type="email" placeholder="Email" th:value="${currentUser.email}" name="email">
                                                 </div>
                                             </div>
                                         </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="checkout-form-list mb-30">
-                                                <label>Phone  <span class="required">*</span></label>
-                                                <input type="text" placeholder="Phone number" th:value="${currentUser.phoneNumber}" name="phoneNumber">
+                                                <label>Phone</label>
+                                                <input readonly type="text" placeholder="Phone number" th:value="${currentUser.phoneNumber}" name="phoneNumber">
                                             </div>
                                         </div>
                                     </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="checkout-form-list mb-30">
-                                                    <label>Method Payment  <span class="required">*</span></label>
+                                                    <label>Method Payment <span class="required">*</span></label>
                                                     <div class="custom-control custom-radio custom-control-inline" th:each="model : ${T(vn.aptech.powerofspeed.model.order.PaymentMethod).values()}">
                                                         <input type="radio" th:field="*{paymentMethod}" th:value="${model}" class="custom-control-input" required>
                                                         <label class="custom-control-label" th:for="${#ids.prev('paymentMethod')}"  th:text="${model}"></label>
@@ -143,11 +143,11 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="#" class="readmore pull-left">Shopping Cart</a>
+                                            <a href="/cart" class="readmore pull-left">Shopping Cart</a>
                                             <input type="submit" class="readmore pull-right" value="Check out"/>
+                                            <a href="/account/profile/edit" style="margin-left: 20px" class="readmore">Change Billing Details</a>
                                         </div>
                                     </div>
-
                                 </form>
                                 </div>
                             <div sec:authorize="!isAuthenticated()">
@@ -155,13 +155,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-sm-30">
-                                            <label>First Name <span class="required">*</span></label>
+                                            <label>First Name</label>
                                             <input type="text" placeholder="First Name" id="firstName" th:field="*{firstName}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-30">
-                                            <label>Last Name <span class="required">*</span></label>
+                                            <label>Last Name</label>
                                             <input type="text" placeholder="Last name" th:field="*{lastName}" required>
                                         </div>
                                     </div>
@@ -169,13 +169,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-30">
-                                            <label>County <span class="required">*</span></label>
+                                            <label>County</label>
                                             <input type="text" placeholder="Country" th:field="*{country}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-30">
-                                            <label>State<span class="required">*</span></label>
+                                            <label>State</label>
                                             <input type="text" placeholder="State" th:field="*{stateOrRegion}" required>
                                         </div>
                                     </div>
@@ -183,13 +183,13 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-30">
-                                            <label>Town / City <span class="required">*</span></label>
+                                            <label>Town / City</label>
                                             <input type="text" placeholder="Town / City" th:field="*{city}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-30">
-                                            <label>Postcode / Zip <span class="required">*</span></label>
+                                            <label>Postcode / Zip</label>
                                             <input type="text" placeholder="Postcode / Zip" th:field="*{postalCode}" required>
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list mb-30">
-                                            <label>Address <span class="required">*</span></label>
+                                            <label>Address</label>
                                             <input type="text" placeholder="Street address" th:field="*{address}" required>
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list mb-30">
-                                            <label>Email  <span class="required">*</span></label>
+                                            <label>Email</label>
                                             <input type="email" placeholder="Email" th:field="*{email}" required>
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list mb-30">
-                                            <label>Phone  <span class="required">*</span></label>
+                                            <label>Phone</label>
                                             <input type="text" placeholder="Phone number" th:field="*{phoneNumber}" required>
                                         </div>
                                     </div>
