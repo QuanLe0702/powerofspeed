@@ -1,430 +1,301 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="frontend/layout/frontend_layout">
-<head>
-    <meta charset="UTF-8">
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="frontend/layout/frontend_layout"
+>
+  <head>
+    <meta charset="UTF-8" />
     <title th:utext="${productDetail.getProductName()}"></title>
-</head>
-<body>
-<div layout:fragment="content">
-    <!-- Breadcrumb Start -->
-    <div class="breadcrumb-area mt-30">
+  </head>
+  <body>
+    <div layout:fragment="content">
+      <!-- Breadcrumb Start -->
+      <div class="breadcrumb-area mt-30">
         <div class="container">
-            <div class="breadcrumb">
-                <ul class="d-flex align-items-center">
-                    <li><a th:href="@{/}">Home</a></li>
-                    <li><a th:href="@{'/collection/' + ${productDetail.getSubcategory().getCategory().getSlug()}}"><span th:utext="${productDetail.getSubcategory().getCategory().getName()}"></span></a></li>
-                    <li><a th:href="@{'/collection/' + ${productDetail.getSubcategory().getCategory().getSlug() + '/' + productDetail.getSubcategory().getSlug()}}"><span th:utext="${productDetail.getSubcategory().getSubName()}"></span></a></li>
-                    <li class="active"><a href="#"><span th:utext="${productDetail.getProductName()}"></span></a></li>
-                </ul>
-            </div>
+          <div class="breadcrumb">
+            <ul class="d-flex align-items-center">
+              <li><a th:href="@{/}">Home</a></li>
+              <li>
+                <a
+                  th:href="@{'/collection/' + ${productDetail.getSubcategory().getCategory().getSlug()}}"
+                  ><span
+                    th:utext="${productDetail.getSubcategory().getCategory().getName()}"
+                  ></span
+                ></a>
+              </li>
+              <li>
+                <a
+                  th:href="@{'/collection/' + ${productDetail.getSubcategory().getCategory().getSlug() + '/' + productDetail.getSubcategory().getSlug()}}"
+                  ><span
+                    th:utext="${productDetail.getSubcategory().getSubName()}"
+                  ></span
+                ></a>
+              </li>
+              <li class="active">
+                <a href="#"
+                  ><span th:utext="${productDetail.getProductName()}"></span
+                ></a>
+              </li>
+            </ul>
+          </div>
         </div>
         <!-- Container End -->
-    </div>
-    <!-- Breadcrumb End -->
-    <!-- Product Thumbnail Start -->
-    <div class="main-product-thumbnail ptb-100 ptb-sm-60">
+      </div>
+      <!-- Breadcrumb End -->
+      <!-- Product Thumbnail Start -->
+      <div class="main-product-thumbnail ptb-100 ptb-sm-60">
         <div class="container">
-            <div class="thumb-bg">
-                <div class="row">
-                    <!-- Main Thumbnail Image Start -->
-                    <div class="col-lg-5 mb-all-40">
-                        <!-- Thumbnail Large Image start -->
-                        <div class="tab-content">
-                            <div th:each="image : ${productDetail.getImagesCollection()}" th:id="'thumb' + ${image.getImageId()}" th:classappend="${image.isMainImage() ? 'tab-pane fade show active' : 'tab-pane fade'}">
-                                <a data-fancybox="images" th:href="@{'/backend/dist/img/products/' + ${image.getName()}}"><img th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" th:alt="${image.getName()}"></a>
-                            </div>
-                        </div>
-                        <!-- Thumbnail Large Image End -->
-                        <!-- Thumbnail Image End -->
-                        <div class="product-thumbnail mt-15">
-                            <div class="thumb-menu owl-carousel nav tabs-area" role="tablist">
-                                <a th:each="image : ${productDetail.getImagesCollection()}" th:classappend="${image.isMainImage() ? 'active' : ''}" data-toggle="tab" th:href="@{'#thumb' + ${image.getImageId()}}"><img th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" th:alt="${image.getName()}"></a>
-                            </div>
-                        </div>
-                        <!-- Thumbnail image end -->
-                    </div>
-                    <!-- Main Thumbnail Image End -->
-                    <!-- Thumbnail Description Start -->
-                    <div class="col-lg-7">
-                        <div class="thubnail-desc fix">
-                            <h3 class="product-header" th:utext="${productDetail.getProductName()}"></h3>
-                            <div class="rating-summary fix mtb-10">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <div class="rating-feedback">
-                                    <a href="#">(<span th:utext="${productDetail.getReviewsCollection().size()}"></span> review)</a>
-                                    <a href="#review">add to your review</a>
-                                </div>
-                            </div>
-                            <div class="pro-price mtb-30">
-                                <p class="d-flex align-items-center"><span class="prev-price" th:utext="${'$' + productDetail.getSavePrice()}"></span><span class="price" th:utext="${'$' + productDetail.getUnitPrice()}"></span><span th:if="${productDetail.savePrice>0}" class="saving-price">save <span th:utext="${productDetail.savePrice * 100 / productDetail.getUnitPrice() + '%'}"></span></span></p>
-                            </div>
-                            <p class="mb-20 pro-desc-details" th:utext="${productDetail.getProductDescription()}"></p>
-                            <div class="box-quantity d-flex hot-product2">
-                                <form class="d-flex" th:action="@{/cart/addMulti}" method="post">
-                                    <input type="hidden" th:value="${productDetail.id}" name="id">
-                                    <input class="quantity" type="number" min="1" value="1" name="qty">
-                                    <div class="pro-actions">
-                                        <div class="actions-primary">
-                                            <button class="mr-10 btn btn-danger" type="submit">Add to cart</button>
-                                        </div>
-                                        <div class="actions-secondary">
-                                            <a th:href="@{'/wishlist/add/' + ${productDetail.id}}" title="" data-original-title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="pro-ref mt-20">
-                                <p th:if="${productDetail.getStock() == 0}"><span class="out-stock" ><i class="fa fa-times"></i> OUT OF STOCK</span></p>
-                                <p th:unless="${productDetail.getStock() == 0}"><span class="in-stock" ><i class="ion-checkmark-round"></i> IN STOCK (<th:block th:utext="${productDetail.getStock()}"></th:block>)</span></p>
-                                <p th:if="${outofstock != null}"><span class="out-stock" ><i class="fa fa-times"></i> <th:block th:utext="${outofstock}"></th:block></span></p>
-
-
-                            </div>
-                            <div class="socila-sharing mt-25">
-                                <ul class="d-flex">
-                                    <li>Share</li>
-                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus-official" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Thumbnail Description End -->
-                </div>
-                <!-- Row End -->
-            </div>
-        </div>
-        <!-- Container End -->
-    </div>
-    <!-- Product Thumbnail End -->
-    <!-- Product Thumbnail Description Start -->
-    <div class="thumnail-desc pb-100 pb-sm-60">
-        <div class="container">
+          <div class="thumb-bg">
             <div class="row">
-                <div class="col-sm-12">
-                    <ul class="main-thumb-desc nav tabs-area" role="tablist">
-                        <li><a class="active" data-toggle="tab" href="#dtail">Product Details</a></li>
-                        <li><a data-toggle="tab" href="#review">Reviews 1</a></li>
-                    </ul>
-                    <!-- Product Thumbnail Tab Content Start -->
-                    <div class="tab-content thumb-content border-default">
-                        <div id="dtail" class="tab-pane fade show active">
-                            <p th:utext="${productDetail.getProductContent()}" th:remove="tag"></p>
-                        </div>
-                        <div id="review" class="tab-pane fade">
-                            <!-- Reviews Start -->
-                            <div class="review border-default universal-padding" th:if="${productDetail.getReviewsCollection() != null}" th:each="review : ${productDetail.getReviewsCollection()}">
-                                <div class="group-title">
-                                    <h2 th:text="${review.user.getFullName()}"></h2>
-                                </div>
-                                <h4 class="review-mini-title" th:text="${review.content}"></h4>
-                            </div>
-                            <!-- Reviews End -->
-                            <!-- Reviews Start -->
-                            <div class="review border-default universal-padding mt-30">
-                                <h2 class="review-title mb-30">You're reviewing: <br><span th:utext="${productDetail.getProductName()}"></span></h2>
-                                <!-- Reviews Field Start -->
-                                <div class="riview-field mt-40">
-                                    <form autocomplete="off" action="#">
-                                        <div class="form-group">
-                                            <label class="req" for="sure-name">Nickname</label>
-                                            <input type="text" class="form-control" id="sure-name" required="required">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="req" for="subject">Summary</label>
-                                            <input type="text" class="form-control" id="subject" required="required">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="req" for="comments">Review</label>
-                                            <textarea class="form-control" rows="5" id="comments" required="required"></textarea>
-                                        </div>
-                                        <button type="submit" class="customer-btn">Submit Review</button>
-                                    </form>
-                                </div>
-                                <!-- Reviews Field Start -->
-                            </div>
-                            <!-- Reviews End -->
-                        </div>
-                    </div>
-                    <!-- Product Thumbnail Tab Content End -->
+              <!-- Main Thumbnail Image Start -->
+              <div class="col-lg-5 mb-all-40">
+                <!-- Thumbnail Large Image start -->
+                <div class="tab-content">
+                  <div
+                    th:each="image : ${productDetail.getImagesCollection()}"
+                    th:id="'thumb' + ${image.getImageId()}"
+                    th:classappend="${image.isMainImage() ? 'tab-pane fade show active' : 'tab-pane fade'}"
+                  >
+                    <a
+                      data-fancybox="images"
+                      th:href="@{'/backend/dist/img/products/' + ${image.getName()}}"
+                      ><img
+                        th:src="@{'/backend/dist/img/products/' + ${image.getName()}}"
+                        th:alt="${image.getName()}"
+                    /></a>
+                  </div>
                 </div>
+                <!-- Thumbnail Large Image End -->
+                <!-- Thumbnail Image End -->
+                <div class="product-thumbnail mt-15">
+                  <div
+                    class="thumb-menu owl-carousel nav tabs-area"
+                    role="tablist"
+                  >
+                    <a
+                      th:each="image : ${productDetail.getImagesCollection()}"
+                      th:classappend="${image.isMainImage() ? 'active' : ''}"
+                      data-toggle="tab"
+                      th:href="@{'#thumb' + ${image.getImageId()}}"
+                      ><img
+                        th:src="@{'/backend/dist/img/products/' + ${image.getName()}}"
+                        th:alt="${image.getName()}"
+                    /></a>
+                  </div>
+                </div>
+                <!-- Thumbnail image end -->
+              </div>
+              <!-- Main Thumbnail Image End -->
+              <!-- Thumbnail Description Start -->
+              <div class="col-lg-7">
+                <div class="thubnail-desc fix">
+                  <h3
+                    class="product-header"
+                    th:utext="${productDetail.getProductName()}"
+                  ></h3>
+                  <div class="rating-summary fix mtb-10">
+                    <div class="rating">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                      <i class="fa fa-star-o"></i>
+                    </div>
+                    <div class="rating-feedback">
+                      <a href="#"
+                        >(<span
+                          th:utext="${productDetail.getReviewsCollection().size()}"
+                        ></span>
+                        review)</a
+                      >
+                      <a href="#review">add to your review</a>
+                    </div>
+                  </div>
+                  <div class="pro-price mtb-30">
+                    <p class="d-flex align-items-center">
+                      <span
+                        class="prev-price"
+                        th:utext="${'$' + productDetail.getSavePrice()}"
+                      ></span
+                      ><span
+                        class="price"
+                        th:utext="${'$' + productDetail.getUnitPrice()}"
+                      ></span
+                      ><span
+                        th:if="${productDetail.savePrice>0}"
+                        class="saving-price"
+                        >save
+                        <span
+                          th:utext="${productDetail.savePrice * 100 / productDetail.getUnitPrice() + '%'}"
+                        ></span
+                      ></span>
+                    </p>
+                  </div>
+                  <p
+                    class="mb-20 pro-desc-details"
+                    th:utext="${productDetail.getProductDescription()}"
+                  ></p>
+                  <div class="box-quantity d-flex hot-product2">
+                    <form
+                      class="d-flex"
+                      th:action="@{/cart/addMulti}"
+                      method="post"
+                    >
+                      <input
+                        type="hidden"
+                        th:value="${productDetail.id}"
+                        name="id"
+                      />
+                      <input
+                        class="quantity"
+                        type="number"
+                        min="1"
+                        value="1"
+                        name="qty"
+                      />
+                      <div class="pro-actions">
+                        <div class="actions-primary">
+                          <button class="mr-10 btn btn-danger" type="submit">
+                            Add to cart
+                          </button>
+                        </div>
+                        <div class="actions-secondary">
+                          <a
+                            th:href="@{'/wishlist/add/' + ${productDetail.id}}"
+                            title=""
+                            data-original-title="WishList"
+                            ><i class="lnr lnr-heart"></i>
+                            <span>Add to WishList</span></a
+                          >
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="pro-ref mt-20">
+                    <p th:if="${productDetail.getStock() == 0}">
+                      <span class="out-stock"
+                        ><i class="fa fa-times"></i> OUT OF STOCK</span
+                      >
+                    </p>
+                    <p th:unless="${productDetail.getStock() == 0}">
+                      <span class="in-stock"
+                        ><i class="ion-checkmark-round"></i> IN STOCK (<th:block
+                          th:utext="${productDetail.getStock()}"
+                        ></th:block
+                        >)</span
+                      >
+                    </p>
+                    <p th:if="${outofstock != null}">
+                      <span class="out-stock"
+                        ><i class="fa fa-times"></i>
+                        <th:block th:utext="${outofstock}"></th:block
+                      ></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Thumbnail Description End -->
             </div>
             <!-- Row End -->
+          </div>
         </div>
         <!-- Container End -->
-    </div>
-    <!-- Product Thumbnail Description End -->
-    <!-- Realted Products Start Here -->
-    <div class="hot-deal-products off-white-bg pt-100 pb-90 pt-sm-60 pb-sm-50">
+      </div>
+      <!-- Product Thumbnail End -->
+      <!-- Product Thumbnail Description Start -->
+      <div class="thumnail-desc pb-100 pb-sm-60">
         <div class="container">
-            <!-- Product Title Start -->
-            <div class="post-title pb-30">
-                <h2>Realted Products</h2>
+          <div class="row">
+            <div class="col-sm-12">
+              <ul class="main-thumb-desc nav tabs-area" role="tablist">
+                <li>
+                  <a class="active" data-toggle="tab" href="#dtail"
+                    >Product Details</a
+                  >
+                </li>
+                <li><a data-toggle="tab" href="#review">Reviews 1</a></li>
+              </ul>
+              <!-- Product Thumbnail Tab Content Start -->
+              <div class="tab-content thumb-content border-default">
+                <div id="dtail" class="tab-pane fade show active">
+                  <p
+                    th:utext="${productDetail.getProductContent()}"
+                    th:remove="tag"
+                  ></p>
+                </div>
+                <div id="review" class="tab-pane fade">
+                  <!-- Reviews Start -->
+                  <div
+                    class="review border-default universal-padding"
+                    th:if="${productDetail.getReviewsCollection() != null}"
+                    th:each="review : ${productDetail.getReviewsCollection()}"
+                  >
+                    <div class="group-title">
+                      <h2 th:text="${review.user.getFullName()}"></h2>
+                    </div>
+                    <h4
+                      class="review-mini-title"
+                      th:text="${review.content}"
+                    ></h4>
+                  </div>
+                  <!-- Reviews End -->
+                  <!-- Reviews Start -->
+                  <div class="review border-default universal-padding mt-30">
+                    <h2 class="review-title mb-30">
+                      You're reviewing: <br /><span
+                        th:utext="${productDetail.getProductName()}"
+                      ></span>
+                    </h2>
+                    <!-- Reviews Field Start -->
+                    <div class="riview-field mt-40">
+                      <form autocomplete="off" action="#">
+                        <div class="form-group">
+                          <label class="req" for="sure-name">Nickname</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="sure-name"
+                            required="required"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label class="req" for="subject">Summary</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="subject"
+                            required="required"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label class="req" for="comments">Review</label>
+                          <textarea
+                            class="form-control"
+                            rows="5"
+                            id="comments"
+                            required="required"
+                          ></textarea>
+                        </div>
+                        <button type="submit" class="customer-btn">
+                          Submit Review
+                        </button>
+                      </form>
+                    </div>
+                    <!-- Reviews Field Start -->
+                  </div>
+                  <!-- Reviews End -->
+                </div>
+              </div>
+              <!-- Product Thumbnail Tab Content End -->
             </div>
-            <!-- Product Title End -->
-            <!-- Hot Deal Product Activation Start -->
-            <div class="hot-deal-active owl-carousel">
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\17.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\18.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Eames and Vortex Side</a></h4>
-                            <p><span class="price">$160.45</span></p>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                    <span class="sticker-new">new</span>
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\19.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\20.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Work Lamp Silver Proin</a></h4>
-                            <p><span class="price">$320.45</span> <del class="prev-price">$330.50</del></p>
-                            <div class="label-product l_sale">15<span class="symbol-percent">%</span></div>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\21.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\22.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Gpoly and Bark Eames Style</a></h4>
-                            <p><span class="price">$150.30</span> <del class="prev-price">$105.50</del></p>
-                            <div class="label-product l_sale">22<span class="symbol-percent">%</span></div>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\22.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\23.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Poly and Bark Vortex Side</a></h4>
-                            <p><span class="price">$90.45</span></p>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                    <span class="sticker-new">new</span>
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\8.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\9.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Eames and Bark  Style</a></h4>
-                            <p><span class="price">$90.45</span><del class="prev-price">$100.50</del></p>
-                            <div class="label-product l_sale">20<span class="symbol-percent">%</span></div>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\15.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\16.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Bark Vortex Side Eames</a></h4>
-                            <p><span class="price">$84.45</span></p>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\13.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\14.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Poly and Bark Vortex Side</a></h4>
-                            <p><span class="price">$95.45</span></p>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-                <!-- Single Product Start -->
-                <div class="single-product">
-                    <!-- Product Image Start -->
-                    <div class="pro-img">
-                        <a href="product.html">
-                            <img class="primary-img" src="img\products\1.jpg" alt="single-product">
-                            <img class="secondary-img" src="img\products\7.jpg" alt="single-product">
-                        </a>
-                        <a href="#" class="quick_view" data-toggle="modal" data-target="#myModal" title="Quick View"><i class="lnr lnr-magnifier"></i></a>
-                    </div>
-                    <!-- Product Image End -->
-                    <!-- Product Content Start -->
-                    <div class="pro-content">
-                        <div class="pro-info">
-                            <h4><a href="product.html">Poly and Bark Vortex Side</a></h4>
-                            <p><span class="price">$84.45</span></p>
-                        </div>
-                        <div class="pro-actions">
-                            <div class="actions-primary">
-                                <a href="cart.html" title="Add to Cart"> + Add To Cart</a>
-                            </div>
-                            <div class="actions-secondary">
-                                <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Product Content End -->
-                </div>
-                <!-- Single Product End -->
-            </div>
-            <!-- Hot Deal Product Active End -->
-
+          </div>
+          <!-- Row End -->
         </div>
         <!-- Container End -->
+      </div>
+      <!-- Product Thumbnail Description End -->
     </div>
-    <!-- Realated Products End Here -->
-</div>
-</body>
+  </body>
 </html>
