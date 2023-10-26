@@ -1,14 +1,20 @@
 package vn.aptech.powerofspeed.controller.v1.ui.frontend;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.trace.http.HttpTrace.Principal;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 import vn.aptech.powerofspeed.model.order.Order;
 import vn.aptech.powerofspeed.service.OrderService;
+import vn.aptech.powerofspeed.service.PdfGeneratorService;
 import vn.aptech.powerofspeed.service.impl.OrderServiceImpl;
 
 import java.util.List;
@@ -49,5 +55,34 @@ public class ViewOrderUserController {
 
     public List<Order> getOrderByEmail(@RequestParam("email") String email){
         return orderServiceImpl.getOrderByEmail(email);
+    }
+
+    @RequestMapping(value = "/delete/{orderId}", method = RequestMethod.GET)
+    public String removeOrder(@PathVariable("orderId") Long id){
+        orderService.deleteOrder(id);
+        return "redirect:/admin/order/index";
+    }
+
+    @Autowired
+    private PdfGeneratorService pdfGeneratorService;
+
+    @GetMapping("/order/orderDetail/{orderId}/generatePdf")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable("orderId") Long id) {
+        Optional<Order> order = orderService.findOrderById(id);
+        if (order.isPresent()) {
+            Context context = new Context();
+            context.setVariable("orderDetail", order.get());
+
+            try {
+                byte[] pdfBytes = pdfGeneratorService.generatePdfFromThymeleafTemplate("frontend/layout/pages/order/orderDetail", context);
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_PDF);
+                headers.setContentDispositionFormData("inline", "orderDetail.pdf");
+                return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+            } catch (Exception e) {
+                // Handle the exception (e.g., log it or return an error response)
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 }
