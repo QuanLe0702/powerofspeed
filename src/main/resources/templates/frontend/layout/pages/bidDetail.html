@@ -84,24 +84,6 @@
                         <div class="product-bid-area" sec:authorize="!isAuthenticated()">
                             <h4 class="text-danger">Please login to be able to bid amout! <a th:href="@{/login}">Sign in</a></h4>
                         </div>
-                        <div class="buy-now-area">
-                            <a href="#0" class="custom-button">Buy Now: <span th:utext="${'$' + productDetail.unitPrice}"></span></a>
-                            <a href="#0" class="rating custom-button active border"><i class="fa fa-star"></i> Add to Wishlist</a>
-                            <div class="share-area">
-                                <span>Share to:</span>
-                                <ul>
-                                    <li>
-                                        <a href="#0"><i class="fa fa-facebook-f"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#0"><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#0"><i class="fa fa-instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -146,7 +128,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#0" class="cart-link">View Shipping, Payment & Auction Policies</a>
+                        <a th:href="@{/policy}" class="cart-link">View Shipping, Payment & Auction Policies</a>
                     </div>
                 </div>
             </div>
