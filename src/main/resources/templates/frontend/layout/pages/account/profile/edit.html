@@ -71,6 +71,7 @@
                                             <select th:field="*{gender}" name="gender" th:id="gender" class="form-control">
                                                 <option th:value="Male" th:utext="Male"></option>
                                                 <option th:value="Female" th:utext="Female"></option>
+                                                <option th:value="Other" th:utext="Other"></option>
                                             </select>
                                             <span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
                                         </div>
