@@ -100,7 +100,7 @@
                         <th>Bid Increment</th>
                         <th>Auction Start</th>
                         <th>Auction End</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -135,7 +135,7 @@
                         <td th:unless="${product.getBidDetail() != null}">
                           NULL
                         </td>
-                        <td>
+                        <!-- <td>
                           <span
                             class="badge badge-success"
                             th:if="${product.isStatus() == true}"
@@ -146,7 +146,7 @@
                             th:unless="${product.isStatus() == true}"
                             >OFF</span
                           >
-                        </td>
+                        </td> -->
                         <td>
                           <div class="row">
                             <div>
@@ -202,7 +202,7 @@
                         <th>Bid Increment</th>
                         <th>Auction Start</th>
                         <th>Auction End</th>
-                        <th>Status</th>
+                        <!-- <th>Status</th> -->
                         <th>Auction</th>
                       </tr>
                     </tfoot>
