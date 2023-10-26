@@ -32,25 +32,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-
                     <div class="card">
-
-<!--                        <div class="alert alert-danger alert-dismissible" th:if="${error != null }">-->
-<!--                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
-<!--                            <h5><i class="icon fas fa-ban"></i> Alert!</h5>-->
-<!--                            <span th:utext="${error}"></span>-->
-<!--                        </div>-->
-
-<!--                        <div class="alert alert-success alert-dismissible" th:if="${success != null }">-->
-<!--                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
-<!--                            <h5><i class="icon fas fa-check"></i> Alert!</h5>-->
-<!--                            <span th:utext="${success}"></span>-->
-<!--                        </div>-->
-
 
                         <div class="card-header clearfix">
                             <a style="margin:5px" class="btn btn-success float-left" th:href="@{/admin/inventory/createFormInvoiceDetail}" >
-                                <i class="fas fa-plus"> </i>   Add new Inventory Detail </a>
+                                <i class="fas fa-plus"> </i>   Add new / Edit </a>
 
 
                         </div>
@@ -66,10 +52,6 @@
                                     <th>Quantity Received</th>
                                     <th>Inventory on Hand</th>
                                     <th>Product Name</th>
-                                    <th>Action</th>
-
-
-
                                 </tr>
                                 </thead>
 
@@ -81,31 +63,16 @@
                                     <td th:text="${inventory.quantityReceived}"></td>
                                     <td th:text="${inventory.inventoryOnHand}"></td>
                                     <td th:text="${inventory.product.productName}"></td>
-<!--                                    <td th:text="${inventory.product.getSubcategory().getCategory().getName()}"></td>-->
-<!--                                    <td th:text="${inventory.product.getSubcategory().getSubName()}"></td>-->
-
-
-                                    <td>
+                                    <!-- <td>
                                         <div class="row">
                                             <div>
-
                                                 <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/inventory/displayUpdateInventoryDetail/'+ ${inventory.inventoryID}}"><i class="fas fa-edit"></i></a>
-
                                             </div>
-
-
                                             <div>
-
                                                 <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/inventory/delete/{idDelete}(idDelete=${inventory.inventoryID})}" onclick="return confirm('Are you sure you want to Remove?');" ><i class="fas fa-trash"></i></a>
-
                                             </div>
-
-
-
-
                                         </div>
-                                    </td>
-
+                                    </td> -->
                                 </tr>
 
                                 </tbody>
@@ -117,11 +84,6 @@
                                     <th>Quantity Received</th>
                                     <th>Inventory on Hand</th>
                                     <th>Product Name</th>
-<!--                                    <th>Category</th>-->
-<!--                                    <th>Subcategory</th>-->
-                                    <th>Action</th>
-
-
                                 </tr>
                                 </tfoot>
                             </table>

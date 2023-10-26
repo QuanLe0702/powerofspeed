@@ -36,7 +36,7 @@
 
                         <div class="card-header clearfix">
                             <a style="margin:5px" class="btn btn-success float-left" th:href="@{/admin/inventory/createFormInvoiceDetail}" >
-                                <i class="fas fa-plus"> </i>   Add new Invoice Detail </a>
+                                <i class="fas fa-plus"> </i>   Add new / Edit </a>
 
 
                         </div>
@@ -52,10 +52,6 @@
                                     <th>Quantity Received</th>
                                     <th>Inventory on Hand</th>
                                     <th>Product Name</th>
-                                    <th>Action</th>
-
-
-
                                 </tr>
                                 </thead>
 
@@ -67,27 +63,16 @@
                                     <td th:text="${inventory.getQuantityReceived()}"></td>
                                     <td th:text="${inventory.getInventoryOnHand()}"></td>
                                     <td th:text="${inventoryProduct.getProductName()}"></td>
-<!--                                    <td th:text="${inventoryProduct.getSubcategory().getCategory().getName()}"></td>-->
-<!--                                    <td th:text="${inventoryProduct.getSubcategory().getSubName()}"></td>-->
-                                    <td>
+                                    <!-- <td>
                                         <div class="row">
                                             <div>
-
                                                 <a style="margin:5px" class="btn btn-info" th:href="@{'/admin/inventory/displayUpdateInventoryDetail/'+ ${inventory.inventoryID}}"><i class="fas fa-edit"></i></a>
-
                                             </div>
-
-
                                             <div>
-
                                                 <a style="margin:5px" class="btn btn-danger " th:href="@{/admin/inventory/delete/{idDelete}(idDelete=${inventory.inventoryID})}" onclick="return confirm('Are you sure you want to Remove?');" ><i class="fas fa-trash"></i></a>
-
                                             </div>
-
-
                                         </div>
-                                    </td>
-
+                                    </td> -->
                                 </tr>
 
                                 </tbody>
@@ -99,11 +84,6 @@
                                     <th>Quantity Received</th>
                                     <th>Inventory on Hand</th>
                                     <th>Product Name</th>
-<!--                                    <th>Category</th>-->
-<!--                                    <th>Subcategory</th>-->
-                                    <th>Action</th>
-
-
                                 </tr>
                                 </tfoot>
                             </table>
