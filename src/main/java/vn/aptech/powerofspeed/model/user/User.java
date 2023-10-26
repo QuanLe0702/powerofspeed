@@ -11,6 +11,8 @@ import vn.aptech.powerofspeed.model.orderdetail.OrderDetail;
 import vn.aptech.powerofspeed.model.wishlist.Wishlist;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Objects;
@@ -23,6 +25,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseEntity {
 
+    // @NotEmpty(message = "Files can not be empty")
+    // @Email
     @Column(name = "email", unique = true)
     private String email;
 

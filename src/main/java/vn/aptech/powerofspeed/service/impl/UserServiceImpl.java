@@ -55,7 +55,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailService emailService;
 
-
     @Transactional
     public UserDto findByEmail(String email) {
         Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
@@ -103,8 +102,10 @@ public class UserServiceImpl implements UserService {
 
                 if (user == null) {
                     for (String roleId : userDto.getRoles()) {
-                        roles.add(roleRepository.findById(Long.parseLong(roleId)).get());
+                    roles.add(roleRepository.findById(Long.parseLong(roleId)).get());
                     }
+                    // Role role = roleRepository.findByName("STAFF");
+                    // roles.add(role);
                     user = new User()
                             .setEmail(userDto.getEmail())
                             .setEmailConfirmed(true)
@@ -121,7 +122,7 @@ public class UserServiceImpl implements UserService {
 
                     returnUser = UserMapper.toUserDto(userRepository.save(user));
 
-                    // send email to user with token
+                    // send email to user staff
                     emailService.sendHTMLemail(userDto.getFirstName(), userDto.getEmail());
 
                     return returnUser;
@@ -213,7 +214,6 @@ public class UserServiceImpl implements UserService {
                 addressUpdate.setPostalCode(userDto.getAddressDto().getPostalCode());
                 addressUpdate.setStateOrRegion(userDto.getAddressDto().getStateOrRegion());
                 userUpdate.setAddress(addressUpdate);
-
 
                 returnUser = UserMapper.toUserDto(userRepository.save(userUpdate));
                 return returnUser;
