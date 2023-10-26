@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import vn.aptech.powerofspeed.model.order.Order;
+import vn.aptech.powerofspeed.model.order.StatusType;
 import vn.aptech.powerofspeed.model.products.Product;
 import vn.aptech.powerofspeed.service.OrderService;
 
@@ -37,9 +40,18 @@ public class OrderController {
         return "backend/layout/pages/order/orderDetail";
     }
 
-    @RequestMapping(value = "/delete/{orderId}", method = RequestMethod.GET)
-    public String removeOrder(@PathVariable("orderId") Long id){
-        orderService.deleteOrder(id);
-        return "redirect:/admin/order/index";
+    @RequestMapping(value = "/updateStatus/{orderId}", method = RequestMethod.POST)
+    public String updateOrderStatus(@PathVariable("orderId") Long orderId, @RequestParam("status") StatusType status) {
+        Optional<Order> optionalOrder = orderService.findOrderById(orderId);
+
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatusType(status);
+            orderService.update(order); // Update the order status
+        } else {
+            // Handle the case where the order is not found
+        }
+
+        return "redirect:/admin/order/orderDetail/" + orderId;
     }
 }

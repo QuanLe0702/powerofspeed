@@ -3,6 +3,7 @@ package vn.aptech.powerofspeed.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.aptech.powerofspeed.model.order.Order;
+import vn.aptech.powerofspeed.model.order.StatusType;
 import vn.aptech.powerofspeed.repository.order.OrderRepository;
 import vn.aptech.powerofspeed.service.OrderService;
 
@@ -50,6 +51,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrderByEmail(String email) {
         return orderRepository.findOrderByEmail(email);
+    }
+
+    @Override
+    @Transactional
+    public Order updateOrderStatus(Long orderId, StatusType status) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatusType(status);
+            return orderRepository.save(order);
+        }
+        return null; // or throw an exception if the order is not found
     }
 
 //    @Override
