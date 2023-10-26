@@ -54,4 +54,10 @@ public class OrderController {
 
         return "redirect:/admin/order/orderDetail/" + orderId;
     }
+
+    @RequestMapping(value = "/delete/{orderId}", method = RequestMethod.GET)
+    public String removeOrder(@PathVariable("orderId") Long id){
+        orderService.deleteOrder(id);
+        return "redirect:/admin/order/index";
+    }
 }

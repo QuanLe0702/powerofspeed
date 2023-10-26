@@ -101,15 +101,15 @@
                         <td th:utext="${order.statusType}"></td>
                         <td>
                           <div class="row">
-                            <!-- <div>
+                            <div>
                               <a
                                 style="margin: 5px"
                                 class="btn btn-danger"
                                 th:href="@{/admin/order/delete/{idDelete}(idDelete=${order.id})}"
-                                onclick="return confirm('Are you sure you want to Remove?');"
+                                onclick="return confirm('Are you sure you want to remove this Order ? Only remove Cancelled Order or Bad Order!');"
                                 ><i class="fas fa-trash"></i
                               ></a>
-                            </div> -->
+                            </div>
 
                             <div>
                               <a
