@@ -46,7 +46,7 @@ public class Product extends BaseEntity {
 
     @Column(name = "unit_price", nullable = false)
     @NotNull
-    @Size(min = 1)
+    // @Size(min = 1)
     private int unitPrice;
 
     @Column(name = "save_price", nullable = false)

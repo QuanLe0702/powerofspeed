@@ -50,19 +50,19 @@
                <div class="card-body">
                  <div class="form-group">
                    <label for="email">Email</label>
-                   <input type="email" class="form-control" th:field="*{email}" th:if="${#fields.hasErrors('email')}" th:classappend="is-invalid" name="email" id="email" placeholder="Enter email">
+                   <input type="email" class="form-control" th:field="*{email}" th:if="${#fields.hasErrors('email')}" th:classappend="is-invalid" name="email" id="email" placeholder="Enter email" required>
                    <input type="email" class="form-control" th:field="*{email}" th:unless="${#fields.hasErrors('email')}" name="email" id="email" placeholder="Enter email">
                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                  </div>
                  <div class="form-group">
                    <label for="password">Password</label>
-                   <input type="password" class="form-control"th:field="*{password}" th:if="${#fields.hasErrors('password')}" th:classappend="is-invalid" id="password" placeholder="Password">
+                   <input type="password" class="form-control"th:field="*{password}" th:if="${#fields.hasErrors('password')}" th:classappend="is-invalid" id="password" placeholder="Password" required>
                    <input type="password" class="form-control"th:field="*{password}" th:unless="${#fields.hasErrors('password')}" id="password" placeholder="Password">
                    <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                  </div>
                  <div class="form-group">
                    <label for="phoneNumber">Phone Number</label>
-                   <input type="tel" class="form-control" th:field="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}" th:classappend="is-invalid" name="phoneNumber" id="phoneNumber" placeholder="Enter phone number">
+                   <input type="tel" class="form-control" th:field="*{phoneNumber}" th:if="${#fields.hasErrors('phoneNumber')}" th:classappend="is-invalid" name="phoneNumber" id="phoneNumber" placeholder="Enter phone number" required>
                    <input type="tel" class="form-control" th:field="*{phoneNumber}" th:unless="${#fields.hasErrors('phoneNumber')}" name="phoneNumber" id="phoneNumber" placeholder="Enter phone number">
                    <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
                  </div>
@@ -70,7 +70,7 @@
                    <div class="col-sm-6">
                      <div class="form-group">
                        <label for="firstName">First Name</label>
-                       <input type="text" class="form-control" th:field="*{firstName}" th:if="${#fields.hasErrors('firstName')}" th:classappend="is-invalid" name="firstName" id="firstName" placeholder="Enter first name">
+                       <input type="text" class="form-control" th:field="*{firstName}" th:if="${#fields.hasErrors('firstName')}" th:classappend="is-invalid" name="firstName" id="firstName" placeholder="Enter first name" required>
                        <input type="text" class="form-control" th:field="*{firstName}" th:unless="${#fields.hasErrors('firstName')}" name="firstName" id="firstName" placeholder="Enter first name">
                        <span class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                      </div>
@@ -78,7 +78,7 @@
                    <div class="col-sm-6">
                      <div class="form-group">
                        <label for="lastName">Last Name</label>
-                       <input type="text" class="form-control" th:field="*{lastName}" th:if="${#fields.hasErrors('lastName')}" th:classappend="is-invalid" name="lastName" id="lastName" placeholder="Enter last name">
+                       <input type="text" class="form-control" th:field="*{lastName}" th:if="${#fields.hasErrors('lastName')}" th:classappend="is-invalid" name="lastName" id="lastName" placeholder="Enter last name" required>
                        <input type="text" class="form-control" th:field="*{lastName}" th:unless="${#fields.hasErrors('lastName')}" name="lastName" id="lastName" placeholder="Enter last name">
                        <span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                      </div>
@@ -101,8 +101,8 @@
                        <label>Date Of Birth:</label>
 
                        <div class="input-group">
-                         <input type="date" th:field="*{dateOfBirth}" th:if="${#fields.hasErrors('dateOfBirth')}" th:classappend="is-invalid" id="dateOfBirth" name="dateOfBirth" class="form-control float-right">
-                         <input type="date" th:field="*{dateOfBirth}" th:unless="${#fields.hasErrors('dateOfBirth')}" id="dateOfBirth" name="dateOfBirth" class="form-control float-right">
+                         <input type="date" th:field="*{dateOfBirth}" th:if="${#fields.hasErrors('dateOfBirth')}" th:classappend="is-invalid" id="dateOfBirth" name="dateOfBirth" class="form-control float-right" value="10/08/2023">
+                         <input type="date" th:field="*{dateOfBirth}" th:unless="${#fields.hasErrors('dateOfBirth')}" id="dateOfBirth" name="dateOfBirth" class="form-control float-right" value="10/08/2023">
                        </div>
                        <span class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
                        <!-- /.input group -->

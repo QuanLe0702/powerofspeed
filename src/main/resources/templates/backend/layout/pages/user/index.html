@@ -69,7 +69,7 @@
                                     <th>Roles</th>
                                     <th>Create At</th>
                                     <th>Update At</th>
-                                    <th>Action</th>
+                                    <th sec:authorize="hasAuthority('ADMIN')">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -91,9 +91,10 @@
                                     </td>
                                     <td th:utext="${user.createAt.toString()}"></td>
                                     <td th:utext="${user.updateAt.toString()}"></td>
-                                    <td>
+                                
+                                    <td sec:authorize="hasAuthority('ADMIN')">
                                         <a th:href="@{/admin/user/edit/{id}(id=${user.id})}"><span title="Edit" type="button" class="btn btn-primary"><i class="fa fa-edit"></i></span></a>&nbsp;
-                                        <!-- <a th:href="@{/admin/user/delete/{id}(id=${user.id})} "><span title="Delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></span></a> -->
+                                        <a th:href="@{/admin/user/delete/{id}(id=${user.id})} "><span title="Delete" class="btn btn-danger"><i class="fas fa-trash-alt"></i></span></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -108,7 +109,7 @@
                                     <th>Roles</th>
                                     <th>Create At</th>
                                     <th>Update At</th>
-                                    <th>Action</th>
+                                    <th sec:authorize="hasAuthority('ADMIN')">Action</th>
                                 </tr>
                                 </tfoot>
                             </table>

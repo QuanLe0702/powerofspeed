@@ -33,7 +33,7 @@ public class ProductUpdateFormCommand {
     private String productContent;
 
     @NotNull
-    @Size(min = 1)
+    // @Size(min = 1)
     private int unitPrice;
 
     @Size(min = 1)
