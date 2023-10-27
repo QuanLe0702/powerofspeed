@@ -42,7 +42,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendSimpleMail(String name, String to) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setSubject("New User Account Verification");
+            message.setSubject("Welcome to PowerOfSpeed!");
             message.setFrom(fromEmail);
             message.setTo(to);
             message.setText(EmailUtils.getEmailMessage(name, host));

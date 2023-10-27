@@ -23,17 +23,17 @@ public class UserUpdateFormCommand {
     @Email
     private String email;
 
-    @NotBlank
-    @Size(min = 5)
+    // @NotBlank
+    // @Size(min = 5)
     private String password;
 
-    @NotBlank
-    @Size(min = 5)
+    // @NotBlank
+    // @Size(min = 5)
     private String newPassword;
 
-    @NotBlank
-    @Size(min = 5)
-    @FieldMatch(first = "newPassword", second = "confirmNewPassword", message = "Passwords are not equal.")
+    // @NotBlank
+    // @Size(min = 5)
+    // @FieldMatch(first = "newPassword", second = "confirmNewPassword", message = "Passwords are not equal.")
     private String confirmNewPassword;
 
     @NotBlank
