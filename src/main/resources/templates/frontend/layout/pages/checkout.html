@@ -61,8 +61,8 @@
                 <div class="row" sec:authorize="isAuthenticated()">
                     <div class="col-lg-6 col-md-6">
                         <div class="checkbox-form mb-sm-40">
-                            <h3>Confirm Billing Details</h3>
-                            <form th:action="@{/doCheckout}" th:object="${order}" method="post">
+                            <h3>Confirm Your Order</h3>
+                            <form th:action="@{/doCheckout}" th:object="${order}" method="post" id="dataInput">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="checkout-form-list mb-sm-30">
@@ -243,3 +243,21 @@
 </body>
 
 </html>
+
+<script layout:fragment="scripts">
+    $('#dataInput').submit(function (e) { //Form is submitted, it calls this function automatically
+    var empty = 0;
+    $('input[type=text]').each(function(){ //Check each input (had to be done like this, because i dont know the amount of input beforehand)
+       if (this.value == "") { //The textbox is empty
+           empty++;
+       } 
+    })
+    if(empty === 1){ //No empty textboxes
+
+    }else{
+       alert('Missing Shipping Information! Please add nessary information in your profile detail!'); //There are empty textboxes
+   e.preventDefault(); //Prevent the submit from happening
+    }
+
+});
+</script>
