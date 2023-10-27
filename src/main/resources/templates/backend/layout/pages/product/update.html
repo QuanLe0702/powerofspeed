@@ -73,8 +73,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                                     </div>
-                                                    <input type="text" th:field="*{productName}" th:if="${#fields.hasErrors('productName')}" th:classappend="is-invalid" id="productName" name="productName" value="" class="form-control input-sm" placeholder="">
-                                                    <input type="text" th:field="*{productName}" th:unless="${#fields.hasErrors('productName')}" id="productName" name="productName" value="" class="form-control input-sm" placeholder="">
+                                                    <input type="text" th:field="*{productName}" th:if="${#fields.hasErrors('productName')}" th:classappend="is-invalid" id="productName" name="productName" value="" class="form-control input-sm" placeholder="" required>
+                                                    <input type="text" th:field="*{productName}" th:unless="${#fields.hasErrors('productName')}" id="productName" name="productName" value="" class="form-control input-sm" placeholder="" required>
                                                 </div>
                                                 <span class="form-text" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}">
                                                     <i class="fa fa-info-circle"></i>
@@ -91,9 +91,9 @@
                                             </label>
                                             <div class="col-sm-8">
                                                 <textarea th:field="*{productDescription}" th:if="${#fields.hasErrors('productDescription')}" th:classappend="is-invalid" class="textarea" name="productContent" id="productContent" placeholder="Place some text here"
-                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
                                                 <textarea th:field="*{productDescription}" th:unless="${#fields.hasErrors('productDescription')}" class="textarea" name="productContent" id="productContent" placeholder="Place some text here"
-                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
                                                 <span class="form-text" th:unless="${#fields.hasErrors('productDescription')}" th:errors="*{productDescription}">
                                                     <i class="fa fa-info-circle"></i>
                                                 </span>
@@ -106,9 +106,9 @@
                                             </label>
                                             <div class="col-sm-8">
                                                 <textarea th:field="*{productContent}" th:if="${#fields.hasErrors('productContent')}" th:classappend="is-invalid" class="textarea" name="productContent" id="productContent" placeholder="Place some text here"
-                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
                                                 <textarea th:field="*{productContent}" th:unless="${#fields.hasErrors('productContent')}" class="textarea" name="productContent" id="productContent" placeholder="Place some text here"
-                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
                                                 <span class="form-text" th:unless="${#fields.hasErrors('productContent')}" th:errors="*{productContent}">
                                                     <i class="fa fa-info-circle"></i>
                                                 </span>
@@ -131,8 +131,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                                     </div>
-                                                    <input type="text" th:field="*{sku}" th:if="${#fields.hasErrors('sku')}" th:classappend="is-invalid" style="width: 100px;" id="sku" name="sku" value="" class="form-control input-sm" placeholder="">
-                                                    <input type="text" th:field="*{sku}" th:unless="${#fields.hasErrors('sku')}" style="width: 100px;" id="sku" name="sku" value="" class="form-control input-sm" placeholder="">
+                                                    <input type="text" th:field="*{sku}" th:if="${#fields.hasErrors('sku')}" th:classappend="is-invalid" style="width: 100px;" id="sku" name="sku" value="" class="form-control input-sm" placeholder="" required>
+                                                    <input type="text" th:field="*{sku}" th:unless="${#fields.hasErrors('sku')}" style="width: 100px;" id="sku" name="sku" value="" class="form-control input-sm" placeholder="" required>
                                                 </div>
                                                 <span class="form-text" th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}">
                                                 </span>
@@ -148,8 +148,8 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
                                                     </div>
-                                                    <input type="text" th:field="*{slug}" th:if="${#fields.hasErrors('slug')}" th:classappend="is-invalid" id="slug" name="slug" value="" class="form-control input-sm" placeholder="">
-                                                    <input type="text" th:field="*{slug}" th:unless="${#fields.hasErrors('slug')}" id="slug" name="slug" value="" class="form-control input-sm" placeholder="">
+                                                    <input type="text" th:field="*{slug}" th:if="${#fields.hasErrors('slug')}" th:classappend="is-invalid" id="slug" name="slug" value="" class="form-control input-sm" placeholder="" required>
+                                                    <input type="text" th:field="*{slug}" th:unless="${#fields.hasErrors('slug')}" id="slug" name="slug" value="" class="form-control input-sm" placeholder="" required>
                                                 </div>
                                                 <span class="form-text" th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}"></span>
                                                 <span class="form-text">
@@ -183,7 +183,7 @@
                                                 <span class="form-text" th:if="${#fields.hasErrors('savePrice')}" th:errors="*{savePrice}"></span>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <!-- <div class="form-group row">
                                             <label for="weight" class="col-sm-2 col-form-label">Weight</label>
                                             <div class="col-sm-8">
                                                 <div class="input-group">
@@ -195,7 +195,7 @@
                                                 </div>
                                                 <span class="form-text" th:if="${#fields.hasErrors('unitWeight')}" th:errors="*{unitWeight}"></span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="card" th:if="${productUpdateFormCommand.isAuction() == true}">
@@ -299,8 +299,8 @@
 <script layout:fragment="scripts">
     $(function () {
 
-        document.getElementById("auctionStart").defaultValue = "2023-10-26";
-        document.getElementById("auctionEnd").defaultValue = "2023-10-26";
+        document.getElementById("auctionStart").defaultValue = "2023-10-28";
+        document.getElementById("auctionEnd").defaultValue = "2023-10-28";
         // Summernote
         $('.textarea').summernote();
         //Initialize Select2 Elements
@@ -309,6 +309,25 @@
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         });
     })
+
+    function validatePrices() {
+        var sellingPrice = parseFloat(document.getElementById('savePrice').value);
+        var unitPrice = parseFloat(document.getElementById('unitPrice').value);
+
+        if (sellingPrice >= unitPrice) {
+            // If Selling Price is not within the required range, show an error message
+            alert("Selling Price must be less than Unit Price.");
+            return false; // Prevent the form submission
+        }
+        return true; // Continue with form submission
+    }
+
+    // Event listener for form submission
+    document.querySelector('form').addEventListener('submit', function(event) {
+        if (!validatePrices()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
 </script>
 </body>
 </html>
