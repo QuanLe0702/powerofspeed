@@ -43,13 +43,13 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Category Name</label>
-                                    <input  class="form-control" placeholder="Enter Category Name" th:field="*{name}" >
+                                    <input  class="form-control" placeholder="Enter Category Name" th:field="*{name}" required>
                                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Slug</label>
-                                    <input  class="form-control" placeholder="Enter slug" th:field="*{slug}" >
+                                    <input  class="form-control" placeholder="Enter slug" th:field="*{slug}" required>
                                     <span th:if="${#fields.hasErrors('slug')}" th:errors="*{slug}">Slug Error</span>
                                 </div>
                             </div>

@@ -74,9 +74,9 @@
                                 <div class="toolbar-sorter d-flex align-items-center">
                                     <label>Sort By:</label>
                                     <select name="order" id="order" class="sorter wide" onchange="this.form.submit()">
-                                        <option value="best_seller">Best seller</option>
+                                        <!-- <option value="best_seller">Best seller</option> -->
                                         <option value="new_product">New product</option>
-                                        <option value="much_discount">Much discount</option>
+                                        <!-- <option value="much_discount">Much discount</option> -->
                                         <option value="price_low_to_heigh">Price low to heigh</option>
                                         <option value="price_heigh_to_low">Price heigh to low</option>
                                     </select>
@@ -92,7 +92,6 @@
                                     <input type="hidden" name="order" id="order" th:if="${#request.getParameter('order') != null}" th:value="${#request.getParameter('order')}">
                                     <input type="hidden" name="page" id="page" th:if="${#request.getParameter('page') != null}" th:value="${#request.getParameter('page')}">
                                     <select name="size" id="size" class="sorter wide" onchange="this.form.submit()">
-                                        <option value="3">3</option>
                                         <option value="6">6</option>
                                         <option value="9">9</option>
                                         <option value="12">12</option>
@@ -178,10 +177,10 @@
                                                             <div class="icon">
                                                                 <i class="fa fa-money" aria-hidden="true"></i>
                                                             </div>
-                                                            <div class="amount-content">
+                                                            <!-- <div class="amount-content">
                                                                 <div class="current">Buy Now</div>
                                                                 <div class="prev-price" th:utext="${product.getUnitPrice()}"></div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -191,7 +190,7 @@
                                                     </div>
                                                     <div class="actions-secondary">
                                                         <!-- <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a> -->
-                                                        <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
+                                                        <!-- <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,7 +210,7 @@
                                         <!-- Product Image Start -->
                                         <div class="col-lg-4 col-md-5 col-sm-12">
                                             <div class="pro-img">
-                                                <a href="product.html">
+                                                <a th:href="@{'/product/' + ${product.getSlug()}}">
                                                     <img th:each="image : ${product.getImagesCollection()}" th:if="${image.mainImage} == true" class="primary-img" width="270" height="270" th:src="@{'/backend/dist/img/products/' + ${image.getName()}}" th:alt="${image.getName()}">
                                                     <img class="secondary-img" th:src="@{'/backend/dist/img/products/' + ${product.imagesCollection[1].getName()}}" width="270" height="270" th:alt="${product.imagesCollection[1].getName()}">
                                                 </a>

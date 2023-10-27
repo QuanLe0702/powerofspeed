@@ -11,6 +11,8 @@ import vn.aptech.powerofspeed.dto.model.user.UserDto;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @Accessors(chain = true)

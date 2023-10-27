@@ -76,11 +76,11 @@
                                     <td th:if="${image.isMainImage()} == true">
                                         <span class="badge badge-success">Default</span>
 
-                                        <a style="margin:5px" class="btn btn-success" th:href="@{'/admin/product/editImage/' + ${image.imageId}}"><i class="fas fa-edit"></i></a>
+                                        <!-- <a style="margin:5px" class="btn btn-success" th:href="@{'/admin/product/editImage/' + ${image.imageId}}"><i class="fas fa-edit"></i></a> -->
                                     </td>
                                     <td th:unless="${image.isMainImage()} == true">
                                         <a th:href="@{'/admin/product/doDefaultImage/' + ${image.imageId}}"> <span class="badge badge-warning">Set Default</span></a>
-                                        <a style="margin:5px" class="btn btn-success" th:href="@{'/admin/product/editImage/' + ${image.imageId}}"><i class="fas fa-edit"></i></a>
+                                        <!-- <a style="margin:5px" class="btn btn-success" th:href="@{'/admin/product/editImage/' + ${image.imageId}}"><i class="fas fa-edit"></i></a> -->
                                         <a style="margin:5px" class="btn btn-danger " th:href="@{'/admin/product/deleteImage/' + ${image.imageId} + '/product/' + ${product.getId()}}" onclick="return confirm('Are you sure you want to Remove?');" ><i class="fas fa-trash"></i></a>
 
                                     </td>
