@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                             <li class="breadcrumb-item active">Invoice</li>
                         </ol>
                     </div>
@@ -60,7 +60,7 @@
                                     <address>
                                         <strong>Shipping Address</strong><br>
                                         <p th:text="${orderDetail.address}"></p>
-                                        <p th:text="${orderDetail.city + ', Pincode: '+ orderDetail.postalCode + ',' + orderDetail.stateOrRegion + ',' + orderDetail.country}"></p>San Francisco, CA 94107<br>
+                                        <p th:text="${orderDetail.city + ' , Pincode: '+ orderDetail.postalCode + ', ' + orderDetail.stateOrRegion + ', ' + orderDetail.country}"></p>San Francisco, CA 94107<br>
                                         <p th:text="'Phone: ' + ${orderDetail.phoneNumber}"></p>
                                     </address>
                                 </div>
@@ -70,9 +70,14 @@
                                     <br>
                                     <b th:text="'Order ID:' + ${orderDetail.id}"></b><br>
                                     <b th:text="'Payment Method: '+ ${orderDetail.paymentMethod}"></b><br>
-                                    <b style="color: green">Status:</b> <select class="form-control" id="productType" name="productType">
-                                        <option th:each="type : ${T(vn.aptech.powerofspeed.model.order.StatusType).values()}" th:value="${type}" th:utext="${type}"></option>
-                                    </select>
+                                    <form th:action="@{'/admin/order/updateStatus/' + ${orderDetail.id}}" method="post">
+                                            <b style="color: green">Order Status:</b>
+                                            <select class="form-control" id="status" name="status">
+                                                <option th:each="type : ${T(vn.aptech.powerofspeed.model.order.StatusType).values()}"
+                                                        th:value="${type}" th:utext="${type}" th:selected="${type == orderDetail.statusType}"></option>
+                                            </select>
+                                            <button type="submit" class="btn btn-primary">Update Status</button>
+                                    </form>
 
                                 </div>
                                 <!-- /.col -->
@@ -133,20 +138,6 @@
                                     </div>
                                 </div>
                                 <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                            <!-- this row will not appear when printing -->
-                            <div class="row no-print">
-
-                                <div class="col-12">
-                                    <!-- <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
-                                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                                        Payment
-                                    </button>
-                                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                                        <i class="fas fa-download"></i> Generate PDF
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <!-- /.invoice -->

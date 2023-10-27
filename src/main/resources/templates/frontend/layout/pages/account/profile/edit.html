@@ -102,35 +102,35 @@
                                     <li>
                                         <div class="info-name">Address</div>
                                         <div class="info-value form-group">
-                                            <input type="text" class="form-control" th:field="*{address}" id="address" name="address">
+                                            <input required type="text" class="form-control" th:field="*{address}" id="address" name="address">
                                             <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="info-name">City</div>
                                         <div class="info-value form-group">
-                                            <input type="text" class="form-control" th:field="*{city}" id="city" name="city">
+                                            <input required type="text" class="form-control" th:field="*{city}" id="city" name="city">
                                             <span class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="info-name">Country</div>
                                         <div class="info-value form-group">
-                                            <input type="text" class="form-control" th:field="*{country}" id="country" name="country">
+                                            <input required type="text" class="form-control" th:field="*{country}" id="country" name="country">
                                             <span class="text-danger" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="info-name">Postal Code</div>
                                         <div class="info-value form-group">
-                                            <input type="text" class="form-control" th:field="*{postalCode}" id="postalCode" name="postalCode">
+                                            <input required type="text" class="form-control" th:field="*{postalCode}" id="postalCode" name="postalCode">
                                             <span class="text-danger" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="info-name">State/Region</div>
                                         <div class="info-value form-group">
-                                            <input type="text" class="form-control" th:field="*{stateOrRegion}" id="stateOrRegion" name="stateOrRegion">
+                                            <input required type="text" class="form-control" th:field="*{stateOrRegion}" id="stateOrRegion" name="stateOrRegion">
                                             <span class="text-danger" th:if="${#fields.hasErrors('stateOrRegion')}" th:errors="*{stateOrRegion}"></span>
                                         </div>
                                     </li>
