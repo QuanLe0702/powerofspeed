@@ -27,9 +27,9 @@ public class UserRegisterFormCommand {
     @Size(min = 5)
     private String password;
 
-    @NotBlank
-    @Size(min = 5)
-    @FieldMatch(first = "password", second = "confirmPassword", message = "Passowords are not equal.")
+    // @NotBlank
+    // @Size(min = 5)
+    // @FieldMatch(first = "password", second = "confirmPassword", message = "Passowords are not equal.")
     private String passwordConfirm;
 
     @NotBlank
