@@ -69,6 +69,8 @@
                                 <h5 class="info" th:utext="${'$' + productDetail.getBidDetail().getBidIncrement()}"></h5>
                             </li>
                         </ul>
+
+                        
                         <div class="product-bid-area" sec:authorize="isAuthenticated()">
                             <form class="product-bid-form" th:action="@{/auction/bid}" th:object="${bidAuctionRequest}" method="post">
                                 <div class="search-icon">
@@ -81,13 +83,17 @@
                             </form>
                             <span class="text-danger" th:if="${bidAmoutError != null}" th:utext="${bidAmoutError}"></span>
                         </div>
+
+                        
                         <div class="product-bid-area" sec:authorize="!isAuthenticated()">
                             <h4 class="text-danger">Please login to be able to bid amout! <a th:href="@{/login}">Sign in</a></h4>
                         </div>
+
+
                         <div class="buy-now-area">
-                            <a href="#0" class="custom-button">Buy Now: <span th:utext="${'$' + productDetail.unitPrice}"></span></a>
-                            <a href="#0" class="rating custom-button active border"><i class="fa fa-star"></i> Add to Wishlist</a>
-                            <div class="share-area">
+                            <!-- <a href="#0" class="custom-button">Buy Now: <span th:utext="${'$' + productDetail.unitPrice}"></span></a> -->
+                            <!-- <a href="#0" class="rating custom-button active border"><i class="fa fa-star"></i> Add to Wishlist</a> -->
+                            <!-- <div class="share-area">
                                 <span>Share to:</span>
                                 <ul>
                                     <li>
@@ -100,8 +106,9 @@
                                         <a href="#0"><i class="fa fa-instagram"></i></a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
+
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -117,15 +124,6 @@
                             <!-- Product Image End -->
                             <!-- Single Product End -->
                             <div class="side-counter-area">
-<!--                                <div class="side-counter-item">-->
-<!--                                    <div class="thumb">-->
-<!--                                        <img th:src="@{/frontend/img/product/icon1.png}" alt="product">-->
-<!--                                    </div>-->
-<!--                                    <div class="content">-->
-<!--                                        <h3 class="count-title"><span class="counter">61</span></h3>-->
-<!--                                        <p>Active Bidders</p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                                 <div class="side-counter-item">
                                     <div class="thumb">
                                         <img th:src="@{/frontend/img/product/icon2.png}" alt="product">
@@ -146,7 +144,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#0" class="cart-link">View Shipping, Payment & Auction Policies</a>
+                        <a th:href="@{/policy}" class="cart-link">View Shipping, Payment & Auction Policies</a>
                     </div>
                 </div>
             </div>
@@ -170,14 +168,14 @@
                             <div class="content">Bid History (<span th:utext="${productDetail.getBidDetail().getBidHistories().size()}"></span>)</div>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#questions" data-toggle="tab">
                             <div class="thumb">
                                 <img th:src="@{/frontend/img/product/tab4.png}" alt="product">
                             </div>
                             <div class="content">Questions </div>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -222,14 +220,14 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div class="text-center mb-3 mt-4">
+                                <!-- <div class="text-center mb-3 mt-4">
                                     <a href="#0" class="button-3">Load More</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="questions">
+                <!-- <div class="tab-pane fade show" id="questions">
                     <h5 class="faq-head-title">Frequently Asked Questions</h5>
                     <div class="faq-wrapper">
                         <div class="faq-item">
@@ -281,7 +279,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 </div>
