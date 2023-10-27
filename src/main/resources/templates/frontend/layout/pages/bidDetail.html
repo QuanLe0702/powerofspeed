@@ -4,6 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <title th:utext="${productDetail.getProductName()}"></title>
+
+    <style>
+        .auction-ended-message {
+            background-color: #f44336; /* Màu nền */
+            color: white; /* Màu văn bản */
+            padding: 10px; /* Khoảng cách xung quanh văn bản */
+            border-radius: 5px; /* Bo góc */
+            text-align: center; /* Căn giữa văn bản */
+            font-weight: bold; /* Đậm văn bản */
+            margin-left: 7cm;
+        }
+    </style>
+    
+    <script>
+        window.onload = function() {
+            var countdownElement = document.querySelector('.countdown');
+            var auctionEndTime = countdownElement.getAttribute('data-countdown');
+    
+            var endTime = new Date(auctionEndTime).getTime();
+            var now = new Date().getTime();
+    
+            if (now > endTime) {
+                var bidForm = document.querySelector('.product-bid-form');
+                if (bidForm) {
+                    bidForm.innerHTML = "<p class='auction-ended-message'>Time out. Auction is no longer valid</p>";
+                }
+            }
+        };
+    </script>
+    
+
 </head>
 <body>
 <div layout:fragment="content">
@@ -233,4 +264,8 @@
 <!--============= Product Details Section Ends Here =============-->
 </div>
 </body>
+
+
+
+
 </html>
