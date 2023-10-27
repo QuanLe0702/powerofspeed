@@ -52,21 +52,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" th:field="*{title}">
+                                    <input type="text" class="form-control" th:field="*{title}" required>
                                     <span id="title-error" class="error invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea class="textarea" th:field="*{description}" name="description" id="description" placeholder="Place some text here"
-                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
                                         <span id="description-error" class="error invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="multipartFile">Thumbnail</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" th:field="*{multipartFile}" class="custom-file-input" name="multipartFile"  id="multipartFile">
+                                                <input type="file" th:field="*{multipartFile}" class="custom-file-input" name="multipartFile"  id="multipartFile" required>
                                                 <label class="custom-file-label" for="multipartFile">Choose file</label>
                                                 <span id="multipartFile-error" class="error invalid-feedback" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"></span>
                                             </div>
