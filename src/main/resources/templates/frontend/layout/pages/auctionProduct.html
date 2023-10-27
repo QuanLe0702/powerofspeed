@@ -47,13 +47,14 @@
                         </div>
                         <!-- Sidebar Electronics Categorie End -->
                         <!-- Price Filter Options Start -->
-                        <div class="search-filter mb-40">
+                        <!-- <div class="search-filter mb-40">
                             <h3 class="sidebar-title">filter by price</h3>
-                            <form action="#" class="sidbar-style">
-                                <div id="slider-range"></div>
-                                <input type="text" id="amount" class="amount-range" readonly="">
+                            <form action="#" th:action="@{/collections}" class="sidbar-style" method="get">
+                                    min :<input type="number" id="from" name="from" value="0" style="margin-right: 10px; width: 60px"/>
+                                max :<input type="number" id="to" name="to" value="0" style="width:60px" />
+                                <input type="submit" value="Filter" />
                             </form>
-                        </div>
+                        </div> -->
                         <!-- Price Filter Options End -->
                         <!-- Sidebar Categorie Start -->
 <!--                        <div class="sidebar-categorie mb-40">-->
@@ -334,7 +335,7 @@
                             </ul>
                         </div>
                         <!-- Toolbar Short Area Start -->
-                        <div class="main-toolbar-sorter clearfix">
+                        <!-- <div class="main-toolbar-sorter clearfix">
                             <div class="toolbar-sorter d-flex align-items-center">
                                 <label>Sort By:</label>
                                 <select class="sorter wide">
@@ -345,18 +346,16 @@
                                     <option value="Price" selected="">Price heigh to low</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Toolbar Short Area End -->
                         <!-- Toolbar Short Area Start -->
                         <div class="main-toolbar-sorter clearfix">
                             <div class="toolbar-sorter d-flex align-items-center">
                                 <label>Show:</label>
                                 <select class="sorter wide">
+                                    <option value="6">6</option>
+                                    <option value="9">9</option>
                                     <option value="12">12</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="75">75</option>
-                                    <option value="100">100</option>
                                 </select>
                             </div>
                         </div>
@@ -395,8 +394,8 @@
                                                         <a th:href="@{'/cart/add/' + ${product.getId()}}" title="Add to Cart"> + Add To Cart</a>
                                                     </div>
                                                     <div class="actions-secondary">
-                                                        <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                                        <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
+                                                        <!-- <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
+                                                        <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -438,8 +437,8 @@
                                                                 <i class="fa fa-money" aria-hidden="true"></i>
                                                             </div>
                                                             <div class="amount-content">
-                                                                <div class="current">Buy Now</div>
-                                                                <div class="prev-price" th:utext="${product.getUnitPrice()}"></div>
+                                                                <!-- <div class="current">Buy Now</div>
+                                                                <div class="prev-price" th:utext="${product.getUnitPrice()}"></div> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -448,10 +447,10 @@
                                                     <div class="actions-primary">
                                                         <a th:href="@{'/product/' + ${product.getSlug()}}" title="Bid Now">Bid now</a>
                                                     </div>
-                                                    <div class="actions-secondary">
+                                                    <!-- <div class="actions-secondary">
                                                         <a href="compare.html" title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
                                                         <a href="wishlist.html" title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <!-- Product Content End -->
@@ -496,8 +495,8 @@
                                                         <a th:href="@{'/cart/add/' + ${product.getId()}}" title="" data-original-title="Add to Cart"> + Add To Cart</a>
                                                     </div>
                                                     <div class="actions-secondary">
-                                                        <a href="compare.html" title="" data-original-title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
-                                                        <a href="wishlist.html" title="" data-original-title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a>
+                                                        <!-- <a href="compare.html" title="" data-original-title="Compare"><i class="lnr lnr-sync"></i> <span>Add To Compare</span></a>
+                                                        <a href="wishlist.html" title="" data-original-title="WishList"><i class="lnr lnr-heart"></i> <span>Add to WishList</span></a> -->
                                                     </div>
                                                 </div>
                                             </div>

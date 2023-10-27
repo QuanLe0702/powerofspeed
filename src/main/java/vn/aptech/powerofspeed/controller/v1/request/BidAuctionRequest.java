@@ -19,7 +19,7 @@ public class BidAuctionRequest {
 
     private Long id;
 
-    @NotBlank
-    @Size()
+    // @NotBlank
+    // @Size()
     private Integer bidAmout;
 }
