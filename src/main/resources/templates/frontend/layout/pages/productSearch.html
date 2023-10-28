@@ -29,23 +29,25 @@
                 <div class="col-lg-3 order-2 order-lg-1">
                     <div class="sidebar">
                         <!-- Sidebar Electronics Categorie Start -->
-                        <div class="electronics mb-40">
-                            <h3 class="sidebar-title">Products</h3>
-                            <div id="shop-cate-toggle" class="category-menu sidebar-menu sidbar-style">
-                                <ul>
-                                    <li class="has-sub" th:each="category : ${categories}"><a th:href="@{'/collection/' + ${category.getSlug()}}" th:utext="${category.getName()}"></a>
-                                        <ul class="category-sub">
-                                            <li th:each="subCategory : ${category.getSubcategories()}">
-                                                <a th:href="@{'/collection/' + ${category.getSlug()} + '/' + ${subCategory.getSlug()}}" th:utext="${subCategory.getSubName()}"></a>
-                                            </li>
-                                        </ul>
-                                        <!-- category submenu end-->
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- category-menu-end -->
-                        </div>
-                        <!-- Sidebar Electronics Categorie End -->
+<div class="electronics mb-40">
+    <h3 class="sidebar-title">Products</h3>
+    <div id="shop-cate-toggle" class="category-menu sidebar-menu sidbar-style">
+        <ul>
+            <li class="has-sub" th:each="category : ${categories}">
+                <a th:href="@{'/collection/' + ${category.getSlug()}}" th:utext="${category.getName()}"></a>
+                <ul class="category-sub">
+                    <li th:each="subCategory : ${category.getSubcategories()}">
+                        <a th:href="@{'/collection/' + ${category.getSlug()} + '/' + ${subCategory.getSlug()}}" th:utext="${subCategory.getSubName()}"></a>
+                    </li>
+                </ul>
+                <!-- category submenu end-->
+            </li>
+        </ul>
+    </div>
+    <!-- category-menu-end -->
+</div>
+<!-- Sidebar Electronics Categorie End -->
+
                         <!-- Price Filter Options Start -->
                         <div class="search-filter mb-40">
                             <h3 class="sidebar-title">filter by price</h3>
@@ -69,21 +71,28 @@
                             </ul>
                         </div>
                         <!-- Toolbar Short Area Start -->
-                        <form>
-                            <div class="main-toolbar-sorter clearfix">
-                                <div class="toolbar-sorter d-flex align-items-center">
-                                    <label>Sort By:</label>
-                                    <select name="order" id="order" class="sorter wide" onchange="this.form.submit()">
-                                        <option value="best_seller">Best seller</option>
-                                        <option value="new_product">New product</option>
-                                        <option value="much_discount">Much discount</option>
-                                        <option value="price_low_to_heigh">Price low to heigh</option>
-                                        <option value="price_heigh_to_low">Price heigh to low</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- Toolbar Short Area End -->
+                <form>
+                    <div class="main-toolbar-sorter clearfix">
+                      <div class="toolbar-sorter d-flex align-items-center">
+                        <label>Sort By:</label>
+                        <select
+                          name="order"
+                          id="order"
+                          class="sorter wide"
+                          onchange="this.form.submit()"
+                        >
+                          <option value="new_product">New product</option>
+                          <option value="price_low_to_heigh">
+                            Price low to heigh
+                          </option>
+                          <option value="price_heigh_to_low">
+                            Price heigh to low
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- Toolbar Short Area End -->
                         <!-- Toolbar Short Area Start -->
                         <form>
                             <div class="main-toolbar-sorter clearfix">
@@ -92,7 +101,6 @@
                                     <input type="hidden" name="order" id="order" th:if="${#request.getParameter('order') != null}" th:value="${#request.getParameter('order')}">
                                     <input type="hidden" name="page" id="page" th:if="${#request.getParameter('page') != null}" th:value="${#request.getParameter('page')}">
                                     <select name="size" id="size" class="sorter wide" onchange="this.form.submit()">
-                                        <option value="3">3</option>
                                         <option value="6">6</option>
                                         <option value="9">9</option>
                                         <option value="12">12</option>
@@ -130,7 +138,7 @@
                                                         <span class="price" th:utext="${'$' + product.getSavePrice()}"></span>
                                                         <del class="prev-price" th:utext="${'$' + product.unitPrice}"></del>
                                                     </p>
-                                                    <div class="label-product l_sale" th:if="${product.getSavePrice() > 0}"><span th:utext="${product.getSavePrice() * 100 / product.getUnitPrice()}"></span><span class="symbol-percent">%</span></div>
+                                                    <div class="label-product l_sale" th:if="${product.getSavePrice() > 0}"><span th:utext="${100-product.getSavePrice() * 100 / product.getUnitPrice()}"></span><span class="symbol-percent">%</span></div>
                                                 </div>
                                                 <div class="pro-actions">
                                                     <div class="actions-primary">

@@ -251,7 +251,7 @@
                           class="label-product l_sale"
                         >
                           <span
-                            th:utext="${productArrival.getSavePrice() * 100 / productArrival.getUnitPrice()}"
+                            th:utext="${100-(productArrival.getSavePrice() * 100 / productArrival.getUnitPrice())}"
                           ></span
                           ><span class="symbol-percent">%</span>
                         </div>
@@ -391,7 +391,7 @@
                           class="label-product l_sale"
                         >
                           <span
-                            th:utext="${productSalePrice.getSavePrice() * 100 / productSalePrice.getUnitPrice()}"
+                            th:utext="${100-productSalePrice.getSavePrice() * 100 / productSalePrice.getUnitPrice()}"
                           ></span
                           ><span class="symbol-percent">%</span>
                         </div>
