@@ -79,7 +79,7 @@
                           </div>
                           <div class="form-group d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary">
-                              Added
+                              Add
                             </button>
                           </div>
                           <!-- /.form-group -->
@@ -119,12 +119,13 @@
                             <td
                               th:utext="${productInventory.getProductName()}"
                             ></td>
-                            <th th:utext="${productInventory.getStock()}"></th>
+                            <th th:utext="${productInventory.getStock()}" id="startingInventory"></th>
                             <td>
                               <input
                                 type="number"
                                 th:field="*{productInventorList[__${stat.index}__].quantityInventory}"
                                 th:value="1"
+                                id="quantityInput"
                               />
                             </td>
                           </tr>
@@ -163,6 +164,7 @@
                         <button
                           type="submit"
                           class="btn btn-success float-right"
+                          id="update"
                         >
                           <i class="far fa-credit-card"></i> Update
                         </button>
@@ -197,6 +199,26 @@
         //Bootstrap Duallistbox
         $(".duallistbox").bootstrapDualListbox();
       });
+
+
+      document.addEventListener('DOMContentLoaded', function () {
+  const startingInventory = document.getElementById('startingInventory');
+  const quantityInput = document.getElementById('quantityInput');
+  const updateButton = document.getElementById('update');
+
+  updateButton.addEventListener('click', function (event) {
+    const startingInventoryValue = parseInt(startingInventory.textContent);
+    const quantity = parseInt(quantityInput.value);
+
+    if (startingInventoryValue + quantity < 0) {
+      event.preventDefault(); // Ngăn chặn việc gửi form đi nếu điều kiện không hợp lệ
+      alert('Inventory on hand cannot be less than 0.');
+      // Bạn có thể thay thế alert bằng các cách thông báo khác, ví dụ như hiển thị một thông báo lỗi trên trang web.
+    }
+  });
+});
+
+
     </script>
   </body>
 </html>

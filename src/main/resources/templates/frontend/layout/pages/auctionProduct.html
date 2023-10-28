@@ -387,7 +387,7 @@
                                                         <span class="price" th:if="${product.getSavePrice() == 0}" th:utext="${'$' + product.unitPrice}"></span>
                                                         <span class="price" th:unless="${product.getSavePrice() == 0}" th:utext="${'$' + product.savePrice}"></span>
                                                     </p>
-                                                    <div class="label-product l_sale" th:if="${product.getSavePrice() > 0}"><span th:utext="${product.getSavePrice() * 100 / product.getUnitPrice()}"></span><span class="symbol-percent">%</span></div>
+                                                    <div class="label-product l_sale" th:if="${product.getSavePrice() > 0}"><span th:utext="${100-product.getSavePrice() * 100 / product.getUnitPrice()}"></span><span class="symbol-percent">%</span></div>
                                                 </div>
                                                 <div class="pro-actions">
                                                     <div class="actions-primary">

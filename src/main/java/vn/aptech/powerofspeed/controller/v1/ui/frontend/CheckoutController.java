@@ -80,7 +80,7 @@ public class CheckoutController {
         Cart cart = cartManager.getCart(session);
         order.setStatus(true);
         order.setAmount(cart.getTotal());
-        order.setStatusType(StatusType.Confirm);
+        order.setStatusType(StatusType.ShipCOD);
 
         if (order.getPaymentMethod() == PaymentMethod.Paypal) {
             try {
@@ -182,7 +182,7 @@ public class CheckoutController {
                     Cart cart = cartManager.getCart(session);
                     order.setStatus(true);
                     order.setAmount(cart.getTotal());
-                    order.setStatusType(StatusType.Confirm);
+                    order.setStatusType(StatusType.Paid);
                     order.setAddress(user.getAddress().getAddress());
                     order.setCity(user.getAddress().getCity());
                     order.setCountry(user.getAddress().getCountry());

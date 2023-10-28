@@ -117,18 +117,18 @@
                     <p class="d-flex align-items-center">
                       <span
                         class="prev-price"
-                        th:utext="${'$' + productDetail.getSavePrice()}"
+                        th:utext="${'$' + productDetail.getUnitPrice()}"
                       ></span
                       ><span
                         class="price"
-                        th:utext="${'$' + productDetail.getUnitPrice()}"
+                        th:utext="${'$' + productDetail.getSavePrice()}"
                       ></span
                       ><span
                         th:if="${productDetail.savePrice>0}"
                         class="saving-price"
                         >save
                         <span
-                          th:utext="${productDetail.savePrice * 100 / productDetail.getUnitPrice() + '%'}"
+                          th:utext="${(100-productDetail.savePrice * 100 / productDetail.getUnitPrice()) + '%'}"
                         ></span
                       ></span>
                     </p>
