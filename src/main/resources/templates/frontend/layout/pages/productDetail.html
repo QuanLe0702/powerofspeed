@@ -118,21 +118,29 @@
                       <span
                         class="prev-price"
                         th:utext="${'$' + productDetail.getUnitPrice()}"
-                      ></span
-                      ><span
-                        class="price"
-                        th:utext="${'$' + productDetail.getSavePrice()}"
-                      ></span
-                      ><span
-                        th:if="${productDetail.savePrice>0}"
-                        class="saving-price"
-                        >save
-                        <span
-                          th:utext="${(100-productDetail.savePrice * 100 / productDetail.getUnitPrice()) + '%'}"
-                        ></span
                       ></span>
+                      <th:block th:if="${productDetail.savePrice > 0}">
+                        <span
+                          class="price"
+                          th:utext="${'$' + productDetail.getSavePrice()}"
+                        ></span>
+                        <span
+                          class="saving-price"
+                        >save
+                          <span
+                            th:utext="${(100 - productDetail.savePrice * 100 / productDetail.getUnitPrice()) + '%'}"
+                          ></span>
+                        </span>
+                      </th:block>
+                      <th:block th:unless="${productDetail.savePrice > 0}">
+                        <span
+                          class="price"
+                          th:utext="${'$' + productDetail.getUnitPrice()}"
+                        ></span>
+                      </th:block>
                     </p>
                   </div>
+                  
                   <p
                     class="mb-20 pro-desc-details"
                     th:utext="${productDetail.getProductDescription()}"
