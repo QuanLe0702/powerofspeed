@@ -60,7 +60,7 @@
                                     <address>
                                         <strong>Shipping Address</strong><br>
                                         <p th:text="${orderDetail.address}"></p>
-                                        <p th:text="${orderDetail.city + ' , Pincode: '+ orderDetail.postalCode + ', ' + orderDetail.stateOrRegion + ', ' + orderDetail.country}"></p>San Francisco, CA 94107<br>
+                                        <p th:text="${orderDetail.city + ' , Pincode: '+ orderDetail.postalCode + ', ' + orderDetail.stateOrRegion + ', ' + orderDetail.country}">
                                         <p th:text="'Phone: ' + ${orderDetail.phoneNumber}"></p>
                                     </address>
                                 </div>
@@ -124,15 +124,15 @@
                                         <table class="table">
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td th:text="${orderDetail.amount}"></td>
+                                                <td th:text="${orderDetail.amount + '$'}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Shipping:</th>
-                                                <td th:text="${orderDetail.amount * 0.1}"></td>
+                                                <td th:text="${orderDetail.amount * 0.1 + '$'}"></td>
                                             </tr>
                                             <tr>
                                                 <th>Total:</th>
-                                                <td th:text="${orderDetail.amount + (orderDetail.amount * 0.1)}"></td>
+                                                <td th:text="${orderDetail.amount + (orderDetail.amount * 0.1) + '$'}"></td>
                                             </tr>
                                         </table>
                                     </div>

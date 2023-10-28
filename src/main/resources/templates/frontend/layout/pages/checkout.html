@@ -56,7 +56,7 @@
         </div>
         <!-- coupon-area end -->
         <!-- checkout-area start -->
-        <div class="checkout-area pb-100 pt-15 pb-sm-60" th:if="${session.gioHang != null}">
+        <div class="checkout-area pb-100 pt-15 pb-sm-60" th:if="${session.gioHang != null and !session.gioHang.items.isEmpty()}">
             <div class="container">
                 <div class="row" sec:authorize="isAuthenticated()">
                     <div class="col-lg-6 col-md-6">
@@ -191,7 +191,7 @@
                                             <td class="product-name" th:text="${map.product.productName}"></td>
                                             <td class="product-quantity" th:text="'X ' + ${map.quantity}"></td>
                                             <td class="product-total">
-                                                <span class="amount" th:text="${map.subTotal}"></span>
+                                                <span class="amount" th:text="${map.subTotal} + '$'"></span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -200,13 +200,13 @@
                                             <th></th>
                                             <th></th>
                                             <th>Cart Subtotal</th>
-                                            <td><span class="amount" th:text="${session.gioHang.total}"></span></td>
+                                            <td><span class="amount" th:text="${session.gioHang.total} + '$'"></span></td>
                                         </tr>
                                         <tr class="cart-subtotal">
                                             <th></th>
                                             <th></th>
                                             <th>Price Ship</th>
-                                            <td><span class="amount" th:text="${session.gioHang.total} * 0.1"></span>
+                                            <td><span class="amount" th:text="${session.gioHang.total} * 0.1 + '$'"></span>
                                             </td>
                                         </tr>
                                         <tr class="order-total">
@@ -214,7 +214,7 @@
                                             <th></th>
                                             <th>Order Total</th>
                                             <td><span class=" total amount"
-                                                    th:text="${session.gioHang.total+(session.gioHang.total * 0.1)}"></span>
+                                                    th:text="${session.gioHang.total+(session.gioHang.total * 0.1) + '$'}"></span>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -225,7 +225,7 @@
                 </div>
             </div>
         </div>
-        <div class="checkout-area pb-100 pt-15 pb-sm-60" th:unless="${session.gioHang != null}">
+        <div class="checkout-area pb-100 pt-15 pb-sm-60" th:if="${session.gioHang == null or session.gioHang.items.isEmpty()}">
             <div class="col-md-12">
                 <div class="error-wrapper text-center">
                     <div class="error-text">

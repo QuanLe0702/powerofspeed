@@ -79,8 +79,8 @@
                                                             </td>
                                                                 <td th:text="${map.product.productName}"></td>
                                                                 <td th:text="${map.quantity}"></td>
-                                                                <td th:text="${map.price}"></td>
-                                                                <td th:text="${map.price * map.quantity}"></td>
+                                                                <td th:text="${map.price} + '$'"></td>
+                                                                <td th:text="${map.price * map.quantity} + '$'"></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -90,17 +90,17 @@
                                                 <div class="d-flex flex-row-reverse bg-dark text-white p-4">
                                                     <div class="py-3 px-5 text-right">
                                                         <div class="mb-2">Grand Total</div>
-                                                        <div class="h2 font-weight-light" th:text="*{amount + amount*0.1}"></div>
+                                                        <div class="h2 font-weight-light" th:text="*{amount + amount*0.1 + '$'}"></div>
                                                     </div>
 
                                                     <div class="py-3 px-5 text-right">
                                                         <div class="mb-2">Shipping</div>
-                                                        <div class="h2 font-weight-light" th:text="*{amount*0.1}"></div>
+                                                        <div class="h2 font-weight-light" th:text="*{amount*0.1 + '$'}"></div>
                                                     </div>
 
                                                     <div class="py-3 px-5 text-right">
                                                         <div class="mb-2">Sub - Total amount</div>
-                                                        <div class="h2 font-weight-light" th:text="*{amount}"></div>
+                                                        <div class="h2 font-weight-light" th:text="*{amount + '$'}"></div>
                                                     </div>
                                                 </div>
                                             </div>

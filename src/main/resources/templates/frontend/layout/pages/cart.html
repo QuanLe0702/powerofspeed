@@ -25,7 +25,7 @@
             <div class="container">
                 <!-- Row start-->
                 <p th:if="${outofstock != null}"><span class="out-stock" ><i class="fa fa-times"></i> <th:block th:utext="${outofstock}"></th:block></span></p>
-                <div class="row" th:if="${session.gioHang != null}">
+                <div class="row" th:if="${session.gioHang != null and !session.gioHang.items.isEmpty()}">
                     <div class="col-md-12 col-sm-12">
                             <!-- Table Content Start -->
                             <div class="table-content table-responsive mb-45">
@@ -97,7 +97,7 @@
                 </div>
                 <!-- Row End -->
 
-                <div class="row" th:unless="${session.gioHang != null}">
+                <div class="row" th:if="${session.gioHang == null or session.gioHang.items.isEmpty()}">
                     <div class="col-md-12">
                         <div class="error-wrapper text-center">
                             <div class="error-text">
