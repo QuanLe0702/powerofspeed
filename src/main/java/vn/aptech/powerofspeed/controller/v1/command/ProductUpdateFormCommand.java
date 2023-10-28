@@ -41,8 +41,8 @@ public class ProductUpdateFormCommand {
 
     private double unitWeight;
 
-    @NotNull
-    private int stock;
+    // @NotNull
+    // private int stock;
 
     private ProductType productType;
 

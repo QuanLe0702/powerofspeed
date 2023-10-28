@@ -177,7 +177,7 @@ public class ProductController {
             product.setUnitPrice(productStoreFormCommand.getUnitPrice());
             product.setSavePrice(productStoreFormCommand.getSavePrice());
             product.setUnitWeight(productStoreFormCommand.getUnitWeight());
-            product.setStock(productStoreFormCommand.getStock());
+            // product.setStock(productStoreFormCommand.getStock());
             product.setProductType(productStoreFormCommand.getProductType());
             BidDetail bidDetail = bidDetailService.stored(new BidDetail()
                     .setBidIncrement(productStoreFormCommand.getBidIncrement())
@@ -194,7 +194,7 @@ public class ProductController {
             product.setUnitPrice(productStoreFormCommand.getUnitPrice());
             product.setSavePrice(productStoreFormCommand.getSavePrice());
             product.setUnitWeight(productStoreFormCommand.getUnitWeight());
-            product.setStock(productStoreFormCommand.getStock());
+            // product.setStock(productStoreFormCommand.getStock());
             product.setProductType(productStoreFormCommand.getProductType());
             product.setSubcategory(subcategory);
         }
@@ -224,7 +224,7 @@ public class ProductController {
             productUpdateFormCommand.setUnitPrice(product.getUnitPrice());
             productUpdateFormCommand.setSavePrice(product.getSavePrice());
             productUpdateFormCommand.setUnitWeight(product.getUnitWeight());
-            productUpdateFormCommand.setStock(product.getStock());
+            // productUpdateFormCommand.setStock(product.getStock());
             productUpdateFormCommand.setProductType(product.getProductType());
             productUpdateFormCommand.setStatus(product.isStatus());
             productUpdateFormCommand.setSubcategories(subcategoryService.findAllSubcat());
@@ -300,7 +300,7 @@ public class ProductController {
             product.setUnitPrice(productUpdateFormCommand.getUnitPrice());
             product.setSavePrice(productUpdateFormCommand.getSavePrice());
             product.setUnitWeight(productUpdateFormCommand.getUnitWeight());
-            product.setStock(productUpdateFormCommand.getStock());
+            // product.setStock(productUpdateFormCommand.getStock());
             product.setProductType(productUpdateFormCommand.getProductType());
             BidDetail bidDetail = bidDetailService.stored(new BidDetail()
                     .setBidIncrement(productUpdateFormCommand.getBidIncrement())
@@ -317,7 +317,7 @@ public class ProductController {
             product.setUnitPrice(productUpdateFormCommand.getUnitPrice());
             product.setSavePrice(productUpdateFormCommand.getSavePrice());
             product.setUnitWeight(productUpdateFormCommand.getUnitWeight());
-            product.setStock(productUpdateFormCommand.getStock());
+            // product.setStock(productUpdateFormCommand.getStock());
             product.setProductType(productUpdateFormCommand.getProductType());
             product.setSubcategory(subcategory);
         }
